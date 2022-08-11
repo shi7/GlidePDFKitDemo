@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
 class ViewController: UIViewController {
     let pdfView = PDFView()
@@ -25,6 +26,8 @@ class ViewController: UIViewController {
         return button
     } ()
 
+    let galleryViewController = UIHostingController(rootView: GalleryEntry())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -81,7 +84,7 @@ class ViewController: UIViewController {
         bottomStack.distribution = .fillEqually
 
         bottomStack.backgroundColor = .lightGray
-        let buttonActions: [BottomButtonActions] = [.removeAnnotion,.addAnnotion,.addPoint]
+        let buttonActions: [BottomButtonActions] = [.removeAnnotion,.addAnnotion,.addPoint, .gallery]
         for type in buttonActions {
             let button = BottomButton(frame: CGRect.zero, actionType: type)
             button.addTarget(self, action: #selector(didTapBottomAction), for: .touchUpInside)
@@ -97,6 +100,9 @@ class ViewController: UIViewController {
 
     @objc private func didTapBottomAction(button:BottomButton) {
         print("\(button.actionType)")
+        if button.actionType == .gallery {
+            navigationController?.pushViewController(galleryViewController, animated: true)
+        }
     }
 }
 
