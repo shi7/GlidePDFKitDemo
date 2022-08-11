@@ -43,7 +43,8 @@ class ViewController: UIViewController {
         view.addSubview(previousButton)
         previousButton.backgroundColor = UIColor.green
         previousButton.snp.makeConstraints { make in
-            make.leading.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.top.equalToSuperview().offset(40)
             make.width.equalTo(150)
             make.height.equalTo(40)
         }
@@ -51,7 +52,8 @@ class ViewController: UIViewController {
         view.addSubview(nextButton)
         nextButton.backgroundColor = UIColor.green
         nextButton.snp.makeConstraints { make in
-            make.trailing.bottom.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(40)
             make.width.equalTo(150)
             make.height.equalTo(40)
         }
