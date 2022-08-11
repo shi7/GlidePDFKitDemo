@@ -9,12 +9,65 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
+    let pdfView = PDFView()
+    let previousButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Previous page", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.addTarget(self, action: #selector(goPreviousPage), for: .touchUpInside)
+        return button
+    } ()
+    let nextButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Next page", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.addTarget(self, action: #selector(goNextPage), for: .touchUpInside)
+        return button
+    } ()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+
+        setupViews()
+        loadPDF()
     }
 
+    func setupViews() {
+        pdfView.contentMode = .scaleAspectFit
+        view.addSubview(pdfView)
+        pdfView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
 
+        view.addSubview(previousButton)
+        previousButton.backgroundColor = UIColor.green
+        previousButton.snp.makeConstraints { make in
+            make.leading.bottom.equalToSuperview()
+            make.width.equalTo(150)
+            make.height.equalTo(40)
+        }
+
+        view.addSubview(nextButton)
+        nextButton.backgroundColor = UIColor.green
+        nextButton.snp.makeConstraints { make in
+            make.trailing.bottom.equalToSuperview()
+            make.width.equalTo(150)
+            make.height.equalTo(40)
+        }
+    }
+
+    func loadPDF() {
+        let fileUrl = Bundle.main.url(forResource: "read-only", withExtension: "pdf")!
+        pdfView.loadPDF(url: fileUrl)
+    }
+
+    @objc func goPreviousPage(sender: UIButton) {
+        pdfView.goPreviousPage()
+    }
+
+    @objc func goNextPage(sender: UIButton) {
+        pdfView.goNextPage()
+    }
 }
 
