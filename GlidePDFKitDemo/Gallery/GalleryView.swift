@@ -1,7 +1,3 @@
-/*
- See the License.txt file for this sample’s licensing information.
- */
-
 import SwiftUI
 
 struct GalleryView: View {
@@ -23,8 +19,6 @@ struct GalleryView: View {
                 }
             }
         }
-        .navigationBarTitle("Image Gallery")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

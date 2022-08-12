@@ -1,19 +1,14 @@
-/*
-See the License.txt file for this sample’s licensing information.
-*/
-
 import Foundation
+import UIKit
+import SwiftUI
 
 class DataModel: ObservableObject {
     
     @Published var items: [Item] = []
     
-    init() {
-        if let urls = Bundle.main.urls(forResourcesWithExtension: "jpg", subdirectory: nil) {
-            for url in urls {
-                let item = Item(url: url)
-                items.append(item)
-            }
+    func addData(uiImgs: [UIImage]? = nil) {
+        if let imgs = uiImgs {
+            items.append(contentsOf: imgs.map{ Item(img: Image(uiImage: $0))})
         }
     }
 }

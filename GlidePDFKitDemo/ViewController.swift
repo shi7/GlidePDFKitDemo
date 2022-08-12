@@ -26,23 +26,27 @@ class ViewController: UIViewController {
         return button
     } ()
 
-    let galleryViewController = UIHostingController(rootView: GalleryEntry())
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
-        setupViews()
         loadPDF()
+        setupViews()
     }
 
     func setupViews() {
-        pdfView.contentMode = .scaleAspectFit
-        view.addSubview(pdfView)
-        pdfView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+//        pdfView.contentMode = .scaleAspectFit
+//        view.addSubview(pdfView)
+//        pdfView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
 
+        setupGallery()
+        setupTopBtns()
+        addBottomView()
+    }
+    
+    func setupTopBtns() {
         view.addSubview(previousButton)
         previousButton.backgroundColor = UIColor.green
         previousButton.snp.makeConstraints { make in
@@ -60,8 +64,18 @@ class ViewController: UIViewController {
             make.width.equalTo(150)
             make.height.equalTo(40)
         }
-
-        addBottomView()
+    }
+    
+    func setupGallery() {
+        let galleryVC = UIHostingController(rootView: GalleryEntry(images: pdfView.pdfImages))
+        
+        if let gallery = galleryVC.view {
+            gallery.contentMode = .scaleAspectFit
+            view.addSubview(gallery)
+            gallery.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+        }
     }
 
     func loadPDF() {
@@ -100,9 +114,6 @@ class ViewController: UIViewController {
 
     @objc private func didTapBottomAction(button:BottomButton) {
         print("\(button.actionType)")
-        if button.actionType == .gallery {
-            navigationController?.pushViewController(galleryViewController, animated: true)
-        }
     }
 }
 

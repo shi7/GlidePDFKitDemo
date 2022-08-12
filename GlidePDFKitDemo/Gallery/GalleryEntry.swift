@@ -8,15 +8,22 @@
 import SwiftUI
 
 struct GalleryEntry: View {
+    let pdfImages: [UIImage]?
     @StateObject var dataModel = DataModel()
 
+    init(images:[UIImage]? = nil) {
+        pdfImages = images
+    }
+    
     var body: some View {
         NavigationView {
             GalleryView()
         }
         .environmentObject(dataModel)
         .navigationViewStyle(.stack)
-//        Text("Hello Word")
+        .onAppear {
+            dataModel.addData(uiImgs: pdfImages)
+        }
     }
 }
 

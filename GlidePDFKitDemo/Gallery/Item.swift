@@ -1,14 +1,8 @@
-/*
-See the License.txt file for this sample’s licensing information.
-*/
-
 import SwiftUI
 
 struct Item: Identifiable {
-
     let id = UUID()
-    let url: URL
-
+    let img: Image
 }
 
 extension Item: Equatable {
