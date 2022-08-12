@@ -31,12 +31,14 @@ class PDFView: UIImageView {
 
         delegate?.onDocumentPreLoad()
         DispatchQueue.global().async { [self] in
-            guard let document: CGPDFDocument = try? CGPDFDocument(url as CFURL) else {
-                delegate?.onDocumentLoadedFail(PDFError.ParseError("Wrong URL."))
-                return
-            }
-            processor = PdfProcessor(document: document)
+            let pdfDocument: CGPDFDocument? = try? CGPDFDocument(url as CFURL)
+
             DispatchQueue.main.async {
+                guard let document = pdfDocument else {
+                    delegate?.onDocumentLoadedFail(PDFError.ParseError("Wrong URL."))
+                    return
+                }
+                processor = PdfProcessor(document: document)
                 self.image = processor?.loadPageAt(1).image
                 delegate?.onDocumentLoaded()
             }
