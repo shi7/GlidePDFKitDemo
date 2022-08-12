@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
 class ViewController: UIViewController {
     let pdfView = PDFView()
@@ -75,7 +76,6 @@ class ViewController: UIViewController {
             make.width.equalTo(150)
             make.height.equalTo(40)
         }
-
         view.addSubview(previousButton)
         previousButton.backgroundColor = UIColor.green
         previousButton.snp.makeConstraints { make in
@@ -99,6 +99,18 @@ class ViewController: UIViewController {
 
         addBottomView()
     }
+
+//     func setupGallery() {
+//            let galleryVC = UIHostingController(rootView: GalleryEntry(images: pdfView.pdfImages))
+//
+//            if let gallery = galleryVC.view {
+//                gallery.contentMode = .scaleAspectFit
+//                view.addSubview(gallery)
+//                gallery.snp.makeConstraints { make in
+//                    make.edges.equalToSuperview()
+//                }
+//            }
+//     }
 
     @objc func loadPDFFromFile(sender: UIButton) {
         let fileUrl = Bundle.main.url(forResource: "read-only", withExtension: "pdf")!
