@@ -22,9 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.backgroundColor = UIColor.white
         window?.makeKeyAndVisible()
-        let rootViewController = ViewController()
-        let navigationViewController = UINavigationController(rootViewController: rootViewController)
-        window?.rootViewController = navigationViewController
+        window?.rootViewController = ViewController()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

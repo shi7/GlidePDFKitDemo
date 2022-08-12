@@ -6,11 +6,11 @@ struct GalleryItemView: View {
     let item: Item
 
     var body: some View {
-        ZStack(alignment: .topTrailing) {
+        ZStack {
             item.img
                 .resizable()
-                .scaledToFill()
-                .frame(width: width, height: height)
+                .scaledToFit()
+                .frame(width: width, height: height, alignment: .center)
         }
     }
 }

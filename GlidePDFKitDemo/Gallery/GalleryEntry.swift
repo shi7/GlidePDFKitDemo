@@ -16,11 +16,8 @@ struct GalleryEntry: View {
     }
     
     var body: some View {
-        NavigationView {
-            GalleryView()
-        }
+        GalleryView()
         .environmentObject(dataModel)
-        .navigationViewStyle(.stack)
         .onAppear {
             dataModel.addData(uiImgs: pdfImages)
         }

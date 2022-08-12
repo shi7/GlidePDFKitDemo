@@ -98,7 +98,7 @@ class ViewController: UIViewController {
         bottomStack.distribution = .fillEqually
 
         bottomStack.backgroundColor = .lightGray
-        let buttonActions: [BottomButtonActions] = [.removeAnnotion,.addAnnotion,.addPoint, .gallery]
+        let buttonActions: [BottomButtonActions] = [.removeAnnotion,.addAnnotion,.addPoint]
         for type in buttonActions {
             let button = BottomButton(frame: CGRect.zero, actionType: type)
             button.addTarget(self, action: #selector(didTapBottomAction), for: .touchUpInside)
