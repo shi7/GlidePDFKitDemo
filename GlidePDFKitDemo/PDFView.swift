@@ -10,44 +10,48 @@ import UIKit
 
 class PDFView: UIImageView {
     var currentPageIndex = 0
-    var pdfImages: [UIImage]?
 
-    func loadPDF(url: URL) {
-        pdfImages = convertPDFPageToImage(url: url)
-        self.image = pdfImages?[0]
+    var delegate: PDFDelegate?
+    var processor: ProcessProtocol?
+
+    init(_ url: URL? = nil) {
+        super.init(frame: .zero)
+        self.contentMode = .scaleAspectFit
+
+        loadPDF(url: url)
     }
 
-    func convertPDFPageToImage(url: URL) -> [UIImage]? {
-        guard let document = CGPDFDocument(url as CFURL) else { return nil }
-        var images: [UIImage] = []
-        for index in 1...document.numberOfPages {
-            let page = document.page(at: index)!
-            let pageRect = page.getBoxRect(.mediaBox)
-            let renderer = UIGraphicsImageRenderer(size: pageRect.size)
-            let img = renderer.image { ctx in
-                UIColor.white.set()
-                ctx.fill(pageRect)
+    @available(*, unavailable)
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-                ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
-                ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
+    func loadPDF(url: URL?) {
+        guard let url = url else { return }
 
-                ctx.cgContext.drawPDFPage(page)
+        delegate?.onDocumentPreLoad()
+        DispatchQueue.global().async { [self] in
+            guard let document: CGPDFDocument = try? CGPDFDocument(url as CFURL) else {
+                delegate?.onDocumentLoadedFail(PDFError.ParseError("Wrong URL."))
+                return
             }
-            images.append(img)
+            processor = PdfProcessor(document: document)
+            DispatchQueue.main.async {
+                self.image = processor?.loadPageAt(1).image
+                delegate?.onDocumentLoaded()
+            }
         }
-
-        return images
     }
 
     // Only for this demo, will be deleted when release this
     func goPreviousPage() {
-        currentPageIndex = currentPageIndex - 1 > -1 ? currentPageIndex - 1 : currentPageIndex
-        self.image = pdfImages?[currentPageIndex]
+        currentPageIndex = currentPageIndex - 1 > 0 ? currentPageIndex - 1 : currentPageIndex
+        self.image = processor?.loadPageAt(currentPageIndex).image
     }
 
     // Only for this demo, will be deleted when release this
     func goNextPage() {
-        currentPageIndex = currentPageIndex + 1 < (pdfImages?.count ?? 0) ? currentPageIndex + 1 : currentPageIndex
-        self.image = pdfImages?[currentPageIndex]
+        currentPageIndex = currentPageIndex < (processor?.pageCount ?? 0) ? currentPageIndex + 1 : currentPageIndex
+        self.image = processor?.loadPageAt(currentPageIndex).image
     }
 }
