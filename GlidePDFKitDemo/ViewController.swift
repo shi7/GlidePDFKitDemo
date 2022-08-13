@@ -101,15 +101,17 @@ class ViewController: UIViewController {
     }
 
     @objc func loadPDFFromFile(sender: UIButton) {
-        let fileUrl = Bundle.main.url(forResource: "read-only", withExtension: "pdf")!
+        let pdfUrl = Bundle.main.url(forResource: "read-only", withExtension: "pdf")!
+        let imageUrl = Bundle.main.url(forResource: "iphone", withExtension: "")!
         pdfView.delegate = self
-        pdfView.loadPDF(url: fileUrl)
+        pdfView.loadPDF(url: pdfUrl)
     }
 
     @objc func loadPDFFromURL(sender: UIButton) {
-        let url = URL(string: "https://s3.amazonaws.com/prodretitle-east/9ebd31f734ad9ee3719ef97b/tt.pdf")!
+        let imageUrl = URL(string: "https://user-images.githubusercontent.com/61569191/184310230-c178ee61-b2df-40e3-8708-1283585619b6.jpeg")!
+        let pdfUrl = URL(string: "https://s3.amazonaws.com/prodretitle-east/9ebd31f734ad9ee3719ef97b/tt.pdf")!
         pdfView.delegate = self
-        pdfView.loadPDF(url: url)
+        pdfView.loadPDF(url: pdfUrl)
     }
 
     @objc func goPreviousPage(sender: UIButton) {
