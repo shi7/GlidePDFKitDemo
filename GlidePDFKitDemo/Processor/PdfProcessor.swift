@@ -9,9 +9,13 @@ import CoreGraphics
 import UIKit
 
 struct PdfProcessor: ProcessProtocol {
-    let document: CGPDFDocument
+    let data: Data
     var pageCount: Int {
         document.numberOfPages
+    }
+    var document: CGPDFDocument {
+        let dataProvider = CGDataProvider(data: data as CFData)!
+        return try! CGPDFDocument(dataProvider)!
     }
 
     func loadPageAt(_ index: Int) -> Page? {
