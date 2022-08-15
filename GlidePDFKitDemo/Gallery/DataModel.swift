@@ -14,6 +14,9 @@ class DataModel: ObservableObject {
     }
     
     func fetchImageAt(page: Int) async -> Image? {
+#if DEBUG
+        print("try to fetch image at page: \(page)")
+#endif
         guard let imgFetcher = fetcher, let uiImage = await imgFetcher.fetchAt(page: page) else {
             return nil
         }
