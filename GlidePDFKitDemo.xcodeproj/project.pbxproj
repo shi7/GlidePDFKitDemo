@@ -133,6 +133,7 @@
 		C0EFC34828A4987E0084A4AA = {
 			isa = PBXGroup;
 			children = (
+				C754E57128AA276900EF7FE5 /* GlidePDFKit */,
 				C0EFC35328A4987E0084A4AA /* GlidePDFKitDemo */,
 				C0EFC35228A4987E0084A4AA /* Products */,
 			);
@@ -149,12 +150,10 @@
 		C0EFC35328A4987E0084A4AA /* GlidePDFKitDemo */ = {
 			isa = PBXGroup;
 			children = (
-				BAB1BBE328A9F2EB001803DF /* Loader */,
 				BAB1BBE228A9F215001803DF /* Resource */,
 				C0EFC35428A4987E0084A4AA /* AppDelegate.swift */,
 				C0EFC35628A4987E0084A4AA /* SceneDelegate.swift */,
 				C0EFC35828A4987E0084A4AA /* ViewController.swift */,
-				D62AF1C028A53612002E0D73 /* Gallery */,
 				C095582328A4B39A00FA16B9 /* Extension */,
 				C095582028A4AE3900FA16B9 /* Views */,
 				C0EFC35D28A498800084A4AA /* Assets.xcassets */,
@@ -162,6 +161,15 @@
 				C0EFC36228A498800084A4AA /* Info.plist */,
 			);
 			path = GlidePDFKitDemo;
+			sourceTree = "<group>";
+		};
+		C754E57128AA276900EF7FE5 /* GlidePDFKit */ = {
+			isa = PBXGroup;
+			children = (
+				D62AF1C028A53612002E0D73 /* Gallery */,
+				BAB1BBE328A9F2EB001803DF /* Loader */,
+			);
+			path = GlidePDFKit;
 			sourceTree = "<group>";
 		};
 		D62AF1C028A53612002E0D73 /* Gallery */ = {
