@@ -29,9 +29,6 @@ struct GalleryEntry: View {
 
 struct GalleryEntry_Previews: PreviewProvider {
     static var previews: some View {
-//        GalleryEntry()
-        Group {
-            
-        }
+        Group {}
     }
 }

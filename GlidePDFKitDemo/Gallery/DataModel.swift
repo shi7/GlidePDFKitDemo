@@ -3,33 +3,22 @@ import UIKit
 import SwiftUI
 
 class DataModel: ObservableObject {
-    
     @Published var items: [Item] = []
+    
     var fetcher: ImageFetcher?
     
-    
     func setPages(pages: Int) {
-        for index in 1...pages {
-            items.append(Item(index: index))
+        for pageNum in 1...pages {
+            items.append(Item(pageNumber: pageNum))
         }
     }
     
-    func addData(uiImgs: [UIImage]? = nil) {
-//        if let imgs = uiImgs {
-//            items.append(contentsOf: imgs.map{ Item(img: Image(uiImage: $0))})
-//        }
-    }
-    
-    func fetchImage(index: Int) async -> Image? {
-        guard let imgFetcher = fetcher, let uiImage = await imgFetcher.fetchBy(index: index) else {
+    func fetchImageAt(page: Int) async -> Image? {
+        guard let imgFetcher = fetcher, let uiImage = await imgFetcher.fetchAt(page: page) else {
             return nil
         }
         
         return Image(uiImage: uiImage)
     }
-}
-
-protocol ImageFetcher {
-    func fetchBy(index: Int) async -> UIImage?
 }
 

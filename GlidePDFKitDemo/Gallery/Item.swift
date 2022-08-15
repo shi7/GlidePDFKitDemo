@@ -2,8 +2,7 @@ import SwiftUI
 
 struct Item: Identifiable {
     let id = UUID()
-    let img: Image = Image("")
-    let index: Int
+    let pageNumber: Int
 }
 
 extension Item: Equatable {

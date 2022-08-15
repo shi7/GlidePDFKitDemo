@@ -18,7 +18,7 @@ struct GalleryItemView: View {
                 ProgressView()
             }
         }.task {
-            let img = await dataModel.fetchImage(index: item.index)
+            let img = await dataModel.fetchImageAt(page: item.pageNumber)
             Task { @MainActor in
                 image = img
             }
