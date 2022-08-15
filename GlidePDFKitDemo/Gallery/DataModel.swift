@@ -8,6 +8,13 @@ class DataModel: ObservableObject {
     var fetcher: ImageFetcher?
     
     func setPages(pages: Int) {
+        guard pages > 0 else {
+#if DEBUG
+            print("pages less than 0, may something wrong!")
+#endif
+            return
+        }
+        
         for pageNum in 1...pages {
             items.append(Item(pageNumber: pageNum))
         }
