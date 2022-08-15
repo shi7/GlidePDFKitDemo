@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PDFView: ImageFetcher {
+class PDFLoader: ImageFetcher {
     var delegate: PDFDelegate? = nil
     var processor: ProcessProtocol? = nil
 
