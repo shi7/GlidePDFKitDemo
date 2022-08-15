@@ -20,7 +20,10 @@ struct GalleryView: View {
 
 struct GridView_Previews: PreviewProvider {
     static var previews: some View {
-        GalleryView().environmentObject(DataModel())
-            .previewDevice("iPad (8th generation)")
+//        GalleryView().environmentObject(DataModel())
+//            .previewDevice("iPad (8th generation)")
+        Group{
+            
+        }
     }
 }

@@ -14,8 +14,10 @@ struct PdfProcessor: ProcessProtocol {
         document.numberOfPages
     }
 
-    func loadPageAt(_ index: Int) -> Page {
-        let page = document.page(at: index)!
+    func loadPageAt(_ index: Int) -> Page? {
+        guard let page = document.page(at: index) else {
+            return nil
+        }
         let pageRect = page.getBoxRect(.mediaBox)
         let renderer = UIGraphicsImageRenderer(size: pageRect.size)
         let image = renderer.image { ctx in
@@ -39,7 +41,9 @@ struct PdfProcessor: ProcessProtocol {
     func loadPageCloseRange(_ start: Int, _ end: Int) -> [Page] {
         var pages: [Page] = []
         for index in start...end {
-            pages.append(loadPageAt(index))
+            if let page = loadPageAt(index) {
+                pages.append(page)
+            }
         }
         return pages
     }

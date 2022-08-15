@@ -53,6 +53,7 @@
 		D62AF1F228A54198002E0D73 /* towerCreekBASIN.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D62AF1C428A53632002E0D73 /* towerCreekBASIN.jpg */; };
 		D62AF1F328A54198002E0D73 /* yellowBelliedMarmot.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D62AF1D328A53633002E0D73 /* yellowBelliedMarmot.jpg */; };
 		D62AF1F428A541A7002E0D73 /* bobcat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D62AF1C628A53632002E0D73 /* bobcat.jpg */; };
+		D6517FDD28A6771F00A045D0 /* PDFImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6517FDC28A6771F00A045D0 /* PDFImageFetcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,7 @@
 		D62AF1D828A53698002E0D73 /* VTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTabView.swift; sourceTree = "<group>"; };
 		D62AF1D928A53698002E0D73 /* ZoomableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomableView.swift; sourceTree = "<group>"; };
 		D62AF1DA28A53698002E0D73 /* ZoomableModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomableModifier.swift; sourceTree = "<group>"; };
+		D6517FDC28A6771F00A045D0 /* PDFImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFImageFetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 				C0EFC35628A4987E0084A4AA /* SceneDelegate.swift */,
 				C0EFC35828A4987E0084A4AA /* ViewController.swift */,
 				BA8FBE0228A4AE7400F8E84D /* PDFView.swift */,
+				D6517FDC28A6771F00A045D0 /* PDFImageFetcher.swift */,
 				D62AF1C028A53612002E0D73 /* Gallery */,
 				C095582328A4B39A00FA16B9 /* Extension */,
 				C095582028A4AE3900FA16B9 /* Views */,
@@ -340,6 +343,7 @@
 				BA8FBE0328A4AE7400F8E84D /* PDFView.swift in Sources */,
 				BA8FBE0928A5E6E300F8E84D /* PDFDelegate.swift in Sources */,
 				D62AF1BE28A535FA002E0D73 /* GalleryItemView.swift in Sources */,
+				D6517FDD28A6771F00A045D0 /* PDFImageFetcher.swift in Sources */,
 				D62AF1DB28A53698002E0D73 /* VTabView.swift in Sources */,
 				D62AF1DC28A53698002E0D73 /* ZoomableView.swift in Sources */,
 				C0EFC35528A4987E0084A4AA /* AppDelegate.swift in Sources */,

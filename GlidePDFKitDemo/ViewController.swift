@@ -11,6 +11,7 @@ import SwiftUI
 
 class ViewController: UIViewController {
     let pdfView = PDFView()
+    let pdfContainer = UIView()
     let loadPDFFromFileButton: UIButton = {
         let button = UIButton()
         button.setTitle("Read from file", for: .normal)
@@ -54,8 +55,8 @@ class ViewController: UIViewController {
     }
 
     func setupViews() {
-        view.addSubview(pdfView)
-        pdfView.snp.makeConstraints { make in
+        view.addSubview(pdfContainer)
+        pdfContainer.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
@@ -100,17 +101,6 @@ class ViewController: UIViewController {
         addBottomView()
     }
 
-//     func setupGallery() {
-//            let galleryVC = UIHostingController(rootView: GalleryEntry(images: pdfView.pdfImages))
-//
-//            if let gallery = galleryVC.view {
-//                gallery.contentMode = .scaleAspectFit
-//                view.addSubview(gallery)
-//                gallery.snp.makeConstraints { make in
-//                    make.edges.equalToSuperview()
-//                }
-//            }
-//     }
 
     @objc func loadPDFFromFile(sender: UIButton) {
         let fileUrl = Bundle.main.url(forResource: "read-only", withExtension: "pdf")!
@@ -168,11 +158,24 @@ extension ViewController: PDFDelegate {
     func onDocumentLoaded() {
         print("PDFDelegate onDocumentLoaded")
         loadingView.stopAnimating()
+        setupGallery()
     }
 
     func onDocumentLoadedFail(_ error: PDFError) {
         print("PDFDelegate onDocumentLoadedFail")
         loadingView.stopAnimating()
+    }
+    
+    func setupGallery() {
+        let galleryVC = UIHostingController(rootView: GalleryEntry(pages: pdfView.totalPages(), fetcher: pdfView))
+        
+        if let gallery = galleryVC.view {
+            gallery.contentMode = .scaleAspectFit
+            pdfContainer.addSubview(gallery)
+            gallery.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+        }
     }
 }
 

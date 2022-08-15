@@ -8,18 +8,11 @@
 import Foundation
 import UIKit
 
-class PDFView: UIImageView {
+class PDFView: ImageFetcher {
     var currentPageIndex = 0
 
     var delegate: PDFDelegate?
     var processor: ProcessProtocol?
-
-    init(_ url: URL? = nil) {
-        super.init(frame: .zero)
-        self.contentMode = .scaleAspectFit
-
-        loadPDF(url: url)
-    }
 
     @available(*, unavailable)
     required init(coder: NSCoder) {
@@ -39,7 +32,6 @@ class PDFView: UIImageView {
                     return
                 }
                 processor = PdfProcessor(document: document)
-                self.image = processor?.loadPageAt(1).image
                 delegate?.onDocumentLoaded()
             }
         }
@@ -48,12 +40,18 @@ class PDFView: UIImageView {
     // Only for this demo, will be deleted when release this
     func goPreviousPage() {
         currentPageIndex = currentPageIndex - 1 > 0 ? currentPageIndex - 1 : currentPageIndex
-        self.image = processor?.loadPageAt(currentPageIndex).image
     }
 
     // Only for this demo, will be deleted when release this
     func goNextPage() {
         currentPageIndex = currentPageIndex < (processor?.pageCount ?? 0) ? currentPageIndex + 1 : currentPageIndex
-        self.image = processor?.loadPageAt(currentPageIndex).image
+    }
+    
+    func totalPages() -> Int {
+        processor?.pageCount ?? 0
+    }
+    
+    func fetchBy(index: Int) async -> UIImage? {
+        processor?.loadPageAt(index)?.image
     }
 }
