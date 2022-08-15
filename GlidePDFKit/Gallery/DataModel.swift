@@ -4,7 +4,7 @@ import SwiftUI
 
 class DataModel: ObservableObject {
     @Published var items: [Item] = []
-    
+    @Published var currentScale: CGFloat = 1.0
     var fetcher: ImageFetcher?
     
     func setPages(pages: Int) {

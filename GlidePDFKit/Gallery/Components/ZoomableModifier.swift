@@ -21,8 +21,8 @@ public struct ZoomableModifier: ViewModifier {
     private var showsIndicators: Bool = false
     
     @GestureState private var zoomState = ZoomState.inactive
-    @State private var currentScale: CGFloat = 1.0
-    
+    @EnvironmentObject var dataModel: DataModel
+//    @State private var currentScale: CGFloat = 1.0
     /**
      Initializes an `ZoomableModifier`
      - parameter contentSize : The content size of the views.
@@ -41,7 +41,7 @@ public struct ZoomableModifier: ViewModifier {
     }
     
     var scale: CGFloat {
-        return currentScale * zoomState.scale
+        return dataModel.currentScale * zoomState.scale
     }
     
     var zoomGesture: some Gesture {
@@ -50,18 +50,18 @@ public struct ZoomableModifier: ViewModifier {
                 state = .active(scale: value)
             }
             .onEnded { value in
-                var new = self.currentScale * value
+                var new = dataModel.currentScale * value
                 if new <= min { new = min }
                 if new >= max { new = max }
-                self.currentScale = new
+                dataModel.currentScale = new
             }
     }
     
     var doubleTapGesture: some Gesture {
         TapGesture(count: 2).onEnded {
-            if scale <= min { currentScale = max } else
-            if scale >= max { currentScale = min } else {
-                currentScale = ((max - min) * 0.5 + min) < scale ? max : min
+            if scale <= min { dataModel.currentScale = max } else
+            if scale >= max { dataModel.currentScale = min } else {
+                dataModel.currentScale = ((max - min) * 0.5 + min) < scale ? max : min
             }
         }
     }
