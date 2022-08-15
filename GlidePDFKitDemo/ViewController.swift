@@ -26,20 +26,6 @@ class ViewController: UIViewController {
         button.addTarget(self, action: #selector(loadPDFFromURL), for: .touchUpInside)
         return button
     } ()
-    let previousButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Previous page", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
-        button.addTarget(self, action: #selector(goPreviousPage), for: .touchUpInside)
-        return button
-    } ()
-    let nextButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Next page", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
-        button.addTarget(self, action: #selector(goNextPage), for: .touchUpInside)
-        return button
-    } ()
     let loadingView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.style = .large
@@ -77,23 +63,6 @@ class ViewController: UIViewController {
             make.width.equalTo(150)
             make.height.equalTo(40)
         }
-        view.addSubview(previousButton)
-        previousButton.backgroundColor = UIColor.green
-        previousButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.top.equalTo(loadPDFFromFileButton.snp.bottom).offset(40)
-            make.width.equalTo(150)
-            make.height.equalTo(40)
-        }
-
-        view.addSubview(nextButton)
-        nextButton.backgroundColor = UIColor.green
-        nextButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.top.equalTo(loadPDFFromFileButton.snp.bottom).offset(40)
-            make.width.equalTo(150)
-            make.height.equalTo(40)
-        }
 
         view.addSubview(loadingView)
         loadingView.center = self.view.center
@@ -112,14 +81,6 @@ class ViewController: UIViewController {
         let url = URL(string: "https://s3.amazonaws.com/prodretitle-east/9ebd31f734ad9ee3719ef97b/tt.pdf")!
         pdfView.delegate = self
         pdfView.loadPDF(url: url)
-    }
-
-    @objc func goPreviousPage(sender: UIButton) {
-        pdfView.goPreviousPage()
-    }
-
-    @objc func goNextPage(sender: UIButton) {
-        pdfView.goNextPage()
     }
 
     func addBottomView() {

@@ -9,15 +9,8 @@ import Foundation
 import UIKit
 
 class PDFView: ImageFetcher {
-    var currentPageIndex = 0
-
-    var delegate: PDFDelegate?
-    var processor: ProcessProtocol?
-
-    @available(*, unavailable)
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var delegate: PDFDelegate? = nil
+    var processor: ProcessProtocol? = nil
 
     func loadPDF(url: URL?) {
         guard let url = url else { return }
@@ -35,16 +28,6 @@ class PDFView: ImageFetcher {
                 delegate?.onDocumentLoaded()
             }
         }
-    }
-
-    // Only for this demo, will be deleted when release this
-    func goPreviousPage() {
-        currentPageIndex = currentPageIndex - 1 > 0 ? currentPageIndex - 1 : currentPageIndex
-    }
-
-    // Only for this demo, will be deleted when release this
-    func goNextPage() {
-        currentPageIndex = currentPageIndex < (processor?.pageCount ?? 0) ? currentPageIndex + 1 : currentPageIndex
     }
     
     func totalPages() -> Int {
