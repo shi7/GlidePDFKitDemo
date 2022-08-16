@@ -3,7 +3,7 @@ import SwiftUI
 struct GalleryItemView: View {
     let width: Double
     let height: Double
-    let item: Item
+    let item: GalleryItem
 
     @EnvironmentObject var dataModel: ViewModel
     @State var image: UIImage?

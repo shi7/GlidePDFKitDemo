@@ -3,7 +3,7 @@ import UIKit
 import SwiftUI
 
 class ViewModel: ObservableObject {
-    @Published var items: [Item] = []
+    @Published var items: [GalleryItem] = []
     var fetcher: ImageFetcher?
     
     func setPages(pages: Int) {
@@ -15,7 +15,7 @@ class ViewModel: ObservableObject {
         }
         
         for pageNum in 1...pages {
-            items.append(Item(pageNumber: pageNum))
+            items.append(GalleryItem(pageNumber: pageNum))
         }
     }
     
