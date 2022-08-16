@@ -18,9 +18,12 @@
 		BA8FBE1A28A6431800F8E84D /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = BA8FBE1928A6431800F8E84D /* iphone.png */; };
 		BA8FBE1C28A64BB400F8E84D /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8FBE1B28A64BB400F8E84D /* DataType.swift */; };
 		BA8FBE1E28A668F600F8E84D /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8FBE1D28A668F600F8E84D /* ImageProcessor.swift */; };
-		BAB1BBE528AA2BCF001803DF /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1BBE428AA2BCF001803DF /* FileCache.swift */; };
+		BAB1BBE528AA2BCF001803DF /* PDFFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1BBE428AA2BCF001803DF /* PDFFileCache.swift */; };
 		BAB1BBE828AA2F87001803DF /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1BBE728AA2F87001803DF /* StringExtension.swift */; };
 		BAB1BBEA28AA3CF6001803DF /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1BBE928AA3CF6001803DF /* DataExtension.swift */; };
+		BAF21A4D28AB86BD00A82E80 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF21A4C28AB86BD00A82E80 /* DiskCache.swift */; };
+		BAF21A4F28AB87C200A82E80 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF21A4E28AB87C200A82E80 /* LinkedList.swift */; };
+		BAF21A5128AB881400A82E80 /* CacheConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF21A5028AB881400A82E80 /* CacheConfig.swift */; };
 		C095582228A4AE5700FA16B9 /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C095582128A4AE5700FA16B9 /* BottomButton.swift */; };
 		C095582528A4B3B000FA16B9 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C095582428A4B3B000FA16B9 /* ViewExtension.swift */; };
 		C0EFC35528A4987E0084A4AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EFC35428A4987E0084A4AA /* AppDelegate.swift */; };
@@ -52,9 +55,12 @@
 		BA8FBE1928A6431800F8E84D /* iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphone.png; sourceTree = "<group>"; };
 		BA8FBE1B28A64BB400F8E84D /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
 		BA8FBE1D28A668F600F8E84D /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
-		BAB1BBE428AA2BCF001803DF /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
+		BAB1BBE428AA2BCF001803DF /* PDFFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFFileCache.swift; sourceTree = "<group>"; };
 		BAB1BBE728AA2F87001803DF /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		BAB1BBE928AA3CF6001803DF /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
+		BAF21A4C28AB86BD00A82E80 /* DiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
+		BAF21A4E28AB87C200A82E80 /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
+		BAF21A5028AB881400A82E80 /* CacheConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheConfig.swift; sourceTree = "<group>"; };
 		C095582128A4AE5700FA16B9 /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
 		C095582428A4B3B000FA16B9 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		C0EFC35128A4987E0084A4AA /* GlidePDFKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlidePDFKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,12 +117,12 @@
 		BAB1BBE328A9F2EB001803DF /* Loader */ = {
 			isa = PBXGroup;
 			children = (
+				BAF21A5228AB912B00A82E80 /* Cache */,
 				BA8FBE0828A5E6E300F8E84D /* PDFDelegate.swift */,
 				BA8FBE0A28A5EF2200F8E84D /* PDFError.swift */,
 				BA8FBE1B28A64BB400F8E84D /* DataType.swift */,
 				BA8FBE0228A4AE7400F8E84D /* PDFLoader.swift */,
 				BA8FBE1228A5FD3900F8E84D /* Processor */,
-				BAB1BBE428AA2BCF001803DF /* FileCache.swift */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -128,6 +134,17 @@
 				BAB1BBE928AA3CF6001803DF /* DataExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		BAF21A5228AB912B00A82E80 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				BAF21A4C28AB86BD00A82E80 /* DiskCache.swift */,
+				BAF21A4E28AB87C200A82E80 /* LinkedList.swift */,
+				BAF21A5028AB881400A82E80 /* CacheConfig.swift */,
+				BAB1BBE428AA2BCF001803DF /* PDFFileCache.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		C095582028A4AE3900FA16B9 /* Views */ = {
@@ -307,10 +324,13 @@
 				BA8FBE0328A4AE7400F8E84D /* PDFLoader.swift in Sources */,
 				BA8FBE1E28A668F600F8E84D /* ImageProcessor.swift in Sources */,
 				BA8FBE0928A5E6E300F8E84D /* PDFDelegate.swift in Sources */,
+				BAF21A4D28AB86BD00A82E80 /* DiskCache.swift in Sources */,
 				D62AF1BE28A535FA002E0D73 /* GalleryItemView.swift in Sources */,
+				BAF21A4F28AB87C200A82E80 /* LinkedList.swift in Sources */,
 				D62AF1DB28A53698002E0D73 /* VTabView.swift in Sources */,
 				BAB1BBEA28AA3CF6001803DF /* DataExtension.swift in Sources */,
 				C0EFC35528A4987E0084A4AA /* AppDelegate.swift in Sources */,
+				BAF21A5128AB881400A82E80 /* CacheConfig.swift in Sources */,
 				D620CE8928A9ED10002285EA /* ImageFetcher.swift in Sources */,
 				BA8FBE1428A5FD5500F8E84D /* Page.swift in Sources */,
 				D620CE9428AB81C9002285EA /* MagnificationModifier.swift in Sources */,
@@ -319,7 +339,7 @@
 				BA8FBE1128A5FC5600F8E84D /* ProcessorProtocol.swift in Sources */,
 				C0EFC35728A4987E0084A4AA /* SceneDelegate.swift in Sources */,
 				C095582528A4B3B000FA16B9 /* ViewExtension.swift in Sources */,
-				BAB1BBE528AA2BCF001803DF /* FileCache.swift in Sources */,
+				BAB1BBE528AA2BCF001803DF /* PDFFileCache.swift in Sources */,
 				D62AF1BA28A535FA002E0D73 /* GalleryEntry.swift in Sources */,
 				BAB1BBE828AA2F87001803DF /* StringExtension.swift in Sources */,
 				D62AF1BB28A535FA002E0D73 /* GalleryView.swift in Sources */,

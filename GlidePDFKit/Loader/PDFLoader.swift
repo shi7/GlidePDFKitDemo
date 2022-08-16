@@ -12,10 +12,10 @@ class PDFLoader: ImageFetcher {
         DispatchQueue.global().async { [self] in
             var data: Data? = nil
             if (url.scheme == "http" || url.scheme == "https") {
-                data = FileCache.getFile(url: url)
+                data = PDFFileCache.shareInstance.getFile(url: url)
                 if (data == nil) {
                     data = try? Data(contentsOf: url)
-                    FileCache.saveFile(url: url, data: data)
+                    PDFFileCache.shareInstance.saveFile(url: url, data: data)
                 }
             } else {
                 data = try? Data(contentsOf: url)
