@@ -5,15 +5,17 @@ struct GalleryItemView: View {
     let height: Double
     let item: Item
 
-    @EnvironmentObject var dataModel: DataModel
-    @State var image: Image?
+    @EnvironmentObject var dataModel: ViewModel
+    @State var image: UIImage?
 
     var body: some View {
         ZStack {
             if let img = image {
-                img.resizable()
-                    .scaledToFit()
-                    .frame(width: width, height: height, alignment: .center)
+                MagnificationView(size: img.size) {
+                    Image(uiImage: img)
+                        .resizable()
+                        .scaledToFit()
+                }
             } else {
                 ProgressView()
             }
@@ -24,12 +26,13 @@ struct GalleryItemView: View {
 #endif
                 return
             }
-            
+
             let img = await dataModel.fetchImageAt(page: item.pageNumber)
             Task { @MainActor in
                 image = img
             }
         }
+        .frame(width: width, height: height, alignment: .center)
     }
 }
 

@@ -2,9 +2,8 @@ import Foundation
 import UIKit
 import SwiftUI
 
-class DataModel: ObservableObject {
+class ViewModel: ObservableObject {
     @Published var items: [Item] = []
-    @Published var currentScale: CGFloat = 1.0
     var fetcher: ImageFetcher?
     
     func setPages(pages: Int) {
@@ -20,15 +19,12 @@ class DataModel: ObservableObject {
         }
     }
     
-    func fetchImageAt(page: Int) async -> Image? {
+    func fetchImageAt(page: Int) async -> UIImage? {
 #if DEBUG
         print("try to fetch image at page: \(page)")
 #endif
-        guard let imgFetcher = fetcher, let uiImage = await imgFetcher.fetchAt(page: page) else {
-            return nil
-        }
         
-        return Image(uiImage: uiImage)
+        return await fetcher?.fetchAt(page: page)
     }
 }
 

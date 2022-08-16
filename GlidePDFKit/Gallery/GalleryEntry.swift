@@ -10,7 +10,7 @@ import SwiftUI
 struct GalleryEntry: View {
     var pages: Int = 0
     var imgFetcher: ImageFetcher
-    @StateObject var dataModel = DataModel()
+    @StateObject var dataModel = ViewModel()
 
     init(pages: Int, fetcher: ImageFetcher) {
         self.pages = pages
