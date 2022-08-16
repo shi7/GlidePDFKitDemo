@@ -1,10 +1,3 @@
-//
-//  ImageProcessor.swift
-//  GlidePDFKitDemo
-//
-//  Created by QinChao Xu on 2022/8/12.
-//
-
 import Foundation
 import UIKit
 

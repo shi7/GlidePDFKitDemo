@@ -1,25 +1,19 @@
-//
-//  ImageProcessor.swift
-//  GlidePDFKitDemo
-//
-//  Created by QinChao Xu on 2022/8/12.
-//
-
 import CoreGraphics
 import UIKit
 
 struct PdfProcessor: ProcessProtocol {
     let data: Data
     var pageCount: Int {
-        document.numberOfPages
+        document?.numberOfPages ?? 0
     }
-    var document: CGPDFDocument {
-        let dataProvider = CGDataProvider(data: data as CFData)!
-        return try! CGPDFDocument(dataProvider)!
+    var document: CGPDFDocument? {
+        let dataProvider = CGDataProvider(data: data as CFData)
+        guard let dataProvider = dataProvider else { return nil }
+        return CGPDFDocument(dataProvider)
     }
 
     func loadPageAt(_ index: Int) -> Page? {
-        guard let page = document.page(at: index) else {
+        guard let page = document?.page(at: index) else {
             return nil
         }
         let pageRect = page.getBoxRect(.mediaBox)
