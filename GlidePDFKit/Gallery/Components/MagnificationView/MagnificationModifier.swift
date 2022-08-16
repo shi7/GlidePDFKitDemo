@@ -32,7 +32,7 @@ public struct MagnificationModifier: ViewModifier {
                     fixOffsetAndScale(geometry: geometry, content: content)
                 }
             
-            let dragGesture = DragGesture(minimumDistance: 30)
+            let dragGesture = DragGesture(minimumDistance: 40)
                 .onChanged { gesture in
                     var newOffset = lastOffset
                     newOffset.width += gesture.translation.width
