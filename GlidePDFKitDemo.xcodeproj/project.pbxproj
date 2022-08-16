@@ -18,6 +18,9 @@
 		BA8FBE1A28A6431800F8E84D /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = BA8FBE1928A6431800F8E84D /* iphone.png */; };
 		BA8FBE1C28A64BB400F8E84D /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8FBE1B28A64BB400F8E84D /* DataType.swift */; };
 		BA8FBE1E28A668F600F8E84D /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8FBE1D28A668F600F8E84D /* ImageProcessor.swift */; };
+		BAB1BBE528AA2BCF001803DF /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1BBE428AA2BCF001803DF /* FileCache.swift */; };
+		BAB1BBE828AA2F87001803DF /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1BBE728AA2F87001803DF /* StringExtension.swift */; };
+		BAB1BBEA28AA3CF6001803DF /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1BBE928AA3CF6001803DF /* DataExtension.swift */; };
 		C095582228A4AE5700FA16B9 /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C095582128A4AE5700FA16B9 /* BottomButton.swift */; };
 		C095582528A4B3B000FA16B9 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C095582428A4B3B000FA16B9 /* ViewExtension.swift */; };
 		C0EFC35528A4987E0084A4AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EFC35428A4987E0084A4AA /* AppDelegate.swift */; };
@@ -49,6 +52,9 @@
 		BA8FBE1928A6431800F8E84D /* iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphone.png; sourceTree = "<group>"; };
 		BA8FBE1B28A64BB400F8E84D /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
 		BA8FBE1D28A668F600F8E84D /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
+		BAB1BBE428AA2BCF001803DF /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
+		BAB1BBE728AA2F87001803DF /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		BAB1BBE928AA3CF6001803DF /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
 		C095582128A4AE5700FA16B9 /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
 		C095582428A4B3B000FA16B9 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		C0EFC35128A4987E0084A4AA /* GlidePDFKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlidePDFKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,8 +116,18 @@
 				BA8FBE1B28A64BB400F8E84D /* DataType.swift */,
 				BA8FBE0228A4AE7400F8E84D /* PDFLoader.swift */,
 				BA8FBE1228A5FD3900F8E84D /* Processor */,
+				BAB1BBE428AA2BCF001803DF /* FileCache.swift */,
 			);
 			path = Loader;
+			sourceTree = "<group>";
+		};
+		BAB1BBE628AA2F77001803DF /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BAB1BBE728AA2F87001803DF /* StringExtension.swift */,
+				BAB1BBE928AA3CF6001803DF /* DataExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		C095582028A4AE3900FA16B9 /* Views */ = {
@@ -166,6 +182,7 @@
 		C754E57128AA276900EF7FE5 /* GlidePDFKit */ = {
 			isa = PBXGroup;
 			children = (
+				BAB1BBE628AA2F77001803DF /* Extension */,
 				D62AF1C028A53612002E0D73 /* Gallery */,
 				BAB1BBE328A9F2EB001803DF /* Loader */,
 			);
@@ -284,6 +301,7 @@
 				BA8FBE0928A5E6E300F8E84D /* PDFDelegate.swift in Sources */,
 				D62AF1BE28A535FA002E0D73 /* GalleryItemView.swift in Sources */,
 				D62AF1DB28A53698002E0D73 /* VTabView.swift in Sources */,
+				BAB1BBEA28AA3CF6001803DF /* DataExtension.swift in Sources */,
 				D62AF1DC28A53698002E0D73 /* ZoomableView.swift in Sources */,
 				C0EFC35528A4987E0084A4AA /* AppDelegate.swift in Sources */,
 				D620CE8928A9ED10002285EA /* ImageFetcher.swift in Sources */,
@@ -293,7 +311,9 @@
 				BA8FBE1128A5FC5600F8E84D /* ProcessorProtocol.swift in Sources */,
 				C0EFC35728A4987E0084A4AA /* SceneDelegate.swift in Sources */,
 				C095582528A4B3B000FA16B9 /* ViewExtension.swift in Sources */,
+				BAB1BBE528AA2BCF001803DF /* FileCache.swift in Sources */,
 				D62AF1BA28A535FA002E0D73 /* GalleryEntry.swift in Sources */,
+				BAB1BBE828AA2F87001803DF /* StringExtension.swift in Sources */,
 				D62AF1BB28A535FA002E0D73 /* GalleryView.swift in Sources */,
 				D62AF1DD28A53698002E0D73 /* ZoomableModifier.swift in Sources */,
 				D62AF1BC28A535FA002E0D73 /* DataModel.swift in Sources */,

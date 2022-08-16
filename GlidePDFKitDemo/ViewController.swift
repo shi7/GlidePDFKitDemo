@@ -72,14 +72,14 @@ class ViewController: UIViewController {
         let pdfUrl = Bundle.main.url(forResource: "big", withExtension: "pdf")!
         let imageUrl = Bundle.main.url(forResource: "iphone", withExtension: "png")!
         pdfLoader.delegate = self
-        pdfLoader.loadPDF(url: pdfUrl)
+        pdfLoader.loadPDF(url: imageUrl)
     }
 
     @objc func loadPDFFromURL(sender: UIButton) {
         let imageUrl = URL(string: "https://user-images.githubusercontent.com/61569191/184310230-c178ee61-b2df-40e3-8708-1283585619b6.jpeg")!
         let pdfUrl = URL(string: "https://s3.amazonaws.com/prodretitle-east/9ebd31f734ad9ee3719ef97b/tt.pdf")!
         pdfLoader.delegate = self
-        pdfLoader.loadPDF(url: pdfUrl)
+        pdfLoader.loadPDF(url: imageUrl)
     }
 
     func addBottomView() {

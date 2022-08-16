@@ -1,10 +1,3 @@
-//
-//  PDFView.swift
-//  GlidePDFKitDemo
-//
-//  Created by QinChao Xu on 2022/8/11.
-//
-
 import Foundation
 import UIKit
 
@@ -17,11 +10,24 @@ class PDFLoader: ImageFetcher {
 
         delegate?.onDocumentPreLoad()
         DispatchQueue.global().async { [self] in
-            let data = try! Data(contentsOf: url)
+            var data: Data? = nil
+            if (url.scheme == "http" || url.scheme == "https") {
+                data = FileCache.getFile(url: url)
+                if (data == nil) {
+                    data = try? Data(contentsOf: url)
+                    FileCache.saveFile(url: url, data: data)
+                }
+            } else {
+                data = try? Data(contentsOf: url)
+            }
 
             DispatchQueue.main.async {
-                processor = data.dispatchProcessor()
-                delegate?.onDocumentLoaded()
+                if let data = data {
+                    processor = data.dispatchProcessor()
+                    delegate?.onDocumentLoaded()
+                } else {
+                    delegate?.onDocumentLoadedFail(.ParseError("Wrong URL"))
+                }
             }
         }
     }
