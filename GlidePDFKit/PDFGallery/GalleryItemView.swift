@@ -32,9 +32,9 @@ struct GalleryItemView: View {
             }
         }.task {
             guard image == nil else {
-#if DEBUG
-                print("image already fetched, cancel refetch at page: \(item.pageNumber)")
-#endif
+                #if DEBUG
+                    print("image already fetched, cancel refetch at page: \(item.pageNumber)")
+                #endif
                 return
             }
 

@@ -15,18 +15,17 @@ class ViewModel: ObservableObject {
     func setPages(pages: Int) {
         guard pages > 0 else {
             #if DEBUG
-            print("pages less than 0, may something wrong!")
+                print("pages less than 0, may something wrong!")
             #endif
             return
         }
-        
-        for pageNum in 1...pages {
 
+        for pageNum in 1 ... pages {
             // --  TEST CODE
             let galleryItem = GalleryItem()
             galleryItem.pageNumber = pageNum
 
-            var model = GlidePDFKitAnotationModel(location:CGPoint(x: UIScreen.main.bounds.width/2, y:     UIScreen.main.bounds.height/2) , width: 200, height: 100, type: .image)
+            var model = GlidePDFKitAnnotationModel(location: CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2), width: 200, height: 100, type: .image)
             model.image = UIImage(named: "plus")
             galleryItem.anotationArray = [model]
             // --  TEST CODE
@@ -34,16 +33,16 @@ class ViewModel: ObservableObject {
             items.append(galleryItem)
         }
     }
-    
+
     func fetchImageAt(page: Int) async -> UIImage? {
         #if DEBUG
-        print("try to fetch image at page: \(page)")
+            print("try to fetch image at page: \(page)")
         #endif
         return await fetcher?.fetchAt(page: page)
     }
 
     func addNewAnotation(type: GlidePDFKitAnotationType) {
-        var model = GlidePDFKitAnotationModel(location: CGPoint(x: 150, y: 210), width: 150, height: 40, type: type)
+        var model = GlidePDFKitAnnotationModel(location: CGPoint(x: 150, y: 210), width: 150, height: 40, type: type)
         if type == .image {
             model.image = UIImage(named: "draw")
         } else if type == .text {
@@ -52,26 +51,26 @@ class ViewModel: ObservableObject {
         addAnotations(anotations: [model], page: activePage)
     }
 
-    func addAnotations(anotations: [GlidePDFKitAnotationModel]) {
+    func addAnotations(anotations: [GlidePDFKitAnnotationModel]) {
         addAnotations(anotations: anotations, page: activePage)
     }
 
-    func updateAnotations(anotations: GlidePDFKitAnotationModel) {
-        guard let galleryItem = items[safe: (activePage - 1)],
-              let anotationArray = galleryItem.anotationArray else {
-                  return
-              }
+    func updateAnotations(anotation: GlidePDFKitAnnotationModel) {
+        guard let galleryItem = items[safe: activePage - 1],
+              let anotationArray = galleryItem.anotationArray
+        else {
+            return
+        }
         galleryItem.anotationArray = anotationArray.map {
-            if anotations.id == $0.id {
-                return anotations
+            if anotation.id == $0.id {
+                return anotation
             }
             return $0
         }
-
     }
 
-    func addAnotations(anotations: [GlidePDFKitAnotationModel], page: Int) {
-        guard let galleryItem = items[safe: (page - 1)] else { return }
+    func addAnotations(anotations: [GlidePDFKitAnnotationModel], page: Int) {
+        guard let galleryItem = items[safe: page - 1] else { return }
         galleryItem.anotationArray?.append(contentsOf: anotations)
         items[page - 1] = galleryItem
     }
@@ -84,15 +83,15 @@ class ViewModel: ObservableObject {
         removeSelectedAnotations(page: activePage)
     }
 
-    func removeSelectedAnotations(page:Int) {
-        guard let galleryItem = items[safe: (page - 1)],
-              let anotationArray = galleryItem.anotationArray else {
-                  return
-              }
+    func removeSelectedAnotations(page: Int) {
+        guard let galleryItem = items[safe: page - 1],
+              let anotationArray = galleryItem.anotationArray
+        else {
+            return
+        }
         galleryItem.anotationArray = anotationArray.filter { anotationModel in
-            return !anotationModel.isSelected
+            !anotationModel.isSelected
         }
         items[page - 1] = galleryItem
     }
 }
-

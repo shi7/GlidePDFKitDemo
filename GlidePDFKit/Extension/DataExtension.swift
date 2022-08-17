@@ -6,16 +6,16 @@ extension Data {
     }
 
     func isImage() -> Bool {
-        return ["png", "jpg", "bmp", "unknown image"].contains{ getDataType() == $0 }
+        return ["png", "jpg", "bmp", "unknown image"].contains { getDataType() == $0 }
     }
 
     private func getDataType() -> String {
-        let bytess: [UInt8] = self.withUnsafeBytes { dataBytes in
+        let bytess: [UInt8] = withUnsafeBytes { dataBytes in
             let buffer: UnsafePointer<UInt8> = dataBytes.baseAddress!.assumingMemoryBound(to: UInt8.self)
             return [UInt8](UnsafeBufferPointer(start: buffer, count: 2))
         }
 
-        switch (bytess) {
+        switch bytess {
         case [137, 80]:
             return "png"
         case [255, 216]:
@@ -32,7 +32,7 @@ extension Data {
     }
 
     func dispatchProcessor() -> ProcessProtocol {
-        if (isPDF()) {
+        if isPDF() {
             return PdfProcessor(data: self)
         } else {
             return ImageProcessor(data: self)

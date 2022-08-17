@@ -14,7 +14,7 @@ struct GalleryEntry: View {
 
     init(pages: Int, fetcher: ImageFetcher) {
         self.pages = pages
-        self.imgFetcher = fetcher
+        imgFetcher = fetcher
     }
 
     func addAnotations(type: GlidePDFKitAnotationType) {
@@ -27,11 +27,11 @@ struct GalleryEntry: View {
 
     var body: some View {
         GalleryView()
-        .environmentObject(dataModel)
-        .onAppear {
-            dataModel.fetcher = imgFetcher
-            dataModel.setPages(pages: pages)
-        }
+            .environmentObject(dataModel)
+            .onAppear {
+                dataModel.fetcher = imgFetcher
+                dataModel.setPages(pages: pages)
+            }
     }
 }
 

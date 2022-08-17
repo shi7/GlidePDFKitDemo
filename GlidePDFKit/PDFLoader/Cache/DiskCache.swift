@@ -19,7 +19,6 @@ import QuartzCore
  *  FastGeneratorType, inherit GeneratorType and provide a method to shift offset.
  */
 public protocol FastGeneratorType: IteratorProtocol {
-
     /**
      Shift like next, but there is no return value.
      If you just shift offset, it`s implementation should fast than `next()`
@@ -30,8 +29,7 @@ public protocol FastGeneratorType: IteratorProtocol {
 /**
  DiskCacheGenerator, support `for...in` `map` `forEach`..., it is thread safe.
  */
-open class DiskCacheGenerator : FastGeneratorType {
-
+open class DiskCacheGenerator: FastGeneratorType {
     public typealias Element = (String, Any)
 
     fileprivate var _lruGenerator: LRUGenerator<DiskCacheObject>
@@ -41,9 +39,9 @@ open class DiskCacheGenerator : FastGeneratorType {
     fileprivate var _completion: (() -> Void)?
 
     fileprivate init(generate: LRUGenerator<DiskCacheObject>, diskCache: DiskCache, completion: (() -> Void)?) {
-        self._lruGenerator = generate
-        self._diskCache = diskCache
-        self._completion = completion
+        _lruGenerator = generate
+        _diskCache = diskCache
+        _completion = completion
     }
 
     /**
@@ -54,7 +52,7 @@ open class DiskCacheGenerator : FastGeneratorType {
 
     open func next() -> Element? {
         if let key = _lruGenerator.next()?.key {
-            if  let value = _diskCache._unsafeObject(forKey: key) {
+            if let value = _diskCache._unsafeObject(forKey: key) {
                 return (key, value)
             }
         }
@@ -65,7 +63,7 @@ open class DiskCacheGenerator : FastGeneratorType {
      Shift like next, but there is no return value and shift fast.
      */
     open func shift() {
-        let _ = _lruGenerator.shift()
+        _ = _lruGenerator.shift()
     }
 
     deinit {
@@ -74,18 +72,17 @@ open class DiskCacheGenerator : FastGeneratorType {
 }
 
 private class DiskCacheObject: LRUObject {
-
     var key: String = ""
     var cost: UInt = 0
-    var date: Date = Date()
+    var date: Date = .init()
 
-    init (key: String, cost: UInt = 0, date: Date) {
+    init(key: String, cost: UInt = 0, date: Date) {
         self.key = key
         self.cost = cost
         self.date = date
     }
 
-    convenience init (key: String, cost: UInt = 0) {
+    convenience init(key: String, cost: UInt = 0) {
         self.init(key: key, cost: cost, date: Date())
     }
 }
@@ -99,7 +96,6 @@ public typealias DiskCacheAsyncCompletion = (_ cache: DiskCache?, _ key: String?
  And support thread safe `for`...`in` loops, map, forEach...
  */
 open class DiskCache {
-
     /**
      DiskCache folder name
      */
@@ -114,27 +110,23 @@ open class DiskCache {
      Disk cache object total count
      */
     open var totalCount: UInt {
-        get {
-            _lock()
-            let count = _cache.count
-            _unlock()
-            return count
-        }
+        _lock()
+        let count = _cache.count
+        _unlock()
+        return count
     }
 
     /**
      Disk cache object total cost (byte)
      */
     open var totalCost: UInt {
-        get {
-            _lock()
-            let cost = _cache.cost
-            _unlock()
-            return cost
-        }
+        _lock()
+        let cost = _cache.cost
+        _unlock()
+        return cost
     }
 
-    fileprivate var _countLimit: UInt = UInt.max
+    fileprivate var _countLimit: UInt = .max
 
     /**
      The maximum total quantity
@@ -154,7 +146,7 @@ open class DiskCache {
         }
     }
 
-    fileprivate var _costLimit: UInt = UInt.max
+    fileprivate var _costLimit: UInt = .max
 
     /**
      The maximum disk cost limit
@@ -196,9 +188,9 @@ open class DiskCache {
 
     fileprivate let _cache: LRU = LRU<DiskCacheObject>()
 
-    fileprivate let _queue: DispatchQueue = DispatchQueue(label: CachePrefix + (String(describing: DiskCache.self)), attributes: DispatchQueue.Attributes.concurrent)
+    fileprivate let _queue: DispatchQueue = .init(label: CachePrefix + String(describing: DiskCache.self), attributes: DispatchQueue.Attributes.concurrent)
 
-    fileprivate let _semaphoreLock: DispatchSemaphore = DispatchSemaphore(value: 1)
+    fileprivate let _semaphoreLock: DispatchSemaphore = .init(value: 1)
 
     /**
      A share disk cache, name "defauleTrackCache" path "Library/Caches/"
@@ -219,7 +211,7 @@ open class DiskCache {
             return nil
         }
         self.name = name
-        self.cacheURL = URL(fileURLWithPath: path).appendingPathComponent(CachePrefix + name, isDirectory: false)
+        cacheURL = URL(fileURLWithPath: path).appendingPathComponent(CachePrefix + name, isDirectory: false)
 
         _lock()
         _queue.async {
@@ -242,9 +234,12 @@ open class DiskCache {
 }
 
 //  MARK:
+
 //  MARK: Public
+
 public extension DiskCache {
     //  MARK: Async
+
     /**
      Async store an object for the unique key in disk cache and store object info to linked list head
      completion will be call after object has been store in disk
@@ -335,6 +330,7 @@ public extension DiskCache {
     }
 
     //  MARK: Sync
+
     /**
      Sync store an object for the unique key in disk cache and store object info to linked list head
      */
@@ -344,9 +340,9 @@ public extension DiskCache {
         _lock()
         if NSKeyedArchiver.archiveRootObject(object, toFile: filePath) == true {
             do {
-                let date: Date = Date()
-                try FileManager.default.setAttributes([FileAttributeKey.modificationDate : date], ofItemAtPath: filePath)
-                let infosDic: [URLResourceKey : AnyObject] = try (fileURL as NSURL).resourceValues(forKeys: [URLResourceKey.totalFileAllocatedSizeKey]) as [URLResourceKey : AnyObject]
+                let date: Date = .init()
+                try FileManager.default.setAttributes([FileAttributeKey.modificationDate: date], ofItemAtPath: filePath)
+                let infosDic: [URLResourceKey: AnyObject] = try (fileURL as NSURL).resourceValues(forKeys: [URLResourceKey.totalFileAllocatedSizeKey]) as [URLResourceKey: AnyObject]
                 var fileSize: UInt = 0
                 if let fileSizeNumber = infosDic[URLResourceKey.totalFileAllocatedSizeKey] as? NSNumber {
                     fileSize = fileSizeNumber.uintValue
@@ -396,9 +392,9 @@ public extension DiskCache {
      */
     func removeAllObjects() {
         _lock()
-        if FileManager.default.fileExists(atPath: self.cacheURL.path) {
+        if FileManager.default.fileExists(atPath: cacheURL.path) {
             do {
-                try FileManager.default.removeItem(atPath: self.cacheURL.path)
+                try FileManager.default.removeItem(atPath: cacheURL.path)
                 _cache.removeAllObjects()
             } catch {}
         }
@@ -409,7 +405,7 @@ public extension DiskCache {
      Async trim disk cache total to countLimit according LRU
      */
     func trim(toCount countLimit: UInt) {
-        if self.totalCount <= countLimit {
+        if totalCount <= countLimit {
             return
         }
         if countLimit == 0 {
@@ -425,7 +421,7 @@ public extension DiskCache {
      Sync trim disk cache totalcost to costLimit according LRU
      */
     func trim(toCost costLimit: UInt) {
-        if self.totalCost <= costLimit {
+        if totalCost <= costLimit {
             return
         }
         if costLimit == 0 {
@@ -460,8 +456,7 @@ public extension DiskCache {
         set {
             if let newValue = newValue {
                 set(object: newValue, forKey: key)
-            }
-            else {
+            } else {
                 removeObject(forKey: key)
             }
         }
@@ -469,7 +464,8 @@ public extension DiskCache {
 }
 
 //  MARK: SequenceType
-extension DiskCache : Sequence {
+
+extension DiskCache: Sequence {
     /**
      MemoryCacheGenerator
      */
@@ -494,9 +490,10 @@ extension DiskCache : Sequence {
 }
 
 //  MARK:
-//  MARK: Private
-private extension DiskCache {
 
+//  MARK: Private
+
+private extension DiskCache {
     func _createCacheDir() -> Bool {
         if FileManager.default.fileExists(atPath: cacheURL.path) {
             return false
@@ -510,21 +507,21 @@ private extension DiskCache {
     }
 
     func _loadFilesInfo() -> Bool {
-        var fileInfos: [DiskCacheObject] = [DiskCacheObject]()
+        var fileInfos = [DiskCacheObject]()
         let fileInfoKeys: [URLResourceKey] = [URLResourceKey.contentModificationDateKey, URLResourceKey.totalFileAllocatedSizeKey]
         do {
             let filesURL: [URL] = try FileManager.default.contentsOfDirectory(at: cacheURL, includingPropertiesForKeys: fileInfoKeys, options: .skipsHiddenFiles)
             for fileURL: URL in filesURL {
                 do {
-                    let infosDic: [URLResourceKey : AnyObject] = try (fileURL as NSURL).resourceValues(forKeys: fileInfoKeys) as [URLResourceKey : AnyObject]
+                    let infosDic: [URLResourceKey: AnyObject] = try (fileURL as NSURL).resourceValues(forKeys: fileInfoKeys) as [URLResourceKey: AnyObject]
 
                     if let key = fileURL.lastPathComponent as String?,
-                        let date = infosDic[URLResourceKey.contentModificationDateKey] as? Date,
-                        let fileSize = infosDic[URLResourceKey.totalFileAllocatedSizeKey] as? NSNumber {
+                       let date = infosDic[URLResourceKey.contentModificationDateKey] as? Date,
+                       let fileSize = infosDic[URLResourceKey.totalFileAllocatedSizeKey] as? NSNumber
+                    {
                         fileInfos.append(DiskCacheObject(key: key, cost: fileSize.uintValue, date: date))
                     }
-                }
-                catch {
+                } catch {
                     return false
                 }
             }
@@ -540,7 +537,7 @@ private extension DiskCache {
 
     func _unsafeTrim(toCount countLimit: UInt) {
         if var lastObject: DiskCacheObject = _cache.lastObject() {
-            while (_cache.count > countLimit) {
+            while _cache.count > countLimit {
                 if let fileURL = _generateFileURL(lastObject.key, path: cacheURL), FileManager.default.fileExists(atPath: fileURL.path) {
                     do {
                         try FileManager.default.removeItem(atPath: fileURL.path)
@@ -555,8 +552,8 @@ private extension DiskCache {
 
     func _unsafeTrim(toCost costLimit: UInt) {
         if var lastObject: DiskCacheObject = _cache.lastObject() {
-            while (_cache.cost > costLimit) {
-                if let fileURL = _generateFileURL(lastObject.key, path: cacheURL) , FileManager.default.fileExists(atPath: fileURL.path) {
+            while _cache.cost > costLimit {
+                if let fileURL = _generateFileURL(lastObject.key, path: cacheURL), FileManager.default.fileExists(atPath: fileURL.path) {
                     do {
                         try FileManager.default.removeItem(atPath: fileURL.path)
                         _cache.removeLastObject()
@@ -570,8 +567,8 @@ private extension DiskCache {
 
     func _unsafeTrim(toAge ageLimit: TimeInterval) {
         if var lastObject: DiskCacheObject = _cache.lastObject() {
-            while (lastObject.date.timeIntervalSince1970 < Date().timeIntervalSince1970 - ageLimit) {
-                if let fileURL = _generateFileURL(lastObject.key, path: cacheURL) , FileManager.default.fileExists(atPath: fileURL.path) {
+            while lastObject.date.timeIntervalSince1970 < Date().timeIntervalSince1970 - ageLimit {
+                if let fileURL = _generateFileURL(lastObject.key, path: cacheURL), FileManager.default.fileExists(atPath: fileURL.path) {
                     do {
                         try FileManager.default.removeItem(atPath: fileURL.path)
                         _cache.removeLastObject()
@@ -585,20 +582,18 @@ private extension DiskCache {
 
     func _unsafeObject(forKey key: String) -> AnyObject? {
         guard let fileURL = _generateFileURL(key, path: cacheURL) else { return nil }
-        var object: AnyObject? = nil
-        let date: Date = Date()
+        var object: AnyObject?
+        let date = Date()
         if FileManager.default.fileExists(atPath: fileURL.path) {
             object = NSKeyedUnarchiver.unarchiveObject(withFile: fileURL.path) as AnyObject?
             do {
-                try FileManager.default.setAttributes([FileAttributeKey.modificationDate : date], ofItemAtPath: fileURL.path)
+                try FileManager.default.setAttributes([FileAttributeKey.modificationDate: date], ofItemAtPath: fileURL.path)
                 if object != nil {
                     if let diskCacheObj = _cache.object(forKey: key) {
                         diskCacheObj.date = date
                     }
                 }
-            } catch {
-
-            }
+            } catch {}
         }
         return object
     }

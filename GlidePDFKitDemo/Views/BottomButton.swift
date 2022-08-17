@@ -22,16 +22,16 @@ enum BottomButtonActions {
 }
 
 class BottomButton: UIButton {
-
     var actionType: BottomButtonActions
 
-    init(frame: CGRect,actionType: BottomButtonActions) {
+    init(frame: CGRect, actionType: BottomButtonActions) {
         self.actionType = actionType
         super.init(frame: frame)
-        self.setImage(actionType.image, for: .normal)
+        setImage(actionType.image, for: .normal)
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

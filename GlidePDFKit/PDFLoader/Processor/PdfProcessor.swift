@@ -6,6 +6,7 @@ struct PdfProcessor: ProcessProtocol {
     var pageCount: Int {
         document?.numberOfPages ?? 0
     }
+
     var document: CGPDFDocument? {
         let dataProvider = CGDataProvider(data: data as CFData)
         guard let dataProvider = dataProvider else { return nil }
@@ -38,7 +39,7 @@ struct PdfProcessor: ProcessProtocol {
 
     func loadPageCloseRange(_ start: Int, _ end: Int) -> [Page] {
         var pages: [Page] = []
-        for index in start...end {
+        for index in start ... end {
             if let page = loadPageAt(index) {
                 pages.append(page)
             }

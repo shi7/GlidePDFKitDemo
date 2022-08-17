@@ -5,9 +5,9 @@
 //  Created by shanks on 2022/8/11.
 //
 
-import UIKit
 import SnapKit
 import SwiftUI
+import UIKit
 
 class ViewController: UIViewController {
     let pdfLoader = PDFLoader()
@@ -20,7 +20,8 @@ class ViewController: UIViewController {
         button.backgroundColor = UIColor.green
         button.addTarget(self, action: #selector(loadPDFFromFile), for: .touchUpInside)
         return button
-    } ()
+    }()
+
     let loadPDFFromURLButton: UIButton = {
         let button = UIButton()
         button.setTitle("Read from url", for: .normal)
@@ -28,13 +29,14 @@ class ViewController: UIViewController {
         button.backgroundColor = UIColor.green
         button.addTarget(self, action: #selector(loadPDFFromURL), for: .touchUpInside)
         return button
-    } ()
+    }()
+
     let loadingView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.style = .large
         indicator.hidesWhenStopped = true
         return indicator
-    } ()
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,20 +65,19 @@ class ViewController: UIViewController {
         }
 
         view.addSubview(loadingView)
-        loadingView.center = self.view.center
+        loadingView.center = view.center
 
         addBottomView()
     }
 
-
-    @objc func loadPDFFromFile(sender: UIButton) {
+    @objc func loadPDFFromFile(sender _: UIButton) {
         let pdfUrl = Bundle.main.url(forResource: "big", withExtension: "pdf")!
         let imageUrl = Bundle.main.url(forResource: "iphone", withExtension: "png")!
         pdfLoader.delegate = self
         pdfLoader.loadPDF(url: pdfUrl)
     }
 
-    @objc func loadPDFFromURL(sender: UIButton) {
+    @objc func loadPDFFromURL(sender _: UIButton) {
         let imageUrl = URL(string: "https://user-images.githubusercontent.com/61569191/184310230-c178ee61-b2df-40e3-8708-1283585619b6.jpeg")!
         let pdfUrl = URL(string: "https://s3.amazonaws.com/prodretitle-east/9ebd31f734ad9ee3719ef97b/tt.pdf")!
         pdfLoader.delegate = self
@@ -90,7 +91,7 @@ class ViewController: UIViewController {
         bottomStack.distribution = .fillEqually
 
         bottomStack.backgroundColor = .lightGray
-        let buttonActions: [BottomButtonActions] = [.removeAnnotation,.addImageAnnotation,.addTextAnnotation]
+        let buttonActions: [BottomButtonActions] = [.removeAnnotation, .addImageAnnotation, .addTextAnnotation]
         for type in buttonActions {
             let button = BottomButton(frame: CGRect.zero, actionType: type)
             button.addTarget(self, action: #selector(didTapBottomAction), for: .touchUpInside)
@@ -104,19 +105,17 @@ class ViewController: UIViewController {
         }
     }
 
-    @objc private func didTapBottomAction(button:BottomButton) {
+    @objc private func didTapBottomAction(button: BottomButton) {
         print("\(button.actionType)")
         switch button.actionType {
         case .addImageAnnotation: galleryEntry?.addAnotations(type: .image)
         case .addTextAnnotation: galleryEntry?.addAnotations(type: .text)
         case .removeAnnotation: galleryEntry?.removeSelectedAnotations()
         }
-
     }
 }
 
 extension ViewController: PDFDelegate {
-
     func onDocumentPreLoad() {
         print("PDFDelegate onDocumentPreLoad")
         loadingView.startAnimating()
@@ -128,11 +127,11 @@ extension ViewController: PDFDelegate {
         setupGallery()
     }
 
-    func onDocumentLoadedFail(_ error: PDFError) {
+    func onDocumentLoadedFail(_: PDFError) {
         print("PDFDelegate onDocumentLoadedFail")
         loadingView.stopAnimating()
     }
-    
+
     func setupGallery() {
         galleryEntry = GalleryEntry(pages: pdfLoader.totalPages(), fetcher: pdfLoader)
         let galleryVC = UIHostingController(rootView: galleryEntry)
@@ -145,4 +144,3 @@ extension ViewController: PDFDelegate {
         }
     }
 }
-

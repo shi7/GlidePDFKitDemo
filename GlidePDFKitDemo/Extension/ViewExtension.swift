@@ -4,8 +4,8 @@
 //
 //  Created by shanks on 2022/8/11.
 //
-import UIKit
 import SnapKit
+import UIKit
 
 extension UIView {
     func addSubview(_ view: UIView, make: (ConstraintMaker) -> Void) {

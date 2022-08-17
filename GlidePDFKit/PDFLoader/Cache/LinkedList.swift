@@ -2,13 +2,11 @@ import Foundation
 import QuartzCore
 
 protocol LRUObject {
-
     var key: String { get }
     var cost: UInt { get set }
 }
 
-class LRUGenerator<T: LRUObject> : FastGeneratorType {
-
+class LRUGenerator<T: LRUObject>: FastGeneratorType {
     typealias Element = T
 
     fileprivate let linkedListGenerator: LinkedListGenerator<T>
@@ -19,7 +17,6 @@ class LRUGenerator<T: LRUObject> : FastGeneratorType {
         self.linkedListGenerator = linkedListGenerator
         self.lru = lru
     }
-
 
     func next() -> Element? {
         if let node = linkedListGenerator.next() {
@@ -37,7 +34,6 @@ class LRUGenerator<T: LRUObject> : FastGeneratorType {
 }
 
 class LRU<T: LRUObject> {
-
     fileprivate typealias NodeType = Node<T>
 
     var count: UInt {
@@ -46,7 +42,7 @@ class LRU<T: LRUObject> {
 
     fileprivate(set) var cost: UInt = 0
 
-    fileprivate var _dic: NSMutableDictionary = NSMutableDictionary()
+    fileprivate var _dic: NSMutableDictionary = .init()
 
     fileprivate let _linkedList: LinkedList = LinkedList<T>()
 
@@ -56,8 +52,7 @@ class LRU<T: LRUObject> {
             cost += object.cost
             node.data = object
             _linkedList.bringNodeToHead(node)
-        }
-        else {
+        } else {
             let node: NodeType = Node(data: object)
             cost += object.cost
             _dic.setObject(node, forKey: key as NSCopying)
@@ -74,14 +69,13 @@ class LRU<T: LRUObject> {
     }
 
     func allObjects() -> [T] {
-        var objects: [T] = [T]()
+        var objects = [T]()
         var indexNode: NodeType? = _linkedList.headNode
-        while (true) {
+        while true {
             if let node: NodeType = indexNode {
                 objects.append(node.data)
                 indexNode = node.nextNode
-            }
-            else {
+            } else {
                 break
             }
         }
@@ -135,10 +129,8 @@ class LRU<T: LRUObject> {
     }
 }
 
-extension LRU : Sequence {
-
+extension LRU: Sequence {
     typealias Iterator = LRUGenerator<T>
-
 
     func makeIterator() -> LRUGenerator<T> {
         var generatror: LRUGenerator<T>
@@ -148,7 +140,6 @@ extension LRU : Sequence {
 }
 
 private class Node<T> {
-
     weak var preNode: Node?
     weak var nextNode: Node?
     var data: T
@@ -158,8 +149,7 @@ private class Node<T> {
     }
 }
 
-private class LinkedListGenerator<T> : FastGeneratorType {
-
+private class LinkedListGenerator<T>: FastGeneratorType {
     typealias Element = Node<T>
 
     var node: Node<T>?
@@ -168,31 +158,26 @@ private class LinkedListGenerator<T> : FastGeneratorType {
         self.node = node
     }
 
-
     func next() -> Element? {
-        if let node: Element = self.node {
+        if let node: Element = node {
             self.node = node.nextNode
             return node
-        }
-        else {
+        } else {
             return nil
         }
     }
 
     func shift() {
-        self.node = self.node?.nextNode
+        node = node?.nextNode
     }
 }
 
 private class LinkedList<T> {
-
     var count: UInt = 0
     weak var headNode: Node<T>?
     weak var tailNode: Node<T>?
 
-    init() {
-
-    }
+    init() {}
 
     func insertNode(_ node: Node<T>, atIndex index: UInt) {
         if index > count {
@@ -203,19 +188,16 @@ private class LinkedList<T> {
         if count == 0 {
             headNode = node
             tailNode = node
-        }
-        else {
+        } else {
             if index == 0 {
                 node.nextNode = headNode
                 headNode?.preNode = node
                 headNode = node
-            }
-            else if index == count {
+            } else if index == count {
                 node.preNode = tailNode
                 tailNode?.nextNode = node
                 tailNode = node
-            }
-            else {
+            } else {
                 let preNode = findNode(atIndex: index - 1)
                 node.nextNode = preNode?.nextNode
                 node.preNode = preNode
@@ -233,8 +215,7 @@ private class LinkedList<T> {
         if node === tailNode {
             tailNode = node.preNode
             tailNode?.nextNode = nil
-        }
-        else {
+        } else {
             node.nextNode?.preNode = node.preNode
             node.preNode?.nextNode = node.nextNode
         }
@@ -252,12 +233,10 @@ private class LinkedList<T> {
         if node === headNode {
             headNode = node.nextNode
             headNode?.preNode = nil
-        }
-        else if node === tailNode {
+        } else if node === tailNode {
             tailNode = node.preNode
             tailNode?.nextNode = nil
-        }
-        else {
+        } else {
             node.preNode?.nextNode = node.nextNode
             node.nextNode?.preNode = node.preNode
         }
@@ -274,8 +253,7 @@ private class LinkedList<T> {
             for _ in 1 ... index {
                 node = node?.nextNode
             }
-        }
-        else {
+        } else {
             node = tailNode
             for _ in 1 ... count - (index - 1) {
                 node = node?.preNode
@@ -291,10 +269,8 @@ private class LinkedList<T> {
     }
 }
 
-extension LinkedList : Sequence {
-
+extension LinkedList: Sequence {
     fileprivate typealias Iterator = LinkedListGenerator<T>
-
 
     fileprivate func makeIterator() -> LinkedListGenerator<T> {
         var generatror: LinkedListGenerator<T>

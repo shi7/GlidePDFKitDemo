@@ -39,13 +39,12 @@ import SwiftUI
 /// empty tab item.
 @available(iOS 14.0, *)
 public struct VTabView<Content, SelectionValue>: View where Content: View, SelectionValue: Hashable {
-    
     private var selection: Binding<SelectionValue>?
-    
+
     private var indexPosition: IndexPosition
-    
+
     private var content: () -> Content
-    
+
     /// Creates an instance that selects from content associated with
     /// `Selection` values.
     public init(selection: Binding<SelectionValue>?, indexPosition: IndexPosition = .leading, @ViewBuilder content: @escaping () -> Content) {
@@ -53,7 +52,7 @@ public struct VTabView<Content, SelectionValue>: View where Content: View, Selec
         self.indexPosition = indexPosition
         self.content = content
     }
-    
+
     private var flippingAngle: Angle {
         switch indexPosition {
         case .leading:
@@ -62,7 +61,7 @@ public struct VTabView<Content, SelectionValue>: View where Content: View, Selec
             return .degrees(180)
         }
     }
-    
+
     public var body: some View {
         GeometryReader { proxy in
             TabView(selection: selection) {
@@ -79,7 +78,7 @@ public struct VTabView<Content, SelectionValue>: View where Content: View, Selec
             .offset(x: proxy.size.width)
         }
     }
-    
+
     public enum IndexPosition {
         case leading
         case trailing
@@ -87,10 +86,9 @@ public struct VTabView<Content, SelectionValue>: View where Content: View, Selec
 }
 
 @available(iOS 14.0, *)
-extension VTabView where SelectionValue == Int {
-    
-    public init(indexPosition: IndexPosition = .leading, @ViewBuilder content: @escaping () -> Content) {
-        self.selection = nil
+public extension VTabView where SelectionValue == Int {
+    init(indexPosition: IndexPosition = .leading, @ViewBuilder content: @escaping () -> Content) {
+        selection = nil
         self.indexPosition = indexPosition
         self.content = content
     }

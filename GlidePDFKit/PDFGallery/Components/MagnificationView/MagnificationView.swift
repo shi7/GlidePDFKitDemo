@@ -15,7 +15,7 @@ struct MagnificationView<Content>: View where Content: View {
         self.size = size
         self.content = content
     }
-    
+
     var body: some View {
         content().modifier(MagnificationModifier(size: size))
     }

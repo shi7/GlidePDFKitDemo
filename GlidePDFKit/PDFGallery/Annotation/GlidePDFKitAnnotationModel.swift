@@ -6,10 +6,10 @@ struct GlidePDFKitAnnotationModel: Identifiable {
     var location: CGPoint
     var width: CGFloat
     var height: CGFloat
-    var type : GlidePDFKitAnotationType
-    var image : UIImage?
+    var type: GlidePDFKitAnotationType
+    var image: UIImage?
     var text = ""
-    var isSelected : Bool = false
+    var isSelected: Bool = false
 }
 
 enum GlidePDFKitAnotationType {
