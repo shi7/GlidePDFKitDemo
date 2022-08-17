@@ -4,17 +4,25 @@ struct GalleryItemView: View {
     let width: Double
     let height: Double
     let item: GalleryItem
-
+    
     @EnvironmentObject var dataModel: ViewModel
     @State var image: UIImage?
-
+    
     var body: some View {
-        ZStack {
+        Group {
             if let img = image {
                 MagnificationView(size: img.size) {
-                    Image(uiImage: img)
-                        .resizable()
-                        .scaledToFit()
+                    ZStack {
+                        Image(uiImage: img)
+                            .resizable()
+                            .scaledToFit()
+                        
+                        PDFTextAnnotation(
+                            position: (x: 100, y: 200),
+                            size: CGSize(width: 100, height: 40)
+                        )
+                            .position(x: 100, y: 200)
+                    }.frame(width: img.size.width, height: img.size.height, alignment: .center)
                 }
             } else {
                 ProgressView()
@@ -26,7 +34,7 @@ struct GalleryItemView: View {
 #endif
                 return
             }
-
+            
             let img = await dataModel.fetchImageAt(page: item.pageNumber)
             Task { @MainActor in
                 image = img
