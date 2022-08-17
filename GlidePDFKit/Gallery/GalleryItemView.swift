@@ -12,17 +12,19 @@ struct GalleryItemView: View {
         ZStack {
             if let img = image {
                 MagnificationView(size: img.size) {
-                    Image(uiImage: img)
-                        .resizable()
-                        .scaledToFit()
+                    ZStack {
+                        Image(uiImage: img)
+                            .resizable()
+                            .scaledToFit()
+                        if let anotationArray = item.anotationArray {
+                            ForEach(anotationArray) { item in
+                                ImageAnotationView(model: item).position(CGPoint(x: item.x, y: item.y))
+                            }
+                        }
+                    }
                 }
             } else {
                 ProgressView()
-            }
-            if let anotationArray = item.anotationArray {
-                ForEach(anotationArray) { item in
-                    ImageAnotationView(model: item).position(CGPoint(x: item.x, y: item.y))
-                }
             }
         }.task {
             guard image == nil else {
