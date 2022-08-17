@@ -109,7 +109,7 @@ class ViewController: UIViewController {
         switch button.actionType {
         case .addImageAnnotation: galleryEntry?.addAnotations(type: .Image)
         case .removeAnnotation: galleryEntry?.addAnotations(type: .Image)
-        case .addTextAnnotation: galleryEntry?.addAnotations(type: .Text)
+        case .addTextAnnotation: galleryEntry?.addAnotations(type: .Image)
         }
 
     }

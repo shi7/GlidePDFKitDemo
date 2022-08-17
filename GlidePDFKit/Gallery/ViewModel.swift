@@ -44,6 +44,7 @@ class ViewModel: ObservableObject {
     func addAnotations(anotations: [AnotationModel], page: Int) {
         guard let galleryItem = items[safe: page] else { return }
         galleryItem.anotationArray?.append(contentsOf: anotations)
+        items[page] = galleryItem
     }
 }
 

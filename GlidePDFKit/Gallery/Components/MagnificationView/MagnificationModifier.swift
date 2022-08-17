@@ -53,7 +53,7 @@ public struct MagnificationModifier: ViewModifier {
                     reset()
                 }
         }
-        .background(Color.black)
+        .background(Color.white)
         .edgesIgnoringSafeArea(.all)
     }
     
