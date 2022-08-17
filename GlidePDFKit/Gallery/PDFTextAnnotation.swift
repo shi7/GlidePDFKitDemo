@@ -9,19 +9,19 @@ import SwiftUI
 
 struct PDFTextAnnotation: View {
     private let size: CGSize
-    private let position: Position
+    private let position: CGPoint
     private let pageNum: Int
-    
+
     @State private var offset = CGSize.zero
-    
+
     @EnvironmentObject var dataModel: ViewModel
-    
-    init(position: Position, size: CGSize, pageNum: Int) {
+
+    init(position: CGPoint, size: CGSize, pageNum: Int) {
         self.position = position
         self.size = size
         self.pageNum = pageNum
     }
-    
+
     var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
@@ -31,16 +31,14 @@ struct PDFTextAnnotation: View {
                 )
             }
             .onEnded { value in
-                let translation = value.translation
                 dataModel.updateItemPosition(
                     pageNum: pageNum,
-                    position: Position(
-                        position.x + translation.width,
-                        position.y + translation.height)
+                    position: CGPoint(x: position.x + offset.width, y: position.y + offset.height)
                 )
+                offset = CGSize.zero
             }
     }
-    
+
     var body: some View {
         Text("Text")
             .frame(width: size.width, height: size.height)
