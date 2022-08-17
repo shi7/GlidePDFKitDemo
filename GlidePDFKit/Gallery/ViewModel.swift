@@ -24,8 +24,8 @@ class ViewModel: ObservableObject {
             // --  TEST CODE
             let galleryItem = GalleryItem()
             galleryItem.pageNumber = pageNum
-            var model = AnotationModel(x: 100, y: 100, w: 200, h: 100, type: .Image)
-            model.image = Image("draw")
+            var model = AnotationModel(x:  UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2, w: 200, h: 100, type: .Image)
+            model.image = UIImage(named: "plus")
             galleryItem.anotationArray = [model]
             // --  TEST CODE
 
@@ -43,7 +43,7 @@ class ViewModel: ObservableObject {
 
     func addAnotations(anotations: [AnotationModel], page: Int) {
         guard let galleryItem = items[safe: page] else { return }
-        galleryItem.anotationArray = anotations
+        galleryItem.anotationArray?.append(contentsOf: anotations)
     }
 }
 

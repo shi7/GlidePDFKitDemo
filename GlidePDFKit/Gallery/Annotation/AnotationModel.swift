@@ -11,13 +11,14 @@ import SwiftUI
 struct AnotationModel: Identifiable {
     var id = UUID()
 
-    var x : CGFloat
-    var y : CGFloat
-    var w : CGFloat
-    var h : CGFloat
+    var x: CGFloat
+    var y: CGFloat
+    var w: CGFloat
+    var h: CGFloat
+//    var location: CGPoint
 
     var type : AnotationType
-    var image : Image?
+    var image : UIImage?
 }
 
 enum AnotationType {

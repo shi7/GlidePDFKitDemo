@@ -20,7 +20,7 @@ struct GalleryEntry: View {
     func addAnotations(type: AnotationType) {
         var model = AnotationModel(x: 100, y: 100, w: 200, h: 100, type: type)
         if type == .Image {
-            model.image = Image("draw")
+            model.image = UIImage(named: "draw")
         }
         self.dataModel.addAnotations(anotations: [model], page: 0)
     }
