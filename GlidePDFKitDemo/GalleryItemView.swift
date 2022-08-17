@@ -18,7 +18,11 @@ struct GalleryItemView: View {
                             .scaledToFit()
                         if let anotationArray = item.anotationArray {
                             ForEach(anotationArray) { item in
-                                ImageAnotationView(model: item).position(CGPoint(x: item.x, y: item.y))
+                                if item.type == .Image {
+                                    GlidePDFKitImageAnnotationView(model: item).position(item.location)
+                                } else {
+
+                                }
                             }
                         }
                     }

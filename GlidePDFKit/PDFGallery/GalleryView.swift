@@ -15,6 +15,7 @@ struct GalleryView: View {
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .onChange(of: activePage, perform: { index in
                 print("new page \(index)")
+                dataModel.updateActivePage(index)
             })
         }
     }

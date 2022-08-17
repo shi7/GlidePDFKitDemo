@@ -18,11 +18,11 @@ struct GalleryEntry: View {
     }
 
     func addAnotations(type: AnotationType) {
-        var model = AnotationModel(x: 150, y: 210, w: 200, h: 100, type: type)
+        var model = GlidePDFKitAnotationModel(location: CGPoint(x: 150, y: 210), width: 200, height: 100, type: type)
         if type == .Image {
             model.image = UIImage(named: "draw")
         }
-        self.dataModel.addAnotations(anotations: [model], page: 0)
+        self.dataModel.addAnotations(anotations: [model])
     }
 
     var body: some View {
