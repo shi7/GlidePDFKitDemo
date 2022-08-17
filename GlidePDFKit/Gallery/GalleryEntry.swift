@@ -10,13 +10,21 @@ import SwiftUI
 struct GalleryEntry: View {
     var pages: Int = 0
     var imgFetcher: ImageFetcher
-    @StateObject var dataModel = ViewModel()
+    @ObservedObject var dataModel = ViewModel()
 
     init(pages: Int, fetcher: ImageFetcher) {
         self.pages = pages
         self.imgFetcher = fetcher
     }
-    
+
+    func addAnotations(type: AnotationType) {
+        var model = AnotationModel(x: 100, y: 100, w: 200, h: 100, type: type)
+        if type == .Image {
+            model.image = Image("draw")
+        }
+        self.dataModel.addAnotations(anotations: [model], page: 0)
+    }
+
     var body: some View {
         GalleryView()
         .environmentObject(dataModel)

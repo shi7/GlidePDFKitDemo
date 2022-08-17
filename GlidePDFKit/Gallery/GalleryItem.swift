@@ -1,12 +1,7 @@
 import SwiftUI
 
-struct GalleryItem: Identifiable {
+class GalleryItem: ObservableObject,Identifiable {
     let id = UUID()
-    let pageNumber: Int
-}
-
-extension GalleryItem: Equatable {
-    static func ==(lhs: GalleryItem, rhs: GalleryItem) -> Bool {
-        return lhs.id == rhs.id && lhs.id == rhs.id
-    }
+    var pageNumber: Int = 0
+    var anotationArray: [AnotationModel]?
 }

@@ -19,6 +19,11 @@ struct GalleryItemView: View {
             } else {
                 ProgressView()
             }
+            if let anotationArray = item.anotationArray {
+                ForEach(anotationArray) { item in
+                    ImageAnotationView(model: item).position(CGPoint(x: item.x, y: item.y))
+                }
+            }
         }.task {
             guard image == nil else {
 #if DEBUG

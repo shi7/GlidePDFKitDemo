@@ -11,6 +11,7 @@ import SwiftUI
 
 class ViewController: UIViewController {
     let pdfLoader = PDFLoader()
+    var galleryEntry: GalleryEntry?
     let pdfContainer = UIView()
     let loadPDFFromFileButton: UIButton = {
         let button = UIButton()
@@ -89,7 +90,7 @@ class ViewController: UIViewController {
         bottomStack.distribution = .fillEqually
 
         bottomStack.backgroundColor = .lightGray
-        let buttonActions: [BottomButtonActions] = [.removeAnnotion,.addAnnotion,.addPoint]
+        let buttonActions: [BottomButtonActions] = [.removeAnnotation,.addImageAnnotation,.addTextAnnotation]
         for type in buttonActions {
             let button = BottomButton(frame: CGRect.zero, actionType: type)
             button.addTarget(self, action: #selector(didTapBottomAction), for: .touchUpInside)
@@ -105,6 +106,12 @@ class ViewController: UIViewController {
 
     @objc private func didTapBottomAction(button:BottomButton) {
         print("\(button.actionType)")
+        switch button.actionType {
+        case .addImageAnnotation: galleryEntry?.addAnotations(type: .Image)
+        case .removeAnnotation: galleryEntry?.addAnotations(type: .Image)
+        case .addTextAnnotation: galleryEntry?.addAnotations(type: .Text)
+        }
+
     }
 }
 
@@ -127,8 +134,8 @@ extension ViewController: PDFDelegate {
     }
     
     func setupGallery() {
-        let galleryVC = UIHostingController(rootView: GalleryEntry(pages: pdfLoader.totalPages(), fetcher: pdfLoader))
-        
+        galleryEntry = GalleryEntry(pages: pdfLoader.totalPages(), fetcher: pdfLoader)
+        let galleryVC = UIHostingController(rootView: galleryEntry)
         if let gallery = galleryVC.view {
             gallery.contentMode = .scaleAspectFit
             pdfContainer.addSubview(gallery)

@@ -8,15 +8,15 @@
 import UIKit
 
 enum BottomButtonActions {
-    case addAnnotion
-    case removeAnnotion
-    case addPoint
+    case addImageAnnotation
+    case addTextAnnotation
+    case removeAnnotation
 
     var image: UIImage? {
         switch self {
-        case .addAnnotion: return UIImage(named: "draw")
-        case .removeAnnotion: return UIImage(named: "delete")
-        case .addPoint: return UIImage(named: "plus")
+        case .addImageAnnotation: return UIImage(named: "draw")
+        case .removeAnnotation: return UIImage(named: "delete")
+        case .addTextAnnotation: return UIImage(named: "plus")
         }
     }
 }

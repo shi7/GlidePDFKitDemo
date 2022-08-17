@@ -1,6 +1,11 @@
 import Foundation
-import UIKit
 import SwiftUI
+
+extension Collection {
+    subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
 
 class ViewModel: ObservableObject {
     @Published var items: [GalleryItem] = []
@@ -15,7 +20,16 @@ class ViewModel: ObservableObject {
         }
         
         for pageNum in 1...pages {
-            items.append(GalleryItem(pageNumber: pageNum))
+
+            // --  TEST CODE
+            let galleryItem = GalleryItem()
+            galleryItem.pageNumber = pageNum
+            var model = AnotationModel(x: 100, y: 100, w: 200, h: 100, type: .Image)
+            model.image = Image("draw")
+            galleryItem.anotationArray = [model]
+            // --  TEST CODE
+
+            items.append(galleryItem)
         }
     }
     
@@ -25,6 +39,11 @@ class ViewModel: ObservableObject {
 #endif
         
         return await fetcher?.fetchAt(page: page)
+    }
+
+    func addAnotations(anotations: [AnotationModel], page: Int) {
+        guard let galleryItem = items[safe: page] else { return }
+        galleryItem.anotationArray = anotations
     }
 }
 
