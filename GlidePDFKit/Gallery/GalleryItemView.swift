@@ -18,10 +18,10 @@ struct GalleryItemView: View {
                             .scaledToFit()
                         
                         PDFTextAnnotation(
-                            position: (x: 100, y: 200),
-                            size: CGSize(width: 100, height: 40)
+                            position: item.position,
+                            size: item.size,
+                            pageNum: item.pageNumber
                         )
-                            .position(x: 100, y: 200)
                     }.frame(width: img.size.width, height: img.size.height, alignment: .center)
                 }
             } else {

@@ -26,5 +26,12 @@ class ViewModel: ObservableObject {
         
         return await fetcher?.fetchAt(page: page)
     }
+    
+    func updateItemPosition(pageNum: Int, position: Position) {
+        var item = items[pageNum - 1]
+        item.updatePosition(position: position)
+        items[pageNum - 1] = item
+        print("success")
+    }
 }
 

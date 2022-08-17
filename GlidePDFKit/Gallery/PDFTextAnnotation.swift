@@ -10,12 +10,16 @@ import SwiftUI
 struct PDFTextAnnotation: View {
     private let size: CGSize
     private let position: Position
+    private let pageNum: Int
     
     @State private var offset = CGSize.zero
     
-    init(position: Position, size: CGSize) {
+    @EnvironmentObject var dataModel: ViewModel
+    
+    init(position: Position, size: CGSize, pageNum: Int) {
         self.position = position
         self.size = size
+        self.pageNum = pageNum
     }
     
     var dragGesture: some Gesture {
@@ -24,6 +28,15 @@ struct PDFTextAnnotation: View {
                 offset = CGSize(
                     width: value.startLocation.x + value.translation.width - size.width/2,
                     height: value.startLocation.y + value.translation.height - size.height/2
+                )
+            }
+            .onEnded { value in
+                let translation = value.translation
+                dataModel.updateItemPosition(
+                    pageNum: pageNum,
+                    position: Position(
+                        position.x + translation.width,
+                        position.y + translation.height)
                 )
             }
     }
@@ -35,14 +48,15 @@ struct PDFTextAnnotation: View {
             .foregroundColor(.red)
             .offset(offset)
             .gesture(dragGesture)
+            .position(x: position.x, y: position.y)
     }
 }
 
 typealias Position = (x: CGFloat, y: CGFloat)
+typealias OnDragEnd = (CGFloat, CGFloat) -> Void
 
 struct PDFTextAnnotation_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-        }
+        Group {}
     }
 }
