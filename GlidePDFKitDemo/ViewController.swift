@@ -107,9 +107,9 @@ class ViewController: UIViewController {
     @objc private func didTapBottomAction(button:BottomButton) {
         print("\(button.actionType)")
         switch button.actionType {
-        case .addImageAnnotation: galleryEntry?.addAnotations(type: .Image)
-        case .removeAnnotation: galleryEntry?.addAnotations(type: .Image)
-        case .addTextAnnotation: galleryEntry?.addAnotations(type: .Image)
+        case .addImageAnnotation: galleryEntry?.addAnotations(type: .image)
+        case .addTextAnnotation: galleryEntry?.addAnotations(type: .text)
+        case .removeAnnotation: galleryEntry?.removeSelectedAnotations()
         }
 
     }

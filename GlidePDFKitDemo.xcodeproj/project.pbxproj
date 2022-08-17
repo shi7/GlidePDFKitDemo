@@ -26,14 +26,15 @@
 		BAF21A5128AB881400A82E80 /* CacheConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF21A5028AB881400A82E80 /* CacheConfig.swift */; };
 		C095582228A4AE5700FA16B9 /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C095582128A4AE5700FA16B9 /* BottomButton.swift */; };
 		C095582528A4B3B000FA16B9 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C095582428A4B3B000FA16B9 /* ViewExtension.swift */; };
-		C0A938D528ACC54500CFC17D /* GlidePDFKitAnotationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A938D328ACC54500CFC17D /* GlidePDFKitAnotationModel.swift */; };
-		C0A938D628ACC54500CFC17D /* GlidePDFKitImageAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A938D428ACC54500CFC17D /* GlidePDFKitImageAnnotationView.swift */; };
+		C0A938D528ACC54500CFC17D /* GlidePDFKitAnnotationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A938D328ACC54500CFC17D /* GlidePDFKitAnnotationModel.swift */; };
+		C0A938D628ACC54500CFC17D /* GlidePDFKitImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A938D428ACC54500CFC17D /* GlidePDFKitImageAnnotation.swift */; };
 		C0EFC35528A4987E0084A4AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EFC35428A4987E0084A4AA /* AppDelegate.swift */; };
 		C0EFC35728A4987E0084A4AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EFC35628A4987E0084A4AA /* SceneDelegate.swift */; };
 		C0EFC35928A4987E0084A4AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EFC35828A4987E0084A4AA /* ViewController.swift */; };
 		C0EFC35E28A498800084A4AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0EFC35D28A498800084A4AA /* Assets.xcassets */; };
 		C0EFC36128A498800084A4AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0EFC35F28A498800084A4AA /* LaunchScreen.storyboard */; };
 		C0EFC36A28A499E30084A4AA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C0EFC36928A499E30084A4AA /* SnapKit */; };
+		C73CF82528AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */; };
 		D620CE8928A9ED10002285EA /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D620CE8828A9ED10002285EA /* ImageFetcher.swift */; };
 		D620CE9228AB81A6002285EA /* MagnificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D620CE9128AB81A6002285EA /* MagnificationView.swift */; };
 		D620CE9428AB81C9002285EA /* MagnificationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D620CE9328AB81C9002285EA /* MagnificationModifier.swift */; };
@@ -65,8 +66,8 @@
 		BAF21A5028AB881400A82E80 /* CacheConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheConfig.swift; sourceTree = "<group>"; };
 		C095582128A4AE5700FA16B9 /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
 		C095582428A4B3B000FA16B9 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
-		C0A938D328ACC54500CFC17D /* GlidePDFKitAnotationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlidePDFKitAnotationModel.swift; sourceTree = "<group>"; };
-		C0A938D428ACC54500CFC17D /* GlidePDFKitImageAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlidePDFKitImageAnnotationView.swift; sourceTree = "<group>"; };
+		C0A938D328ACC54500CFC17D /* GlidePDFKitAnnotationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlidePDFKitAnnotationModel.swift; sourceTree = "<group>"; };
+		C0A938D428ACC54500CFC17D /* GlidePDFKitImageAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlidePDFKitImageAnnotation.swift; sourceTree = "<group>"; };
 		C0EFC35128A4987E0084A4AA /* GlidePDFKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlidePDFKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0EFC35428A4987E0084A4AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0EFC35628A4987E0084A4AA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 		C0EFC35D28A498800084A4AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0EFC36028A498800084A4AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0EFC36228A498800084A4AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlidePDFKitTextAnnotation.swift; sourceTree = "<group>"; };
 		D620CE8828A9ED10002285EA /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		D620CE9128AB81A6002285EA /* MagnificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnificationView.swift; sourceTree = "<group>"; };
 		D620CE9328AB81C9002285EA /* MagnificationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnificationModifier.swift; sourceTree = "<group>"; };
@@ -170,8 +172,9 @@
 		C0A938D228ACC54500CFC17D /* Annotation */ = {
 			isa = PBXGroup;
 			children = (
-				C0A938D328ACC54500CFC17D /* GlidePDFKitAnotationModel.swift */,
-				C0A938D428ACC54500CFC17D /* GlidePDFKitImageAnnotationView.swift */,
+				C0A938D328ACC54500CFC17D /* GlidePDFKitAnnotationModel.swift */,
+				C0A938D428ACC54500CFC17D /* GlidePDFKitImageAnnotation.swift */,
+				C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */,
 			);
 			path = Annotation;
 			sourceTree = "<group>";
@@ -203,7 +206,6 @@
 				C095582328A4B39A00FA16B9 /* Extension */,
 				C095582028A4AE3900FA16B9 /* Views */,
 				C0EFC35D28A498800084A4AA /* Assets.xcassets */,
-				D62AF1B928A535FA002E0D73 /* GalleryItemView.swift */,
 				C0EFC35F28A498800084A4AA /* LaunchScreen.storyboard */,
 				C0EFC36228A498800084A4AA /* Info.plist */,
 			);
@@ -236,6 +238,7 @@
 				D62AF1DE28A536A9002E0D73 /* Components */,
 				D62AF1B628A535FA002E0D73 /* ViewModel.swift */,
 				D62AF1B428A535FA002E0D73 /* GalleryEntry.swift */,
+				D62AF1B928A535FA002E0D73 /* GalleryItemView.swift */,
 				D62AF1B728A535FA002E0D73 /* GalleryView.swift */,
 				D62AF1B828A535FA002E0D73 /* GalleryItem.swift */,
 				D620CE8828A9ED10002285EA /* ImageFetcher.swift */,
@@ -337,8 +340,9 @@
 				BA8FBE1628A5FDE600F8E84D /* PdfProcessor.swift in Sources */,
 				BA8FBE0328A4AE7400F8E84D /* PDFLoader.swift in Sources */,
 				BA8FBE1E28A668F600F8E84D /* ImageProcessor.swift in Sources */,
-				C0A938D528ACC54500CFC17D /* GlidePDFKitAnotationModel.swift in Sources */,
+				C0A938D528ACC54500CFC17D /* GlidePDFKitAnnotationModel.swift in Sources */,
 				BA8FBE0928A5E6E300F8E84D /* PDFDelegate.swift in Sources */,
+				C73CF82528AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift in Sources */,
 				BAF21A4D28AB86BD00A82E80 /* DiskCache.swift in Sources */,
 				D62AF1BE28A535FA002E0D73 /* GalleryItemView.swift in Sources */,
 				BAF21A4F28AB87C200A82E80 /* LinkedList.swift in Sources */,
@@ -351,7 +355,7 @@
 				D620CE9428AB81C9002285EA /* MagnificationModifier.swift in Sources */,
 				C095582228A4AE5700FA16B9 /* BottomButton.swift in Sources */,
 				BA8FBE0B28A5EF2200F8E84D /* PDFError.swift in Sources */,
-				C0A938D628ACC54500CFC17D /* GlidePDFKitImageAnnotationView.swift in Sources */,
+				C0A938D628ACC54500CFC17D /* GlidePDFKitImageAnnotation.swift in Sources */,
 				BA8FBE1128A5FC5600F8E84D /* ProcessorProtocol.swift in Sources */,
 				C0EFC35728A4987E0084A4AA /* SceneDelegate.swift in Sources */,
 				C095582528A4B3B000FA16B9 /* ViewExtension.swift in Sources */,

@@ -26,7 +26,7 @@ class ViewModel: ObservableObject {
             let galleryItem = GalleryItem()
             galleryItem.pageNumber = pageNum
 
-            var model = GlidePDFKitAnotationModel(location:CGPoint(x: UIScreen.main.bounds.width/2, y:     UIScreen.main.bounds.height/2) , width: 200, height: 100, type: .Image)
+            var model = GlidePDFKitAnotationModel(location:CGPoint(x: UIScreen.main.bounds.width/2, y:     UIScreen.main.bounds.height/2) , width: 200, height: 100, type: .image)
             model.image = UIImage(named: "plus")
             galleryItem.anotationArray = [model]
             // --  TEST CODE
@@ -42,8 +42,32 @@ class ViewModel: ObservableObject {
         return await fetcher?.fetchAt(page: page)
     }
 
+    func addNewAnotation(type: GlidePDFKitAnotationType) {
+        var model = GlidePDFKitAnotationModel(location: CGPoint(x: 150, y: 210), width: 150, height: 40, type: type)
+        if type == .image {
+            model.image = UIImage(named: "draw")
+        } else if type == .text {
+            model.text = "text annotation"
+        }
+        addAnotations(anotations: [model], page: activePage)
+    }
+
     func addAnotations(anotations: [GlidePDFKitAnotationModel]) {
         addAnotations(anotations: anotations, page: activePage)
+    }
+
+    func updateAnotations(anotations: GlidePDFKitAnotationModel) {
+        guard let galleryItem = items[safe: (activePage - 1)],
+              let anotationArray = galleryItem.anotationArray else {
+                  return
+              }
+        galleryItem.anotationArray = anotationArray.map {
+            if anotations.id == $0.id {
+                return anotations
+            }
+            return $0
+        }
+
     }
 
     func addAnotations(anotations: [GlidePDFKitAnotationModel], page: Int) {
@@ -56,6 +80,19 @@ class ViewModel: ObservableObject {
         activePage = newActivePage
     }
 
+    func removeSelectedAnotations() {
+        removeSelectedAnotations(page: activePage)
+    }
 
+    func removeSelectedAnotations(page:Int) {
+        guard let galleryItem = items[safe: (page - 1)],
+              let anotationArray = galleryItem.anotationArray else {
+                  return
+              }
+        galleryItem.anotationArray = anotationArray.filter { anotationModel in
+            return !anotationModel.isSelected
+        }
+        items[page - 1] = galleryItem
+    }
 }
 
