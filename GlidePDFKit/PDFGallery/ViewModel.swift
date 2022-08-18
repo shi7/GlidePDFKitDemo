@@ -9,14 +9,13 @@ private extension Collection {
 
 class ViewModel: ObservableObject {
     @Published var items: [GalleryItem] = []
+    @Published var activePage: Int = 1
     var fetcher: ImageFetcher?
-    var activePage: Int = 1
 
     func setPages(pages: Int) {
         guard pages > 0 else {
-            #if DEBUG
-                print("pages less than 0, may something wrong!")
-            #endif
+            // MARK: Debug
+            print("pages less than 0, may something wrong!")
             return
         }
 
@@ -35,9 +34,8 @@ class ViewModel: ObservableObject {
     }
 
     func fetchImageAt(page: Int) async -> UIImage? {
-        #if DEBUG
-            print("try to fetch image at page: \(page)")
-        #endif
+        // MARK: Debug
+        print("try to fetch image at page: \(page)")
         return await fetcher?.fetchAt(page: page)
     }
 

@@ -5,7 +5,7 @@ struct GalleryView: View {
     @State var activePage: Int = 1
     var body: some View {
         GeometryReader { geo in
-            VTabView(selection: $activePage) {
+            VTabView(selection: $dataModel.activePage) {
                 ForEach(dataModel.items) { item in
                     GalleryItemView(width: geo.size.width, height: geo.size.height, item: item)
                         .aspectRatio(1, contentMode: .fit)
@@ -13,9 +13,9 @@ struct GalleryView: View {
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .onChange(of: activePage, perform: { index in
+            .onChange(of: dataModel.activePage, perform: { index in
+                // MARK: Debug
                 print("new page \(index)")
-                dataModel.updateActivePage(index)
             })
         }
     }

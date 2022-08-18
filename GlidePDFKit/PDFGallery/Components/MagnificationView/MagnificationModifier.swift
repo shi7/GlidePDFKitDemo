@@ -5,18 +5,19 @@
 //  Created by Wenjuan Li on 2022/8/16.
 //
 
+import Foundation
 import SwiftUI
 
 public struct MagnificationModifier: ViewModifier {
     @State var scale: CGFloat = 1
-    @State var scaleAnchor: UnitPoint = .center
     @State var lastScale: CGFloat = 1
     @State var offset: CGSize = .zero
     @State var lastOffset: CGSize = .zero
     @State var debug = ""
+    @EnvironmentObject var dataModel: ViewModel
 
     private var contentSize: CGSize
-
+    
     init(size: CGSize) {
         contentSize = size
     }
@@ -25,29 +26,49 @@ public struct MagnificationModifier: ViewModifier {
         GeometryReader { geometry in
             let magnificationGesture = MagnificationGesture()
                 .onChanged { gesture in
-                    scaleAnchor = .center
                     scale = lastScale * gesture
                 }
                 .onEnded { _ in
-                    fixOffsetAndScale(geometry: geometry, content: content)
+                    fixScale(geometry: geometry, content: content)
                 }
 
             let dragGesture = DragGesture()
                 .onChanged { gesture in
                     var newOffset = lastOffset
-                    newOffset.width += gesture.translation.width
+                    if scale - 1 > Constants.scalePrecision {
+                        newOffset.width += gesture.translation.width
+                    }
                     newOffset.height += gesture.translation.height
                     offset = newOffset
                 }
-                .onEnded { _ in
-                    fixOffsetAndScale(geometry: geometry, content: content)
+                .onEnded { value in
+                    let velocity = CGSize(
+                        width: value.predictedEndLocation.x - value.location.x,
+                        height: value.predictedEndLocation.y - value.location.y
+                    )
+                    // MARK: Debug
+                    print("velocity height \(velocity.height)")
+                    
+                    if velocity.height > Constants.scrollDistance {
+                        withAnimation {
+                            dataModel.activePage -= 1
+                        }
+                    }else if velocity.height < -Constants.scrollDistance {
+                        withAnimation {
+                            dataModel.activePage += 1
+                        }
+                    }else {
+                        fixOffset(geometry: geometry, content: content)
+                    }
+                    
+                    // MARK: Debug
+                    print("active page \(dataModel.activePage)")
                 }
 
             content
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                .scaleEffect(scale, anchor: scaleAnchor)
+                .scaleEffect(scale, anchor: .center)
                 .offset(offset)
-                .onTapGesture {}
                 .gesture(ExclusiveGesture(dragGesture, magnificationGesture))
                 .onAppear {
                     reset()
@@ -56,7 +77,16 @@ public struct MagnificationModifier: ViewModifier {
         .background(Color.white)
         .edgesIgnoringSafeArea(.all)
     }
+}
 
+extension MagnificationModifier {
+    private enum Constants {
+        static let scrollDistance: CGFloat = 6000
+        static let scalePrecision: CGFloat =  0.001
+        static let minScale: CGFloat = 1
+        static let maxScale: CGFloat = 4
+    }
+    
     private func reset() {
         scale = 1
         lastScale = 1
@@ -64,24 +94,30 @@ public struct MagnificationModifier: ViewModifier {
         lastOffset = .zero
     }
 
-    private func fixOffsetAndScale(geometry: GeometryProxy, content _: Content) {
-        let newScale: CGFloat = .minimum(.maximum(scale, 1), 4)
-        let screenSize = geometry.size
-
+    private func fixScale(geometry: GeometryProxy, content _: Content) {
+        let newScale: CGFloat = .minimum(.maximum(scale, Constants.minScale), Constants.maxScale)
+        lastScale = newScale
+        withAnimation {
+            scale = newScale
+        }
+    }
+    
+    private func fixOffset(geometry: GeometryProxy, content _: Content) {
+        let containerSize = geometry.size
         let contentWidth = contentSize.width
         let contentHeight = contentSize.height
-        let containerWidth = geometry.size.width
-        let containerHeight = geometry.size.height
+        let containerWidth = containerSize.width
+        let containerHeight = containerSize.height
 
         let originalScale = contentWidth / contentHeight >= containerWidth / containerHeight ?
             containerWidth / contentWidth :
             containerHeight / contentHeight
 
-        let contentScaleWidth = (contentWidth * originalScale) * newScale
+        let contentScaleWidth = (contentWidth * originalScale) * scale
 
         var width: CGFloat = .zero
         if contentScaleWidth > containerWidth {
-            let widthLimit: CGFloat = contentScaleWidth > screenSize.width ?
+            let widthLimit: CGFloat = contentScaleWidth > containerWidth ?
                 (contentScaleWidth - containerWidth) / 2
                 : 0
 
@@ -90,7 +126,7 @@ public struct MagnificationModifier: ViewModifier {
                 .maximum(-widthLimit, offset.width)
         }
 
-        let contentScaleHeight = (contentHeight * originalScale) * newScale
+        let contentScaleHeight = (contentHeight * originalScale) * scale
         var height: CGFloat = .zero
         if contentScaleHeight > containerHeight {
             let heightLimit: CGFloat = contentScaleHeight > containerHeight ?
@@ -103,11 +139,9 @@ public struct MagnificationModifier: ViewModifier {
         }
 
         let newOffset = CGSize(width: width, height: height)
-        lastScale = newScale
         lastOffset = newOffset
         withAnimation {
             offset = newOffset
-            scale = newScale
         }
     }
 }

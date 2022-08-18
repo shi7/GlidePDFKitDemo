@@ -1,6 +1,6 @@
 //
 //  VTabView.swift
-//  pdfAnnotation
+//  GlidePDFKitDemo
 //
 //  Created by Wenjuan Li on 2022/8/10.
 //
