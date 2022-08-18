@@ -16,18 +16,20 @@ class ViewController: UIViewController {
     let loadPDFFromFileButton: UIButton = {
         let button = UIButton()
         button.setTitle("Read from file", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
-        button.backgroundColor = UIColor.green
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .lightGray
         button.addTarget(self, action: #selector(loadPDFFromFile), for: .touchUpInside)
+        button.layer.cornerRadius = 8
         return button
     }()
 
     let loadPDFFromURLButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Read from url", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
-        button.backgroundColor = UIColor.green
+        button.setTitle("Read from URL", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .lightGray
         button.addTarget(self, action: #selector(loadPDFFromURL), for: .touchUpInside)
+        button.layer.cornerRadius = 8
         return button
     }()
 
@@ -51,14 +53,14 @@ class ViewController: UIViewController {
         }
 
         view.addSubview(loadPDFFromFileButton) { make in
-            make.leading.equalToSuperview()
+            make.centerX.equalToSuperview().offset(-85)
             make.top.equalToSuperview().offset(40)
             make.width.equalTo(150)
             make.height.equalTo(40)
         }
 
         view.addSubview(loadPDFFromURLButton) { make in
-            make.trailing.equalToSuperview()
+            make.left.equalTo(loadPDFFromFileButton.snp.right).offset(20)
             make.top.equalToSuperview().offset(40)
             make.width.equalTo(150)
             make.height.equalTo(40)
@@ -91,7 +93,7 @@ class ViewController: UIViewController {
         bottomStack.distribution = .fillEqually
 
         bottomStack.backgroundColor = .lightGray
-        let buttonActions: [BottomButtonActions] = [.removeAnnotation, .addImageAnnotation, .addTextAnnotation]
+        let buttonActions: [BottomButtonActions] = [.removeAnnotation, .addImageAnnotation, .addTextAnnotation, .updateAnnotation]
         for type in buttonActions {
             let button = BottomButton(frame: CGRect.zero, actionType: type)
             button.addTarget(self, action: #selector(didTapBottomAction), for: .touchUpInside)
@@ -111,6 +113,7 @@ class ViewController: UIViewController {
         case .addImageAnnotation: galleryEntry?.addAnotations(type: .image)
         case .addTextAnnotation: galleryEntry?.addAnotations(type: .text)
         case .removeAnnotation: galleryEntry?.removeSelectedAnotations()
+        case .updateAnnotation: galleryEntry?.removeSelectedAnotations()
         }
     }
 }

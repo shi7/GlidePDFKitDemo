@@ -10,6 +10,7 @@ struct GlidePDFKitAnnotationModel: Identifiable {
     var image: UIImage?
     var text = ""
     var isSelected: Bool = false
+    var backgroundColor: Color = .gray
 }
 
 enum GlidePDFKitAnotationType {

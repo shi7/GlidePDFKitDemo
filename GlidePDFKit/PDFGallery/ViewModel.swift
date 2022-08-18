@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-extension Collection {
+private extension Collection {
     subscript(safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
@@ -25,7 +25,7 @@ class ViewModel: ObservableObject {
             let galleryItem = GalleryItem()
             galleryItem.pageNumber = pageNum
 
-            var model = GlidePDFKitAnnotationModel(location: CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2), width: 200, height: 100, type: .image)
+            var model = GlidePDFKitAnnotationModel(location: CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2), width: 70, height: 30, type: .image)
             model.image = UIImage(named: "plus")
             galleryItem.anotationArray = [model]
             // --  TEST CODE
@@ -45,6 +45,7 @@ class ViewModel: ObservableObject {
         var model = GlidePDFKitAnnotationModel(location: CGPoint(x: 150, y: 210), width: 150, height: 40, type: type)
         if type == .image {
             model.image = UIImage(named: "draw")
+            model.width = 60
         } else if type == .text {
             model.text = "text annotation"
         }
@@ -55,24 +56,19 @@ class ViewModel: ObservableObject {
         addAnotations(anotations: anotations, page: activePage)
     }
 
-    func updateAnotations(anotation: GlidePDFKitAnnotationModel) {
-        guard let galleryItem = items[safe: activePage - 1],
-              let anotationArray = galleryItem.anotationArray
-        else {
-            return
-        }
-        galleryItem.anotationArray = anotationArray.map {
-            if anotation.id == $0.id {
-                return anotation
-            }
-            return $0
-        }
-    }
-
     func addAnotations(anotations: [GlidePDFKitAnnotationModel], page: Int) {
         guard let galleryItem = items[safe: page - 1] else { return }
         galleryItem.anotationArray?.append(contentsOf: anotations)
         items[page - 1] = galleryItem
+    }
+
+    func updateAnotations(anotation: GlidePDFKitAnnotationModel, isNewSelected: Bool = false) {
+        guard let galleryItem = items[safe: activePage - 1],
+              let anotationArray = galleryItem.anotationArray else { return }
+        galleryItem.anotationArray = anotationArray.map {
+            if anotation.id == $0.id { return anotation }
+            return $0
+        }
     }
 
     func updateActivePage(_ newActivePage: Int) {
@@ -85,10 +81,9 @@ class ViewModel: ObservableObject {
 
     func removeSelectedAnotations(page: Int) {
         guard let galleryItem = items[safe: page - 1],
-              let anotationArray = galleryItem.anotationArray
-        else {
-            return
-        }
+              let anotationArray = galleryItem.anotationArray else {
+                  return
+              }
         galleryItem.anotationArray = anotationArray.filter { anotationModel in
             !anotationModel.isSelected
         }

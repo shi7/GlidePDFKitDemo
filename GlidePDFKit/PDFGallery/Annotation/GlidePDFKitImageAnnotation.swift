@@ -11,15 +11,17 @@ struct GlidePDFKitImageAnnotation: View {
 
         return Button(action: {
             model.isSelected.toggle()
-            dataModel.updateAnotations(anotation: model)
+            dataModel.updateAnotations(anotation: model,isNewSelected: model.isSelected)
         }) {
             if let image = model.image {
                 Image(uiImage: image)
-                    .border(.orange, width: model.isSelected ? 1 : 0)
             }
         }
-        .frame(width: 200, height: 100)
+        .frame(width: model.width, height: model.height)
+        .border(.blue, width: model.isSelected ? 2 : 0)
+        .background(model.backgroundColor)
         .position(model.location)
         .highPriorityGesture(dragGesture)
+        .buttonStyle(GlidePDFKitButtonStyle())
     }
 }

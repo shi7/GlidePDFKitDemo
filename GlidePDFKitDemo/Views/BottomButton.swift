@@ -11,12 +11,14 @@ enum BottomButtonActions {
     case addImageAnnotation
     case addTextAnnotation
     case removeAnnotation
+    case updateAnnotation
 
     var image: UIImage? {
         switch self {
-        case .addImageAnnotation: return UIImage(named: "draw")
+        case .addImageAnnotation: return UIImage(named: "plus")
         case .removeAnnotation: return UIImage(named: "delete")
-        case .addTextAnnotation: return UIImage(named: "plus")
+        case .addTextAnnotation: return UIImage(named: "draw")
+        case .updateAnnotation: return UIImage(named: "floodway")
         }
     }
 }
