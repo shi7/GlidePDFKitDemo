@@ -37,7 +37,7 @@ struct GalleryItemView: View {
                 return
             }
 
-            let img = await dataModel.fetchImageAt(page: item.pageNumber)
+            let img = dataModel.fetchImageAt(page: item.pageNumber)
             Task { @MainActor in
                 image = img
             }

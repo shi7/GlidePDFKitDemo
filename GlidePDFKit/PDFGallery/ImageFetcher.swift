@@ -8,5 +8,5 @@
 import UIKit
 
 protocol ImageFetcher {
-    func fetchAt(page: Int) async -> UIImage?
+    func fetchAt(page: Int) -> UIImage?
 }

@@ -36,7 +36,7 @@ class PDFLoader: ImageFetcher {
         processor?.pageCount ?? 0
     }
 
-    func fetchAt(page: Int) async -> UIImage? {
+    func fetchAt(page: Int) -> UIImage? {
         processor?.loadPageAt(page)?.image
     }
 }

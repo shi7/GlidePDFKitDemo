@@ -33,10 +33,10 @@ class ViewModel: ObservableObject {
         }
     }
 
-    func fetchImageAt(page: Int) async -> UIImage? {
+    func fetchImageAt(page: Int) -> UIImage? {
         // MARK: Debug
         print("try to fetch image at page: \(page)")
-        return await fetcher?.fetchAt(page: page)
+        return fetcher?.fetchAt(page: page)
     }
 
     func addNewAnotation(type: GlidePDFKitAnotationType) {
