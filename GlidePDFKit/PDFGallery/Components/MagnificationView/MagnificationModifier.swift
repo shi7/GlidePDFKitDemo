@@ -5,6 +5,7 @@
 //  Created by Wenjuan Li on 2022/8/16.
 //
 
+import Foundation
 import SwiftUI
 
 public struct MagnificationModifier: ViewModifier {
@@ -14,9 +15,10 @@ public struct MagnificationModifier: ViewModifier {
     @State var offset: CGSize = .zero
     @State var lastOffset: CGSize = .zero
     @State var debug = ""
+    @EnvironmentObject var dataModel: ViewModel
 
     private var contentSize: CGSize
-
+    
     init(size: CGSize) {
         contentSize = size
     }
@@ -39,15 +41,33 @@ public struct MagnificationModifier: ViewModifier {
                     newOffset.height += gesture.translation.height
                     offset = newOffset
                 }
-                .onEnded { _ in
-                    fixOffsetAndScale(geometry: geometry, content: content)
+                .onEnded { value in
+                    
+                    let velocity = CGSize(
+                        width: value.predictedEndLocation.x - value.location.x,
+                        height: value.predictedEndLocation.y - value.location.y
+                    )
+                    
+                    print("velocity height \(velocity.height)")
+                    if velocity.height > Constants.scrollDistance {
+                        withAnimation {
+                            dataModel.activePage -= 1
+                        }
+                    }else if velocity.height < -Constants.scrollDistance {
+                        withAnimation {
+                            dataModel.activePage += 1
+                        }
+                    }else {
+                        fixOffsetAndScale(geometry: geometry, content: content)
+                    }
+                    print("active page \(dataModel.activePage)")
                 }
 
             content
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 .scaleEffect(scale, anchor: scaleAnchor)
                 .offset(offset)
-                .onTapGesture {}
+//                .onTapGesture {}
                 .gesture(ExclusiveGesture(dragGesture, magnificationGesture))
                 .onAppear {
                     reset()
@@ -56,7 +76,13 @@ public struct MagnificationModifier: ViewModifier {
         .background(Color.white)
         .edgesIgnoringSafeArea(.all)
     }
+}
 
+extension MagnificationModifier {
+    private enum Constants {
+        static let scrollDistance: CGFloat = 5000
+    }
+    
     private func reset() {
         scale = 1
         lastScale = 1

@@ -9,8 +9,8 @@ extension Collection {
 
 class ViewModel: ObservableObject {
     @Published var items: [GalleryItem] = []
+    @Published var activePage: Int = 1
     var fetcher: ImageFetcher?
-    var activePage: Int = 1
 
     func setPages(pages: Int) {
         guard pages > 0 else {
