@@ -35,7 +35,9 @@ public struct MagnificationModifier: ViewModifier {
             let dragGesture = DragGesture()
                 .onChanged { gesture in
                     var newOffset = lastOffset
-                    newOffset.width += gesture.translation.width
+                    if scale - 1 > Constants.scalePrecision {
+                        newOffset.width += gesture.translation.width
+                    }
                     newOffset.height += gesture.translation.height
                     offset = newOffset
                 }
@@ -44,8 +46,9 @@ public struct MagnificationModifier: ViewModifier {
                         width: value.predictedEndLocation.x - value.location.x,
                         height: value.predictedEndLocation.y - value.location.y
                     )
-                    
+                    // MARK: Debug
                     print("velocity height \(velocity.height)")
+                    
                     if velocity.height > Constants.scrollDistance {
                         withAnimation {
                             dataModel.activePage -= 1
@@ -57,6 +60,8 @@ public struct MagnificationModifier: ViewModifier {
                     }else {
                         fixOffset(geometry: geometry, content: content)
                     }
+                    
+                    // MARK: Debug
                     print("active page \(dataModel.activePage)")
                 }
 
