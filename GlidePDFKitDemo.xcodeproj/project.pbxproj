@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA41FF8B28AF82BD00440A7C /* GalleryEntry2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF7F28AF82BD00440A7C /* GalleryEntry2.swift */; };
+		BA41FF8C28AF82BD00440A7C /* AnnotationActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8128AF82BD00440A7C /* AnnotationActionsView.swift */; };
+		BA41FF8D28AF82BD00440A7C /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8228AF82BD00440A7C /* Icon.swift */; };
+		BA41FF8E28AF82BD00440A7C /* EdgeBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8328AF82BD00440A7C /* EdgeBorder.swift */; };
+		BA41FF8F28AF82BD00440A7C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8428AF82BD00440A7C /* Extension.swift */; };
+		BA41FF9028AF82BD00440A7C /* AnnotationsTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8528AF82BD00440A7C /* AnnotationsTabsView.swift */; };
+		BA41FF9128AF82BD00440A7C /* GeometryGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8628AF82BD00440A7C /* GeometryGetter.swift */; };
+		BA41FF9228AF82BD00440A7C /* Forms_Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8728AF82BD00440A7C /* Forms_Annotation.swift */; };
+		BA41FF9328AF82BD00440A7C /* SwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8828AF82BD00440A7C /* SwiftUIViewController.swift */; };
+		BA41FF9428AF82BD00440A7C /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8928AF82BD00440A7C /* DocumentView.swift */; };
+		BA41FF9528AF82BD00440A7C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8A28AF82BD00440A7C /* MainView.swift */; };
 		BA8FBE0328A4AE7400F8E84D /* PDFLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8FBE0228A4AE7400F8E84D /* PDFLoader.swift */; };
 		BA8FBE0928A5E6E300F8E84D /* PDFDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8FBE0828A5E6E300F8E84D /* PDFDelegate.swift */; };
 		BA8FBE0B28A5EF2200F8E84D /* PDFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8FBE0A28A5EF2200F8E84D /* PDFError.swift */; };
@@ -49,6 +60,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA41FF7F28AF82BD00440A7C /* GalleryEntry2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryEntry2.swift; sourceTree = "<group>"; };
+		BA41FF8128AF82BD00440A7C /* AnnotationActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationActionsView.swift; sourceTree = "<group>"; };
+		BA41FF8228AF82BD00440A7C /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		BA41FF8328AF82BD00440A7C /* EdgeBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeBorder.swift; sourceTree = "<group>"; };
+		BA41FF8428AF82BD00440A7C /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		BA41FF8528AF82BD00440A7C /* AnnotationsTabsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationsTabsView.swift; sourceTree = "<group>"; };
+		BA41FF8628AF82BD00440A7C /* GeometryGetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeometryGetter.swift; sourceTree = "<group>"; };
+		BA41FF8728AF82BD00440A7C /* Forms_Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Forms_Annotation.swift; sourceTree = "<group>"; };
+		BA41FF8828AF82BD00440A7C /* SwiftUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUIViewController.swift; sourceTree = "<group>"; };
+		BA41FF8928AF82BD00440A7C /* DocumentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
+		BA41FF8A28AF82BD00440A7C /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		BA8FBE0228A4AE7400F8E84D /* PDFLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFLoader.swift; sourceTree = "<group>"; };
 		BA8FBE0828A5E6E300F8E84D /* PDFDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFDelegate.swift; sourceTree = "<group>"; };
 		BA8FBE0A28A5EF2200F8E84D /* PDFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFError.swift; sourceTree = "<group>"; };
@@ -103,6 +125,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA41FF7E28AF82BD00440A7C /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				BA41FF8028AF82BD00440A7C /* GlideViews */,
+				BA41FF8828AF82BD00440A7C /* SwiftUIViewController.swift */,
+				BA41FF7F28AF82BD00440A7C /* GalleryEntry2.swift */,
+				BA41FF8928AF82BD00440A7C /* DocumentView.swift */,
+				BA41FF8A28AF82BD00440A7C /* MainView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		BA41FF8028AF82BD00440A7C /* GlideViews */ = {
+			isa = PBXGroup;
+			children = (
+				BA41FF8128AF82BD00440A7C /* AnnotationActionsView.swift */,
+				BA41FF8228AF82BD00440A7C /* Icon.swift */,
+				BA41FF8328AF82BD00440A7C /* EdgeBorder.swift */,
+				BA41FF8428AF82BD00440A7C /* Extension.swift */,
+				BA41FF8528AF82BD00440A7C /* AnnotationsTabsView.swift */,
+				BA41FF8628AF82BD00440A7C /* GeometryGetter.swift */,
+				BA41FF8728AF82BD00440A7C /* Forms_Annotation.swift */,
+			);
+			path = GlideViews;
+			sourceTree = "<group>";
+		};
 		BA8FBE1228A5FD3900F8E84D /* Processor */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +253,7 @@
 		C0EFC35328A4987E0084A4AA /* GlidePDFKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BA41FF7E28AF82BD00440A7C /* SwiftUI */,
 				BAB1BBE228A9F215001803DF /* Resource */,
 				C0EFC35428A4987E0084A4AA /* AppDelegate.swift */,
 				C0EFC35628A4987E0084A4AA /* SceneDelegate.swift */,
@@ -341,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D62AF1BD28A535FA002E0D73 /* GalleryItem.swift in Sources */,
+				BA41FF8C28AF82BD00440A7C /* AnnotationActionsView.swift in Sources */,
 				C0EFC35928A4987E0084A4AA /* ViewController.swift in Sources */,
 				BA8FBE1C28A64BB400F8E84D /* DataType.swift in Sources */,
 				BA8FBE1628A5FDE600F8E84D /* PdfProcessor.swift in Sources */,
@@ -352,24 +402,34 @@
 				BAF21A4D28AB86BD00A82E80 /* DiskCache.swift in Sources */,
 				D62AF1BE28A535FA002E0D73 /* GalleryItemView.swift in Sources */,
 				BAF21A4F28AB87C200A82E80 /* LinkedList.swift in Sources */,
+				BA41FF8F28AF82BD00440A7C /* Extension.swift in Sources */,
+				BA41FF9128AF82BD00440A7C /* GeometryGetter.swift in Sources */,
 				D62AF1DB28A53698002E0D73 /* VTabView.swift in Sources */,
+				BA41FF9228AF82BD00440A7C /* Forms_Annotation.swift in Sources */,
 				BAB1BBEA28AA3CF6001803DF /* DataExtension.swift in Sources */,
 				C0EFC35528A4987E0084A4AA /* AppDelegate.swift in Sources */,
 				BAF21A5128AB881400A82E80 /* CacheConfig.swift in Sources */,
 				D620CE8928A9ED10002285EA /* GliderPDFService.swift in Sources */,
 				BA8FBE1428A5FD5500F8E84D /* Page.swift in Sources */,
+				BA41FF9028AF82BD00440A7C /* AnnotationsTabsView.swift in Sources */,
+				BA41FF8B28AF82BD00440A7C /* GalleryEntry2.swift in Sources */,
 				D620CE9428AB81C9002285EA /* MagnificationModifier.swift in Sources */,
 				C095582228A4AE5700FA16B9 /* BottomButton.swift in Sources */,
 				BA8FBE0B28A5EF2200F8E84D /* PDFError.swift in Sources */,
 				D6BFEE9628AF535800D8E52D /* PDFAnnotation.swift in Sources */,
 				C0A938D628ACC54500CFC17D /* GlidePDFKitImageAnnotation.swift in Sources */,
+				BA41FF9528AF82BD00440A7C /* MainView.swift in Sources */,
 				BA8FBE1128A5FC5600F8E84D /* ProcessorProtocol.swift in Sources */,
 				C0EFC35728A4987E0084A4AA /* SceneDelegate.swift in Sources */,
 				C095582528A4B3B000FA16B9 /* ViewExtension.swift in Sources */,
+				BA41FF9428AF82BD00440A7C /* DocumentView.swift in Sources */,
 				BAB1BBE528AA2BCF001803DF /* PDFFileCache.swift in Sources */,
 				D62AF1BA28A535FA002E0D73 /* GalleryEntry.swift in Sources */,
+				BA41FF8D28AF82BD00440A7C /* Icon.swift in Sources */,
 				BAB1BBE828AA2F87001803DF /* StringExtension.swift in Sources */,
+				BA41FF9328AF82BD00440A7C /* SwiftUIViewController.swift in Sources */,
 				D62AF1BB28A535FA002E0D73 /* GalleryView.swift in Sources */,
+				BA41FF8E28AF82BD00440A7C /* EdgeBorder.swift in Sources */,
 				D620CE9228AB81A6002285EA /* MagnificationView.swift in Sources */,
 				D6BFEE9428AF37D800D8E52D /* AnnotationService.swift in Sources */,
 				D62AF1BC28A535FA002E0D73 /* ViewModel.swift in Sources */,
