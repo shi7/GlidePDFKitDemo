@@ -57,6 +57,7 @@
 		D62AF1DB28A53698002E0D73 /* VTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62AF1D828A53698002E0D73 /* VTabView.swift */; };
 		D6BFEE9428AF37D800D8E52D /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */; };
 		D6BFEE9628AF535800D8E52D /* PDFAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */; };
+		D6BFEEA228AFD02100D8E52D /* DragHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEEA128AFD02100D8E52D /* DragHandleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +112,7 @@
 		D62AF1D828A53698002E0D73 /* VTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTabView.swift; sourceTree = "<group>"; };
 		D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFAnnotation.swift; sourceTree = "<group>"; };
+		D6BFEEA128AFD02100D8E52D /* DragHandleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragHandleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 				C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */,
 				D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */,
 				D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */,
+				D6BFEEA128AFD02100D8E52D /* DragHandleView.swift */,
 			);
 			path = Annotation;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				C0EFC35728A4987E0084A4AA /* SceneDelegate.swift in Sources */,
 				C095582528A4B3B000FA16B9 /* ViewExtension.swift in Sources */,
 				BA41FF9428AF82BD00440A7C /* DocumentView.swift in Sources */,
+				D6BFEEA228AFD02100D8E52D /* DragHandleView.swift in Sources */,
 				BAB1BBE528AA2BCF001803DF /* PDFFileCache.swift in Sources */,
 				D62AF1BA28A535FA002E0D73 /* GalleryEntry.swift in Sources */,
 				BA41FF8D28AF82BD00440A7C /* Icon.swift in Sources */,

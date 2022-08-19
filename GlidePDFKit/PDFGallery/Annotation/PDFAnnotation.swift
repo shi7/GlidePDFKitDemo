@@ -11,7 +11,6 @@ struct PDFAnnotation<Content>: View where Content: View {
     @ViewBuilder private var content: () -> Content
 
     @State private var offset = CGSize.zero
-    @State var sizeOffset = CGSize.zero
     var model: GlidePDFKitAnnotationModel
     @EnvironmentObject var dataModel: ViewModel
 
@@ -39,8 +38,7 @@ struct PDFAnnotation<Content>: View where Content: View {
 
     var body: some View {
         content()
-            // TODO: need keep width/height greater than 0 after calculation
-            .frame(width: model.width + sizeOffset.width, height: model.height + sizeOffset.height)
+            .frame(width: model.width, height: model.height)
             .border(.blue, width: model.isSelected ? 2 : 0)
             .background(model.backgroundColor)
             .offset(offset)
@@ -48,12 +46,8 @@ struct PDFAnnotation<Content>: View where Content: View {
             .onTapGesture {
                 dataModel.updateAnnotations(annotation: model, isNewSelected: true)
                 dataModel.didTap(annotation: model)
-
-                // MARK: Debug
-
-                print("capture tap gesture -- ")
             }
-            .position(model.location)
+//            .position(model.location)
     }
 }
 

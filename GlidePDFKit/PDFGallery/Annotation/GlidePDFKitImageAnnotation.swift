@@ -12,5 +12,6 @@ struct GlidePDFKitImageAnnotation: View {
                 Text("Load Image error")
             }
         }
+        .position(model.location)
     }
 }
