@@ -7,10 +7,15 @@ struct GlidePDFKitTextAnnotation: View {
     
     @State var scale: CGFloat
     var body: some View {
-        DragHandleView(model: model) {
+        if model.isSelected {
+            HorizontalDraggableView(model: model) {
+                Text(model.text)
+            }
+        } else {
             PDFAnnotation(model: model) {
                 Text(model.text)
             }
+            .position(model.location)
         }
     }
 }
