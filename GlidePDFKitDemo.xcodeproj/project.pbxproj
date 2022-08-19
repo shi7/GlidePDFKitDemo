@@ -58,6 +58,7 @@
 		D6BFEE9428AF37D800D8E52D /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */; };
 		D6BFEE9628AF535800D8E52D /* PDFAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */; };
 		D6BFEEA228AFD02100D8E52D /* HorizontalDraggableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEEA128AFD02100D8E52D /* HorizontalDraggableView.swift */; };
+		D6BFEEA428AFF52600D8E52D /* DraggableModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEEA328AFF52600D8E52D /* DraggableModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +114,7 @@
 		D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFAnnotation.swift; sourceTree = "<group>"; };
 		D6BFEEA128AFD02100D8E52D /* HorizontalDraggableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalDraggableView.swift; sourceTree = "<group>"; };
+		D6BFEEA328AFF52600D8E52D /* DraggableModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +233,7 @@
 				C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */,
 				D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */,
 				D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */,
+				D6BFEEA328AFF52600D8E52D /* DraggableModifier.swift */,
 				D6BFEEA128AFD02100D8E52D /* HorizontalDraggableView.swift */,
 			);
 			path = Annotation;
@@ -406,6 +409,7 @@
 				D62AF1BE28A535FA002E0D73 /* GalleryItemView.swift in Sources */,
 				BAF21A4F28AB87C200A82E80 /* LinkedList.swift in Sources */,
 				BA41FF8F28AF82BD00440A7C /* Extension.swift in Sources */,
+				D6BFEEA428AFF52600D8E52D /* DraggableModifier.swift in Sources */,
 				BA41FF9128AF82BD00440A7C /* GeometryGetter.swift in Sources */,
 				D62AF1DB28A53698002E0D73 /* VTabView.swift in Sources */,
 				BA41FF9228AF82BD00440A7C /* Forms_Annotation.swift in Sources */,

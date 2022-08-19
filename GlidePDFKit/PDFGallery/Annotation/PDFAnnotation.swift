@@ -9,45 +9,21 @@ import SwiftUI
 
 struct PDFAnnotation<Content>: View where Content: View {
     @ViewBuilder private var content: () -> Content
-
-    @State private var offset = CGSize.zero
-    var model: GlidePDFKitAnnotationModel
     @EnvironmentObject var dataModel: ViewModel
+    // TODO: Maybe we can move this property to viewModel, it passed so many times
+    var model: GlidePDFKitAnnotationModel
 
     init(model: GlidePDFKitAnnotationModel, @ViewBuilder content: @escaping () -> Content) {
         self.model = model
         self.content = content
     }
-
-    var dragGesture: some Gesture {
-        DragGesture()
-            .onChanged { value in
-                offset = CGSize(
-                    width: value.startLocation.x + value.translation.width - model.width / 2,
-                    height: value.startLocation.y + value.translation.height - model.height / 2
-                )
-            }
-            .onEnded { _ in
-                var copyModel = model
-                let originalLocation = model.location
-                copyModel.location = CGPoint(x: originalLocation.x + offset.width, y: originalLocation.y + offset.height)
-                dataModel.updateAnnotations(annotation: copyModel)
-                offset = .zero
-            }
-    }
-
+    
     var body: some View {
         content()
             .frame(width: model.width, height: model.height)
             .border(.blue, width: model.isSelected ? 2 : 0)
             .background(model.backgroundColor)
-            .offset(offset)
-            .gesture(dragGesture)
-            .onTapGesture {
-                dataModel.updateAnnotations(annotation: model, isNewSelected: true)
-                dataModel.didTap(annotation: model)
-            }
-//            .position(model.location)
+            .modifier(DraggableModifier(model: model))
     }
 }
 

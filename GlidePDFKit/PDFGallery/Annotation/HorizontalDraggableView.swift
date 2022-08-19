@@ -21,6 +21,7 @@ struct HorizontalDraggableView<Content>: View where Content: View {
         self.content = content
     }
     
+    // TODO: extract the horizontal drag zoom gesture to ViewModifier
     var dragRightGesture: some Gesture {
         DragGesture()
             .onChanged { value in
@@ -66,25 +67,6 @@ struct HorizontalDraggableView<Content>: View where Content: View {
             }
     }
     
-    @State private var dragOffset = CGSize.zero
-    
-    var dragGesture: some Gesture {
-        DragGesture()
-            .onChanged { value in
-                dragOffset = CGSize(
-                    width: value.startLocation.x + value.translation.width - (width + Constants.handleSize) / 2,
-                    height: value.startLocation.y + value.translation.height - (height + Constants.handleSize) / 2
-                )
-            }
-            .onEnded { _ in
-                var copyModel = model
-                let originalLocation = model.location
-                copyModel.location = CGPoint(x: originalLocation.x + dragOffset.width, y: originalLocation.y + dragOffset.height)
-                dataModel.updateAnnotations(annotation: copyModel)
-                dragOffset = .zero
-            }
-    }
-    
     var body: some View {
         VStack {
             ZStack(alignment: .center) {
@@ -99,12 +81,7 @@ struct HorizontalDraggableView<Content>: View where Content: View {
                 }
             }
             .frame(width: width + Constants.handleSize, height: height + Constants.handleSize)
-            .offset(dragOffset)
-            .gesture(dragGesture)
-            .onTapGesture {
-                dataModel.updateAnnotations(annotation: model, isNewSelected: true)
-                dataModel.didTap(annotation: model)
-            }
+            .modifier(DraggableModifier(model: model))
             .position(x: model.location.x + offset.width, y: model.location.y)
         }
         .onAppear {
