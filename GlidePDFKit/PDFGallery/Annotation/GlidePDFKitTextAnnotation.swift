@@ -1,34 +1,13 @@
 import SwiftUI
 
-struct GlidePDFKitButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-    }
-}
 
 struct GlidePDFKitTextAnnotation: View {
-    @State var model: GlidePDFKitAnnotationModel
+    var model: GlidePDFKitAnnotationModel
     @State var scale: CGFloat
-    @EnvironmentObject var dataModel: ViewModel
 
     var body: some View {
-        let dragGesture = DragGesture()
-            .onChanged { self.model.location = $0.location }
-            .onEnded { _ in }
-
-        return Button(action: {
-            model.isSelected.toggle()
-            dataModel.updateAnnotations(annotation: model,isNewSelected: model.isSelected)
-            dataModel.didTap(annotation: model)
-        }) {
+        PDFAnnotation(model: model) {
             Text(model.text)
-                .frame(width: model.width * scale, height: model.height * scale)
-                .border(.blue, width: model.isSelected ? 2 : 0)
-                .foregroundColor(.primary)
         }
-        .background(model.backgroundColor)
-        .position(model.location)
-        .highPriorityGesture(dragGesture)
-        .buttonStyle(GlidePDFKitButtonStyle())
     }
 }

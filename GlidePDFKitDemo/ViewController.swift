@@ -11,7 +11,7 @@ import UIKit
 
 class ViewController: UIViewController {
     let pdfLoader = PDFLoader()
-    var galleryEntry: GalleryEntry?
+    let annotationService: AnnotationServiceProxy = AnnotationServiceProxy()
     let pdfContainer = UIView()
     let loadPDFFromFileButton: UIButton = {
         let button = UIButton()
@@ -110,10 +110,10 @@ class ViewController: UIViewController {
     @objc private func didTapBottomAction(button: BottomButton) {
         print("\(button.actionType)")
         switch button.actionType {
-        case .addImageAnnotation: galleryEntry?.addAnnotations(type: .image)
-        case .addTextAnnotation: galleryEntry?.addAnnotations(type: .text)
-        case .removeAnnotation: galleryEntry?.removeSelectedAnnotations()
-        case .updateAnnotation: galleryEntry?.removeSelectedAnnotations()
+        case .addImageAnnotation: annotationService.addAnnotations(type: .image)
+        case .addTextAnnotation: annotationService.addAnnotations(type: .text)
+        case .removeAnnotation: annotationService.removeSelectedAnnotations()
+        case .updateAnnotation: annotationService.removeSelectedAnnotations()
         }
     }
 }
@@ -138,16 +138,21 @@ extension ViewController: PDFDelegate {
     func annotationDidTap(annotation: GlidePDFKitAnnotationModel) {
         print("annotationDidTap \(annotation.id)")
         // TODO navigator a new page to update annotation
-//        var newAnnotation = annotation
-//        newAnnotation.backgroundColor = .red
-//        newAnnotation.image = UIImage(named: "floodway")
-//        newAnnotation.text = "xxx"
-//        galleryEntry?.updateAnnotations(annotation: newAnnotation)
+        var newAnnotation = annotation
+        newAnnotation.backgroundColor = .red
+        newAnnotation.image = UIImage(named: "floodway")
+        newAnnotation.text = "xxx"
+        newAnnotation.isSelected = true
+        annotationService.updateAnnotation(annotation: newAnnotation)
     }
 
 
     func setupGallery() {
-        galleryEntry = GalleryEntry(pages: pdfLoader.totalPages(), fetcher: pdfLoader)
+        let galleryEntry = GalleryEntry(
+            pages: pdfLoader.totalPages(),
+            fetcher: pdfLoader,
+            proxy: annotationService
+        )
         let galleryVC = UIHostingController(rootView: galleryEntry)
         if let gallery = galleryVC.view {
             gallery.contentMode = .scaleAspectFit

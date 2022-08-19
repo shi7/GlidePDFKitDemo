@@ -7,7 +7,7 @@ private extension Collection {
     }
 }
 
-class ViewModel: ObservableObject {
+class ViewModel: ObservableObject, AnnotationService {
     @Published var items: [GalleryItem] = []
     @Published var activePage: Int = 1
     var fetcher: GliderPDFService?
@@ -60,6 +60,15 @@ class ViewModel: ObservableObject {
         items[page - 1] = galleryItem
     }
 
+
+    func addAnnotations(type: GlidePDFKitAnnotationType) {
+        self.addNewAnnotation(type: type)
+    }
+    
+    func updateAnnotation(annotation: GlidePDFKitAnnotationModel) {
+        self.updateAnnotations(annotation: annotation)
+    }
+    
     func updateAnnotations(annotation: GlidePDFKitAnnotationModel, isNewSelected: Bool = false) {
         guard let galleryItem = items[safe: activePage - 1],
               let annotationArray = galleryItem.annotationsArray else { return }
@@ -70,8 +79,10 @@ class ViewModel: ObservableObject {
             return $0
         }
         items[activePage - 1] = galleryItem
+        
+        print("update annotation success")
     }
-
+    
     func didTap(annotation: GlidePDFKitAnnotationModel){
         fetcher?.annotationDidTap(annotation: annotation)
     }

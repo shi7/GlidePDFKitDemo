@@ -44,6 +44,8 @@
 		D62AF1BD28A535FA002E0D73 /* GalleryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62AF1B828A535FA002E0D73 /* GalleryItem.swift */; };
 		D62AF1BE28A535FA002E0D73 /* GalleryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62AF1B928A535FA002E0D73 /* GalleryItemView.swift */; };
 		D62AF1DB28A53698002E0D73 /* VTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62AF1D828A53698002E0D73 /* VTabView.swift */; };
+		D6BFEE9428AF37D800D8E52D /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */; };
+		D6BFEE9628AF535800D8E52D /* PDFAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +87,8 @@
 		D62AF1B828A535FA002E0D73 /* GalleryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryItem.swift; sourceTree = "<group>"; };
 		D62AF1B928A535FA002E0D73 /* GalleryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryItemView.swift; sourceTree = "<group>"; };
 		D62AF1D828A53698002E0D73 /* VTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTabView.swift; sourceTree = "<group>"; };
+		D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
+		D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,8 @@
 				C0A938D328ACC54500CFC17D /* GlidePDFKitAnnotationModel.swift */,
 				C0A938D428ACC54500CFC17D /* GlidePDFKitImageAnnotation.swift */,
 				C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */,
+				D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */,
+				D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */,
 			);
 			path = Annotation;
 			sourceTree = "<group>";
@@ -355,6 +361,7 @@
 				D620CE9428AB81C9002285EA /* MagnificationModifier.swift in Sources */,
 				C095582228A4AE5700FA16B9 /* BottomButton.swift in Sources */,
 				BA8FBE0B28A5EF2200F8E84D /* PDFError.swift in Sources */,
+				D6BFEE9628AF535800D8E52D /* PDFAnnotation.swift in Sources */,
 				C0A938D628ACC54500CFC17D /* GlidePDFKitImageAnnotation.swift in Sources */,
 				BA8FBE1128A5FC5600F8E84D /* ProcessorProtocol.swift in Sources */,
 				C0EFC35728A4987E0084A4AA /* SceneDelegate.swift in Sources */,
@@ -364,6 +371,7 @@
 				BAB1BBE828AA2F87001803DF /* StringExtension.swift in Sources */,
 				D62AF1BB28A535FA002E0D73 /* GalleryView.swift in Sources */,
 				D620CE9228AB81A6002285EA /* MagnificationView.swift in Sources */,
+				D6BFEE9428AF37D800D8E52D /* AnnotationService.swift in Sources */,
 				D62AF1BC28A535FA002E0D73 /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
