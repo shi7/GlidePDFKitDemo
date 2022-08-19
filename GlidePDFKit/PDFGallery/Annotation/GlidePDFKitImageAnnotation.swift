@@ -2,6 +2,7 @@ import SwiftUI
 
 struct GlidePDFKitImageAnnotation: View {
     @State var model: GlidePDFKitAnnotationModel
+    @State var scale: CGFloat
     @EnvironmentObject var dataModel: ViewModel
 
     var body: some View {
@@ -11,7 +12,8 @@ struct GlidePDFKitImageAnnotation: View {
 
         return Button(action: {
             model.isSelected.toggle()
-            dataModel.updateAnotations(anotation: model,isNewSelected: model.isSelected)
+            dataModel.updateAnnotations(annotation: model,isNewSelected: model.isSelected)
+            dataModel.didTap(annotation: model)
         }) {
             if let image = model.image {
                 Image(uiImage: image)

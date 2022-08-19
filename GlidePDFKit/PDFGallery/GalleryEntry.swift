@@ -9,20 +9,24 @@ import SwiftUI
 
 struct GalleryEntry: View {
     var pages: Int = 0
-    var imgFetcher: ImageFetcher
+    var imgFetcher: GliderPDFService
     @ObservedObject var dataModel = ViewModel()
 
-    init(pages: Int, fetcher: ImageFetcher) {
+    init(pages: Int, fetcher: GliderPDFService) {
         self.pages = pages
         imgFetcher = fetcher
     }
 
-    func addAnotations(type: GlidePDFKitAnotationType) {
-        dataModel.addNewAnotation(type: type)
+    func addAnnotations(type: GlidePDFKitAnnotationType) {
+        dataModel.addNewAnnotation(type: type)
     }
 
-    func removeSelectedAnotations() {
-        dataModel.removeSelectedAnotations()
+    func removeSelectedAnnotations() {
+        dataModel.removeSelectedAnnotations()
+    }
+
+    func updateAnnotations(annotation: GlidePDFKitAnnotationModel) {
+        dataModel.updateAnnotations(annotation: annotation)
     }
 
     var body: some View {

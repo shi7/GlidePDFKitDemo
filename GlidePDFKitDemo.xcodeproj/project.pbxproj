@@ -35,7 +35,7 @@
 		C0EFC36128A498800084A4AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0EFC35F28A498800084A4AA /* LaunchScreen.storyboard */; };
 		C0EFC36A28A499E30084A4AA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C0EFC36928A499E30084A4AA /* SnapKit */; };
 		C73CF82528AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */; };
-		D620CE8928A9ED10002285EA /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D620CE8828A9ED10002285EA /* ImageFetcher.swift */; };
+		D620CE8928A9ED10002285EA /* GliderPDFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D620CE8828A9ED10002285EA /* GliderPDFService.swift */; };
 		D620CE9228AB81A6002285EA /* MagnificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D620CE9128AB81A6002285EA /* MagnificationView.swift */; };
 		D620CE9428AB81C9002285EA /* MagnificationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D620CE9328AB81C9002285EA /* MagnificationModifier.swift */; };
 		D62AF1BA28A535FA002E0D73 /* GalleryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62AF1B428A535FA002E0D73 /* GalleryEntry.swift */; };
@@ -76,7 +76,7 @@
 		C0EFC36028A498800084A4AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0EFC36228A498800084A4AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlidePDFKitTextAnnotation.swift; sourceTree = "<group>"; };
-		D620CE8828A9ED10002285EA /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		D620CE8828A9ED10002285EA /* GliderPDFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderPDFService.swift; sourceTree = "<group>"; };
 		D620CE9128AB81A6002285EA /* MagnificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnificationView.swift; sourceTree = "<group>"; };
 		D620CE9328AB81C9002285EA /* MagnificationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnificationModifier.swift; sourceTree = "<group>"; };
 		D62AF1B428A535FA002E0D73 /* GalleryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryEntry.swift; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 				D62AF1B928A535FA002E0D73 /* GalleryItemView.swift */,
 				D62AF1B728A535FA002E0D73 /* GalleryView.swift */,
 				D62AF1B828A535FA002E0D73 /* GalleryItem.swift */,
-				D620CE8828A9ED10002285EA /* ImageFetcher.swift */,
+				D620CE8828A9ED10002285EA /* GliderPDFService.swift */,
 			);
 			path = PDFGallery;
 			sourceTree = "<group>";
@@ -350,7 +350,7 @@
 				BAB1BBEA28AA3CF6001803DF /* DataExtension.swift in Sources */,
 				C0EFC35528A4987E0084A4AA /* AppDelegate.swift in Sources */,
 				BAF21A5128AB881400A82E80 /* CacheConfig.swift in Sources */,
-				D620CE8928A9ED10002285EA /* ImageFetcher.swift in Sources */,
+				D620CE8928A9ED10002285EA /* GliderPDFService.swift in Sources */,
 				BA8FBE1428A5FD5500F8E84D /* Page.swift in Sources */,
 				D620CE9428AB81C9002285EA /* MagnificationModifier.swift in Sources */,
 				C095582228A4AE5700FA16B9 /* BottomButton.swift in Sources */,

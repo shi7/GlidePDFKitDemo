@@ -7,6 +7,9 @@
 
 import UIKit
 
-protocol ImageFetcher {
+protocol GliderPDFService {
     func fetchAt(page: Int) -> UIImage?
+
+    func annotationDidTap(annotation: GlidePDFKitAnnotationModel)
+
 }

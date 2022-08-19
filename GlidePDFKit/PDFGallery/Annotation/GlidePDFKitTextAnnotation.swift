@@ -8,6 +8,7 @@ struct GlidePDFKitButtonStyle: ButtonStyle {
 
 struct GlidePDFKitTextAnnotation: View {
     @State var model: GlidePDFKitAnnotationModel
+    @State var scale: CGFloat
     @EnvironmentObject var dataModel: ViewModel
 
     var body: some View {
@@ -17,12 +18,13 @@ struct GlidePDFKitTextAnnotation: View {
 
         return Button(action: {
             model.isSelected.toggle()
-            dataModel.updateAnotations(anotation: model,isNewSelected: model.isSelected)
+            dataModel.updateAnnotations(annotation: model,isNewSelected: model.isSelected)
+            dataModel.didTap(annotation: model)
         }) {
             Text(model.text)
-                    .frame(width: model.width, height: model.height)
-                    .border(.blue, width: model.isSelected ? 2 : 0)
-                    .foregroundColor(.primary)
+                .frame(width: model.width , height: model.height)
+                .border(.blue, width: model.isSelected ? 2 : 0)
+                .foregroundColor(.primary)
         }
         .background(model.backgroundColor)
         .position(model.location)

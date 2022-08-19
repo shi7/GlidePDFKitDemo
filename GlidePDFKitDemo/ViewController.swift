@@ -93,7 +93,7 @@ class ViewController: UIViewController {
         bottomStack.distribution = .fillEqually
 
         bottomStack.backgroundColor = .lightGray
-        let buttonActions: [BottomButtonActions] = [.removeAnnotation, .addImageAnnotation, .addTextAnnotation, .updateAnnotation]
+        let buttonActions: [BottomButtonActions] = [.removeAnnotation, .addImageAnnotation, .addTextAnnotation]
         for type in buttonActions {
             let button = BottomButton(frame: CGRect.zero, actionType: type)
             button.addTarget(self, action: #selector(didTapBottomAction), for: .touchUpInside)
@@ -110,10 +110,10 @@ class ViewController: UIViewController {
     @objc private func didTapBottomAction(button: BottomButton) {
         print("\(button.actionType)")
         switch button.actionType {
-        case .addImageAnnotation: galleryEntry?.addAnotations(type: .image)
-        case .addTextAnnotation: galleryEntry?.addAnotations(type: .text)
-        case .removeAnnotation: galleryEntry?.removeSelectedAnotations()
-        case .updateAnnotation: galleryEntry?.removeSelectedAnotations()
+        case .addImageAnnotation: galleryEntry?.addAnnotations(type: .image)
+        case .addTextAnnotation: galleryEntry?.addAnnotations(type: .text)
+        case .removeAnnotation: galleryEntry?.removeSelectedAnnotations()
+        case .updateAnnotation: galleryEntry?.removeSelectedAnnotations()
         }
     }
 }
@@ -134,6 +134,17 @@ extension ViewController: PDFDelegate {
         print("PDFDelegate onDocumentLoadedFail")
         loadingView.stopAnimating()
     }
+
+    func annotationDidTap(annotation: GlidePDFKitAnnotationModel) {
+        print("annotationDidTap \(annotation.id)")
+        // TODO navigator a new page to update annotation
+//        var newAnnotation = annotation
+//        newAnnotation.backgroundColor = .red
+//        newAnnotation.image = UIImage(named: "floodway")
+//        newAnnotation.text = "xxx"
+//        galleryEntry?.updateAnnotations(annotation: newAnnotation)
+    }
+
 
     func setupGallery() {
         galleryEntry = GalleryEntry(pages: pdfLoader.totalPages(), fetcher: pdfLoader)
