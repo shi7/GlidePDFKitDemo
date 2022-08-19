@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct HorizontalDraggableView<Content>: View where Content: View {
-    @State private var width: CGFloat = Constants.minWidth
-    @State private var height: CGFloat = Constants.minHeight
+    @State private var width: CGFloat = .zero
+    @State private var height: CGFloat = .zero
     @State var offset: CGSize = .zero
     @ViewBuilder let content: () -> Content
     @EnvironmentObject var dataModel: ViewModel
@@ -19,8 +19,6 @@ struct HorizontalDraggableView<Content>: View where Content: View {
     init(model: GlidePDFKitAnnotationModel, content: @escaping () -> Content) {
         self.model = model
         self.content = content
-        self.width = model.width
-        self.height = model.height
     }
     
     var dragRightGesture: some Gesture {
@@ -108,6 +106,10 @@ struct HorizontalDraggableView<Content>: View where Content: View {
                 dataModel.didTap(annotation: model)
             }
             .position(x: model.location.x + offset.width, y: model.location.y)
+        }
+        .onAppear {
+            width = model.width
+            height = model.height
         }
     }
     
