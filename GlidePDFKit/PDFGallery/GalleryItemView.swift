@@ -28,13 +28,13 @@ struct GalleryItemView: View {
                         if let item = dataModel.items[dataModel.activePage - 1], let annotationArray = item.annotationsArray {
                             ForEach(annotationArray) { annotation in
                                 if annotation.type == .image {
-                                    GlidePDFKitImageAnnotation(model: annotation,scale: item.scale).position(annotation.location)
+                                    GlidePDFKitImageAnnotation(model: annotation,scale: item.scale)
                                 } else {
-                                    GlidePDFKitTextAnnotation(model: annotation, scale: item.scale).position(annotation.location)
+                                    GlidePDFKitTextAnnotation(model: annotation, scale: item.scale)
                                 }
                             }
                         }
-                    }
+                    }.frame(width: img.size.width, height: img.size.height, alignment: .center)
                 }
             } else {
                 ProgressView()
