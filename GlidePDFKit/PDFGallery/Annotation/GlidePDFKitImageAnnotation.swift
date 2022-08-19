@@ -19,7 +19,7 @@ struct GlidePDFKitImageAnnotation: View {
                 Image(uiImage: image)
             }
         }
-        .frame(width: model.width, height: model.height)
+        .frame(width: model.width * scale, height: model.height * scale)
         .border(.blue, width: model.isSelected ? 2 : 0)
         .background(model.backgroundColor)
         .position(model.location)

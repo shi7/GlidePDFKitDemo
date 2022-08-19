@@ -49,7 +49,7 @@ struct GalleryItemView: View {
             let img = dataModel.fetchImageAt(page: item.pageNumber)
             Task { @MainActor in
                 image = img
-//                resetScale()
+                resetScale()
             }
         }
         .frame(width: width, height: height, alignment: .center)

@@ -22,7 +22,7 @@ struct GlidePDFKitTextAnnotation: View {
             dataModel.didTap(annotation: model)
         }) {
             Text(model.text)
-                .frame(width: model.width , height: model.height)
+                .frame(width: model.width * scale, height: model.height * scale)
                 .border(.blue, width: model.isSelected ? 2 : 0)
                 .foregroundColor(.primary)
         }
