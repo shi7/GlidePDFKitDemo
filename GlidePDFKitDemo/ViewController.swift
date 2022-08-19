@@ -11,7 +11,7 @@ import UIKit
 
 class ViewController: UIViewController {
     let pdfLoader = PDFLoader()
-    let annotationService: AnnotationServiceProxy = AnnotationServiceProxy()
+    let annotationService: AnnotationServiceProxy = .init()
     let pdfContainer = UIView()
     let loadPDFFromFileButton: UIButton = {
         let button = UIButton()
@@ -137,7 +137,7 @@ extension ViewController: PDFDelegate {
 
     func annotationDidTap(annotation: GlidePDFKitAnnotationModel) {
         print("annotationDidTap \(annotation.id)")
-        // TODO navigator a new page to update annotation
+        // TODO: navigator a new page to update annotation
         var newAnnotation = annotation
         newAnnotation.backgroundColor = .red
         newAnnotation.image = UIImage(named: "floodway")
@@ -145,7 +145,6 @@ extension ViewController: PDFDelegate {
         newAnnotation.isSelected = true
         annotationService.updateAnnotation(annotation: newAnnotation)
     }
-
 
     func setupGallery() {
         let galleryEntry = GalleryEntry(

@@ -17,7 +17,7 @@ public struct MagnificationModifier: ViewModifier {
     @EnvironmentObject var dataModel: ViewModel
 
     private var contentSize: CGSize
-    
+
     init(size: CGSize) {
         contentSize = size
     }
@@ -46,22 +46,25 @@ public struct MagnificationModifier: ViewModifier {
                         width: value.predictedEndLocation.x - value.location.x,
                         height: value.predictedEndLocation.y - value.location.y
                     )
+
                     // MARK: Debug
+
                     print("velocity height \(velocity.height)")
-                    
+
                     if velocity.height > Constants.scrollDistance {
                         withAnimation {
                             dataModel.activePage -= 1
                         }
-                    }else if velocity.height < -Constants.scrollDistance {
+                    } else if velocity.height < -Constants.scrollDistance {
                         withAnimation {
                             dataModel.activePage += 1
                         }
-                    }else {
+                    } else {
                         fixOffset(geometry: geometry, content: content)
                     }
-                    
+
                     // MARK: Debug
+
                     print("active page \(dataModel.activePage)")
                 }
 
@@ -82,11 +85,11 @@ public struct MagnificationModifier: ViewModifier {
 extension MagnificationModifier {
     private enum Constants {
         static let scrollDistance: CGFloat = 6000
-        static let scalePrecision: CGFloat =  0.001
+        static let scalePrecision: CGFloat = 0.001
         static let minScale: CGFloat = 1
         static let maxScale: CGFloat = 4
     }
-    
+
     private func reset() {
         scale = 1
         lastScale = 1
@@ -94,14 +97,14 @@ extension MagnificationModifier {
         lastOffset = .zero
     }
 
-    private func fixScale(geometry: GeometryProxy, content _: Content) {
+    private func fixScale(geometry _: GeometryProxy, content _: Content) {
         let newScale: CGFloat = .minimum(.maximum(scale, Constants.minScale), Constants.maxScale)
         lastScale = newScale
         withAnimation {
             scale = newScale
         }
     }
-    
+
     private func fixOffset(geometry: GeometryProxy, content _: Content) {
         let containerSize = geometry.size
         let contentWidth = contentSize.width

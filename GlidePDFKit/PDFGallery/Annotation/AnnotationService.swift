@@ -15,26 +15,25 @@ protocol AnnotationService {
     func updateAnnotation(annotation: GlidePDFKitAnnotationModel)
 }
 
-class AnnotationServiceProxy : AnnotationService {
-    
+class AnnotationServiceProxy: AnnotationService {
     var service: AnnotationService?
-    
+
     init() {
-        self.service = nil
+        service = nil
     }
-    
+
     func setService(service: AnnotationService) {
         self.service = service
     }
-    
+
     func addAnnotations(type: GlidePDFKitAnnotationType) {
         service?.addAnnotations(type: type)
     }
-    
+
     func removeSelectedAnnotations() {
         service?.removeSelectedAnnotations()
     }
-    
+
     func updateAnnotation(annotation: GlidePDFKitAnnotationModel) {
         service?.updateAnnotation(annotation: annotation)
     }

@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 struct GlidePDFKitTextAnnotation: View {
     var model: GlidePDFKitAnnotationModel
     @State var scale: CGFloat

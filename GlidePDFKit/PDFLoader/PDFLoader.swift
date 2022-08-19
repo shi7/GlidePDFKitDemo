@@ -2,7 +2,6 @@ import Foundation
 import UIKit
 
 class PDFLoader: GliderPDFService {
-
     var delegate: PDFDelegate?
     var processor: ProcessProtocol?
 

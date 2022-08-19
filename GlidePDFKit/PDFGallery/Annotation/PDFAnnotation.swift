@@ -24,8 +24,8 @@ struct PDFAnnotation<Content>: View where Content: View {
         DragGesture()
             .onChanged { value in
                 offset = CGSize(
-                    width: value.startLocation.x + value.translation.width - model.width/2,
-                    height: value.startLocation.y + value.translation.height - model.height/2
+                    width: value.startLocation.x + value.translation.width - model.width / 2,
+                    height: value.startLocation.y + value.translation.height - model.height / 2
                 )
             }
             .onEnded { _ in
@@ -47,8 +47,9 @@ struct PDFAnnotation<Content>: View where Content: View {
             .onTapGesture {
                 dataModel.updateAnnotations(annotation: model, isNewSelected: model.isSelected)
                 dataModel.didTap(annotation: model)
-                
+
                 // MARK: Debug
+
                 print("capture tap gesture -- ")
             }
             .position(model.location)

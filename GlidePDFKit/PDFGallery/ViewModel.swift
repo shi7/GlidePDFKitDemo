@@ -15,6 +15,7 @@ class ViewModel: ObservableObject, AnnotationService {
     func setPages(pages: Int) {
         guard pages > 0 else {
             // MARK: Debug
+
             print("pages less than 0, may something wrong!")
             return
         }
@@ -35,6 +36,7 @@ class ViewModel: ObservableObject, AnnotationService {
 
     func fetchImageAt(page: Int) -> UIImage? {
         // MARK: Debug
+
         print("try to fetch image at page: \(page)")
         return fetcher?.fetchAt(page: page)
     }
@@ -60,16 +62,15 @@ class ViewModel: ObservableObject, AnnotationService {
         items[page - 1] = galleryItem
     }
 
-
     func addAnnotations(type: GlidePDFKitAnnotationType) {
-        self.addNewAnnotation(type: type)
+        addNewAnnotation(type: type)
     }
-    
+
     func updateAnnotation(annotation: GlidePDFKitAnnotationModel) {
-        self.updateAnnotations(annotation: annotation)
+        updateAnnotations(annotation: annotation)
     }
-    
-    func updateAnnotations(annotation: GlidePDFKitAnnotationModel, isNewSelected: Bool = false) {
+
+    func updateAnnotations(annotation: GlidePDFKitAnnotationModel, isNewSelected _: Bool = false) {
         guard let galleryItem = items[safe: activePage - 1],
               let annotationArray = galleryItem.annotationsArray else { return }
         galleryItem.annotationsArray = annotationArray.map {
@@ -79,11 +80,11 @@ class ViewModel: ObservableObject, AnnotationService {
             return $0
         }
         items[activePage - 1] = galleryItem
-        
+
         print("update annotation success")
     }
-    
-    func didTap(annotation: GlidePDFKitAnnotationModel){
+
+    func didTap(annotation: GlidePDFKitAnnotationModel) {
         fetcher?.annotationDidTap(annotation: annotation)
     }
 
@@ -97,9 +98,10 @@ class ViewModel: ObservableObject, AnnotationService {
 
     func removeSelectedAnnotations(page: Int) {
         guard let galleryItem = items[safe: page - 1],
-              let annotationArray = galleryItem.annotationsArray else {
-                  return
-              }
+              let annotationArray = galleryItem.annotationsArray
+        else {
+            return
+        }
         galleryItem.annotationsArray = annotationArray.filter { annotationModel in
             !annotationModel.isSelected
         }

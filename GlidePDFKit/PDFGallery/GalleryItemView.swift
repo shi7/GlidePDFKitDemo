@@ -8,11 +8,11 @@ struct GalleryItemView: View {
     @EnvironmentObject var dataModel: ViewModel
     @State var image: UIImage?
 
-    func resetScale() -> Void {
+    func resetScale() {
         if let img = image {
             let scaleW = width / img.size.width
             let scaleH = height / img.size.height
-            let trueScale =  min( scaleW , scaleH)
+            let trueScale = min(scaleW, scaleH)
             item.scale = trueScale
         }
     }
@@ -28,7 +28,7 @@ struct GalleryItemView: View {
                         if let item = dataModel.items[dataModel.activePage - 1], let annotationArray = item.annotationsArray {
                             ForEach(annotationArray) { annotation in
                                 if annotation.type == .image {
-                                    GlidePDFKitImageAnnotation(model: annotation,scale: item.scale)
+                                    GlidePDFKitImageAnnotation(model: annotation, scale: item.scale)
                                 } else {
                                     GlidePDFKitTextAnnotation(model: annotation, scale: item.scale)
                                 }
@@ -42,6 +42,7 @@ struct GalleryItemView: View {
         }.task {
             guard image == nil else {
                 // MARK: Debug
+
                 print("image already fetched, cancel refetch at page: \(item.pageNumber)")
                 return
             }
