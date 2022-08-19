@@ -11,6 +11,8 @@ struct PDFAnnotation<Content>: View where Content: View {
     @ViewBuilder private var content: () -> Content
 
     @State private var offset = CGSize.zero
+    @State private var sizeOffset = CGSize.zero
+
 
     var model: GlidePDFKitAnnotationModel
     @EnvironmentObject var dataModel: ViewModel
@@ -23,23 +25,32 @@ struct PDFAnnotation<Content>: View where Content: View {
     var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
-                offset = CGSize(
-                    width: value.startLocation.x + value.translation.width - model.width / 2,
-                    height: value.startLocation.y + value.translation.height - model.height / 2
-                )
+                if model.isSelected {
+                    sizeOffset = value.translation
+                } else {
+                    offset = CGSize(
+                        width: value.startLocation.x + value.translation.width - model.width / 2,
+                        height: value.startLocation.y + value.translation.height - model.height / 2
+                    )
+                }
             }
             .onEnded { _ in
                 var copyModel = model
                 let originalLocation = model.location
                 copyModel.location = CGPoint(x: originalLocation.x + offset.width, y: originalLocation.y + offset.height)
+
+                copyModel.width = copyModel.width + sizeOffset.width
+                copyModel.height = copyModel.height + sizeOffset.height
                 dataModel.updateAnnotations(annotation: copyModel)
-                offset = CGSize.zero
+                offset = .zero
+                sizeOffset = .zero
             }
     }
 
     var body: some View {
         content()
-            .frame(width: model.width, height: model.height)
+            // TODO: need keep width/height greater than 0 after calculation
+            .frame(width: model.width + sizeOffset.width, height: model.height+sizeOffset.height)
             .border(.blue, width: model.isSelected ? 2 : 0)
             .background(model.backgroundColor)
             .offset(offset)
