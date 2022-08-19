@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainView: View {
-
     @State private var text = "haha"
 
     let pdfFileUrl = Bundle.main.url(forResource: "big", withExtension: "pdf")!

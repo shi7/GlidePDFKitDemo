@@ -5,11 +5,10 @@
 //  Created by QinChao Xu on 2022/8/17.
 //
 
-import UIKit
 import SwiftUI
+import UIKit
 
 class SwiftUIViewController: UIViewController {
-
     override func viewDidLoad() {
         setupSwiftUI()
     }

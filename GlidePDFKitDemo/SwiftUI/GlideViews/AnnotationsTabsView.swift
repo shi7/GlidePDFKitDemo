@@ -65,7 +65,7 @@ struct AnnotationsTabsView: View {
     }
 }
 
-fileprivate extension AnnotationsTabsView {
+private extension AnnotationsTabsView {
     struct AnnotationTabView: View {
         let title: String
         let color: Color

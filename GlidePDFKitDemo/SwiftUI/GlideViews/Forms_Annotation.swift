@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct Forms_Annotation {
-
     var kind: Forms_Annotation.Kind
     var id: String
     var fieldID: String
@@ -35,115 +34,114 @@ struct Forms_Annotation {
     var source: String
 
     enum Kind: Hashable {
-      typealias RawValue = Int
-      case unknown // = 0
-      case signatureTab // = 1
-      case initialsTab // = 2
-      case dateTab // = 3
-      case text // = 4
-      case checkbox // = 5
-      case radio // = 6
-      case signatureZone // = 7
-      case initialsZone // = 8
-      case dateZone // = 9
-      case textZone // = 10
-      case checkboxZone // = 11
-      case sectionZone // = 16
-      case pdfStamp // = 12
-      case pdfText // = 13
-      case pdfRedactArea // = 14
-      case pdfRedactText // = 15
-      case dropdown // = 17
-      case filestackImage // = 18
-      case addendumField // = 19
-      case pdfCheckbox // = 20
-      case pdfStrikeoutText // = 21
-      case pdfStrikeoutLine // = 22
-      case name // = 23
-      case email // = 24
-      case phone // = 25
-      case company // = 26
-      case title // = 27
-      case entityName // = 28
-      case license // = 29
-      case UNRECOGNIZED(Int)
+        typealias RawValue = Int
+        case unknown // = 0
+        case signatureTab // = 1
+        case initialsTab // = 2
+        case dateTab // = 3
+        case text // = 4
+        case checkbox // = 5
+        case radio // = 6
+        case signatureZone // = 7
+        case initialsZone // = 8
+        case dateZone // = 9
+        case textZone // = 10
+        case checkboxZone // = 11
+        case sectionZone // = 16
+        case pdfStamp // = 12
+        case pdfText // = 13
+        case pdfRedactArea // = 14
+        case pdfRedactText // = 15
+        case dropdown // = 17
+        case filestackImage // = 18
+        case addendumField // = 19
+        case pdfCheckbox // = 20
+        case pdfStrikeoutText // = 21
+        case pdfStrikeoutLine // = 22
+        case name // = 23
+        case email // = 24
+        case phone // = 25
+        case company // = 26
+        case title // = 27
+        case entityName // = 28
+        case license // = 29
+        case UNRECOGNIZED(Int)
 
-      init() {
-        self = .unknown
-      }
-
-      init?(rawValue: Int) {
-        switch rawValue {
-        case 0: self = .unknown
-        case 1: self = .signatureTab
-        case 2: self = .initialsTab
-        case 3: self = .dateTab
-        case 4: self = .text
-        case 5: self = .checkbox
-        case 6: self = .radio
-        case 7: self = .signatureZone
-        case 8: self = .initialsZone
-        case 9: self = .dateZone
-        case 10: self = .textZone
-        case 11: self = .checkboxZone
-        case 12: self = .pdfStamp
-        case 13: self = .pdfText
-        case 14: self = .pdfRedactArea
-        case 15: self = .pdfRedactText
-        case 16: self = .sectionZone
-        case 17: self = .dropdown
-        case 18: self = .filestackImage
-        case 19: self = .addendumField
-        case 20: self = .pdfCheckbox
-        case 21: self = .pdfStrikeoutText
-        case 22: self = .pdfStrikeoutLine
-        case 23: self = .name
-        case 24: self = .email
-        case 25: self = .phone
-        case 26: self = .company
-        case 27: self = .title
-        case 28: self = .entityName
-        case 29: self = .license
-        default: self = .UNRECOGNIZED(rawValue)
+        init() {
+            self = .unknown
         }
-      }
 
-      var rawValue: Int {
-        switch self {
-        case .unknown: return 0
-        case .signatureTab: return 1
-        case .initialsTab: return 2
-        case .dateTab: return 3
-        case .text: return 4
-        case .checkbox: return 5
-        case .radio: return 6
-        case .signatureZone: return 7
-        case .initialsZone: return 8
-        case .dateZone: return 9
-        case .textZone: return 10
-        case .checkboxZone: return 11
-        case .pdfStamp: return 12
-        case .pdfText: return 13
-        case .pdfRedactArea: return 14
-        case .pdfRedactText: return 15
-        case .sectionZone: return 16
-        case .dropdown: return 17
-        case .filestackImage: return 18
-        case .addendumField: return 19
-        case .pdfCheckbox: return 20
-        case .pdfStrikeoutText: return 21
-        case .pdfStrikeoutLine: return 22
-        case .name: return 23
-        case .email: return 24
-        case .phone: return 25
-        case .company: return 26
-        case .title: return 27
-        case .entityName: return 28
-        case .license: return 29
-        case .UNRECOGNIZED(let i): return i
+        init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .unknown
+            case 1: self = .signatureTab
+            case 2: self = .initialsTab
+            case 3: self = .dateTab
+            case 4: self = .text
+            case 5: self = .checkbox
+            case 6: self = .radio
+            case 7: self = .signatureZone
+            case 8: self = .initialsZone
+            case 9: self = .dateZone
+            case 10: self = .textZone
+            case 11: self = .checkboxZone
+            case 12: self = .pdfStamp
+            case 13: self = .pdfText
+            case 14: self = .pdfRedactArea
+            case 15: self = .pdfRedactText
+            case 16: self = .sectionZone
+            case 17: self = .dropdown
+            case 18: self = .filestackImage
+            case 19: self = .addendumField
+            case 20: self = .pdfCheckbox
+            case 21: self = .pdfStrikeoutText
+            case 22: self = .pdfStrikeoutLine
+            case 23: self = .name
+            case 24: self = .email
+            case 25: self = .phone
+            case 26: self = .company
+            case 27: self = .title
+            case 28: self = .entityName
+            case 29: self = .license
+            default: self = .UNRECOGNIZED(rawValue)
+            }
         }
-      }
 
+        var rawValue: Int {
+            switch self {
+            case .unknown: return 0
+            case .signatureTab: return 1
+            case .initialsTab: return 2
+            case .dateTab: return 3
+            case .text: return 4
+            case .checkbox: return 5
+            case .radio: return 6
+            case .signatureZone: return 7
+            case .initialsZone: return 8
+            case .dateZone: return 9
+            case .textZone: return 10
+            case .checkboxZone: return 11
+            case .pdfStamp: return 12
+            case .pdfText: return 13
+            case .pdfRedactArea: return 14
+            case .pdfRedactText: return 15
+            case .sectionZone: return 16
+            case .dropdown: return 17
+            case .filestackImage: return 18
+            case .addendumField: return 19
+            case .pdfCheckbox: return 20
+            case .pdfStrikeoutText: return 21
+            case .pdfStrikeoutLine: return 22
+            case .name: return 23
+            case .email: return 24
+            case .phone: return 25
+            case .company: return 26
+            case .title: return 27
+            case .entityName: return 28
+            case .license: return 29
+            case let .UNRECOGNIZED(i): return i
+            }
+        }
     }
 }
 

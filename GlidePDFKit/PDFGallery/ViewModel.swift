@@ -70,7 +70,7 @@ class ViewModel: ObservableObject, AnnotationService {
         updateAnnotations(annotation: annotation)
     }
 
-    func updateAnnotations(annotation: GlidePDFKitAnnotationModel, isNewSelected _: Bool = false) {
+    func updateAnnotations(annotation: GlidePDFKitAnnotationModel, isNewSelected: Bool = false) {
         guard let galleryItem = items[safe: activePage - 1],
               let annotationArray = galleryItem.annotationsArray else { return }
         galleryItem.annotationsArray = annotationArray.map {

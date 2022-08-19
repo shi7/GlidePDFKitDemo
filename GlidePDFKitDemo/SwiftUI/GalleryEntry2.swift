@@ -10,7 +10,8 @@ import SwiftUI
 struct GalleryEntry2: View {
     @ObservedObject private var dataModel: ViewModel
     let url: URL
-    let pdfLoader: PDFLoader = PDFLoader()
+    let pdfLoader: PDFLoader = .init()
+    let annotationService: AnnotationServiceProxy = .init()
 
     private var documentPreLoadInner: (() -> Void)?
     private var documentLoadedFailInner: ((_ error: PDFError) -> Void)?
@@ -24,6 +25,7 @@ struct GalleryEntry2: View {
         dataModel.fetcher = pdfLoader
         pdfLoader.delegate = self
         pdfLoader.loadPDF(url: url)
+        annotationService.service = model
     }
 
     private init(
@@ -36,12 +38,12 @@ struct GalleryEntry2: View {
         onDocumentLoaded: (() -> Void)?
     ) {
         self.url = url
-        self.dataModel = model
+        dataModel = model
         self.annotationSelectedInner = annotationSelectedInner
         self.annotationUnSelectedInner = annotationUnSelectedInner
-        self.documentPreLoadInner = onDocumentPreLoad
-        self.documentLoadedFailInner = onDocumentLoadedFail
-        self.documentLoadedInner = onDocumentLoaded
+        documentPreLoadInner = onDocumentPreLoad
+        documentLoadedFailInner = onDocumentLoadedFail
+        documentLoadedInner = onDocumentLoaded
     }
 
     var body: some View {
@@ -51,7 +53,6 @@ struct GalleryEntry2: View {
 }
 
 extension GalleryEntry2 {
-
     public func onDocumentPreLoad(_ preload: @escaping () -> Void) -> Self {
         var copy = self
         copy.documentPreLoadInner = preload
@@ -103,7 +104,14 @@ extension GalleryEntry2: PDFDelegate {
     }
 
     func annotationDidTap(annotation: GlidePDFKitAnnotationModel) {
-        annotationSelectedInner?(annotation)
+        // TODO: navigator a new page to update annotation
+        var newAnnotation = annotation
+        newAnnotation.backgroundColor = .red
+        newAnnotation.image = UIImage(named: "floodway")
+        newAnnotation.text = "xxx"
+        newAnnotation.isSelected = true
+        annotationService.updateAnnotation(annotation: newAnnotation)
+        annotationSelectedInner?(newAnnotation)
     }
 
     func annotationUnSelected(annotation: GlidePDFKitAnnotationModel) {

@@ -1,34 +1,33 @@
 import SwiftUI
 
 struct AnnotationActionsView: View {
-
     @State private var frame: CGRect = .zero
     @State private var require: Bool = true
 
     var body: some View {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    AnnotationActionView(title: "Delete")
-                        .destructive { print("Delete") }
-                        .padding(.leading)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                AnnotationActionView(title: "Delete")
+                    .destructive { print("Delete") }
+                    .padding(.leading)
 
-                    AnnotationActionView(title: "Required")
-                        .checked($require)
-                        .padding(.trailing)
+                AnnotationActionView(title: "Required")
+                    .checked($require)
+                    .padding(.trailing)
 
-                    AnnotationActionView(title: "Assign to")
-                        .icon(.person) { print("Assign to") }
-                        .padding(.trailing)
-                }
-                .padding(.vertical, 20)
-                .frame(minWidth: frame.width)
+                AnnotationActionView(title: "Assign to")
+                    .icon(.person) { print("Assign to") }
+                    .padding(.trailing)
             }
-            .geometryReader($frame)
-            .border(width: 1, edges: [.top], color: .gray40)
+            .padding(.vertical, 20)
+            .frame(minWidth: frame.width)
+        }
+        .geometryReader($frame)
+        .border(width: 1, edges: [.top], color: .gray40)
     }
 }
 
-fileprivate struct AnnotationActionView: View {
+private struct AnnotationActionView: View {
     private let title: String
     private let isDestructive: Bool
     private let content: () -> AnyView
@@ -39,7 +38,7 @@ fileprivate struct AnnotationActionView: View {
 
     private init(title: String, destructive: Bool, content: @escaping () -> AnyView) {
         self.title = title
-        self.isDestructive = destructive
+        isDestructive = destructive
         self.content = content
     }
 

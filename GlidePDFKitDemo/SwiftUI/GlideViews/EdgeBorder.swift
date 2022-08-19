@@ -25,7 +25,7 @@ struct EdgeBorder: Shape {
             var w: CGFloat {
                 switch edge {
                 case .top, .bottom: return rect.width
-                case .leading, .trailing: return self.width
+                case .leading, .trailing: return width
                 }
             }
 
@@ -53,10 +53,10 @@ struct RoundedBackgroundModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-        .background(
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .foregroundColor(color)
-        )
+            .background(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .foregroundColor(color)
+            )
     }
 }
 
@@ -65,5 +65,3 @@ extension View {
         modifier(RoundedBackgroundModifier(color: color, cornerRadius: cornerRadius))
     }
 }
-
-

@@ -32,9 +32,9 @@ struct DocumentView: View {
                     selectedAnnotationId = nil
                 }
 
-            if (selectedAnnotationId == nil) {
+            if selectedAnnotationId == nil {
                 AnnotationsTabsView(color: .lightGreen, readOnly: false)
-                    .onSelect{ annotationKind in
+                    .onSelect { annotationKind in
                         print("OnSelect: \(annotationKind.rawValue)")
                     }
             } else {
