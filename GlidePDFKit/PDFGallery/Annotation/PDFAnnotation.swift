@@ -17,7 +17,7 @@ struct PDFAnnotation<Content>: View where Content: View {
         self.model = model
         self.content = content
     }
-    
+
     var body: some View {
         content()
             .frame(width: model.width, height: model.height)

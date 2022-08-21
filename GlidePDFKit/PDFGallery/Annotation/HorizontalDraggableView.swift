@@ -13,60 +13,65 @@ struct HorizontalDraggableView<Content>: View where Content: View {
     @State var offset: CGSize = .zero
     @ViewBuilder let content: () -> Content
     @EnvironmentObject var dataModel: ViewModel
-    
+
     var model: GlidePDFKitAnnotationModel
-    
+
     init(model: GlidePDFKitAnnotationModel, content: @escaping () -> Content) {
         self.model = model
         self.content = content
     }
-    
+
     // TODO: extract the horizontal drag zoom gesture to ViewModifier
     var dragRightGesture: some Gesture {
         DragGesture()
             .onChanged { value in
                 width = max(Constants.minWidth, width + value.translation.width)
+                height = max(Constants.minHeight, height + value.translation.height)
+                width = min(width, Constants.maxWidth)
+                height = min(height, Constants.maxHeight)
                 let offsetWidth = (width - model.width) / 2
-                offset = CGSize(width: offsetWidth, height: 0)
+                let offsetHeight = (height - model.height) / 2
+                offset = CGSize(width: offsetWidth, height: offsetHeight)
                 print("offsetWidth width \(offsetWidth)")
             }.onEnded { _ in
-                
+
                 // MARK: Debug
-                
+
                 print("right drag and should update annotation width")
                 var copyModel = model
                 copyModel.location = CGPoint(x: model.location.x + offset.width, y: model.location.y)
                 copyModel.width = width
-                
+                copyModel.height = height
+
                 dataModel.updateAnnotations(annotation: copyModel)
                 offset = .zero
             }
     }
-    
+
     var dragLeftGesture: some Gesture {
         DragGesture()
             .onChanged { value in
                 width = max(Constants.minWidth, width + value.translation.width * -1)
                 let offsetWidth = (width - model.width) / 2 * -1
                 offset = CGSize(width: offsetWidth, height: 0)
-                
+
                 // MARK: Debug
-                
+
                 print("offsetWidth width \(offsetWidth)")
             }.onEnded { _ in
-                
+
                 // MARK: Debug
-                
+
                 print("left drag and should update annotation width")
                 var copyModel = model
                 copyModel.location = CGPoint(x: model.location.x + offset.width, y: model.location.y)
                 copyModel.width = width
-                
+
                 dataModel.updateAnnotations(annotation: copyModel)
                 offset = .zero
             }
     }
-    
+
     var body: some View {
         VStack {
             ZStack(alignment: .center) {
@@ -89,7 +94,7 @@ struct HorizontalDraggableView<Content>: View where Content: View {
             height = model.height
         }
     }
-    
+
     private func DragHandle() -> some View {
         HStack {
             DragCircle().gesture(dragLeftGesture)
@@ -97,7 +102,7 @@ struct HorizontalDraggableView<Content>: View where Content: View {
             DragCircle().gesture(dragRightGesture)
         }
     }
-    
+
     private func DragCircle() -> some View {
         Circle()
             .strokeBorder(.black, lineWidth: 2)
@@ -109,6 +114,8 @@ struct HorizontalDraggableView<Content>: View where Content: View {
 private enum Constants {
     static let minWidth: CGFloat = 100
     static let minHeight: CGFloat = 40
+    static let maxWidth: CGFloat = 260
+    static let maxHeight: CGFloat = 260
     static let handleSize: CGFloat = 15
 }
 

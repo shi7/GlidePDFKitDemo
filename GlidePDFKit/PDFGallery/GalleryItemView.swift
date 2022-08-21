@@ -25,7 +25,7 @@ struct GalleryItemView: View {
                         Image(uiImage: img)
                             .resizable()
                             .scaledToFit()
-                        if let item = dataModel.items[dataModel.activePage - 1], let annotationArray = item.annotationsArray {
+                        if let item = dataModel.items[safe: dataModel.activePage - 1], let annotationArray = item.annotationsArray {
                             ForEach(annotationArray) { annotation in
                                 if annotation.type == .image {
                                     GlidePDFKitImageAnnotation(model: annotation, scale: item.scale)

@@ -14,7 +14,7 @@ public struct MagnificationModifier: ViewModifier {
     @State var offset: CGSize = .zero
     @State var lastOffset: CGSize = .zero
     @State var debug = ""
-    
+
     // TODO: move the business logic out of this struct, use closure instead
     @EnvironmentObject var dataModel: ViewModel
 

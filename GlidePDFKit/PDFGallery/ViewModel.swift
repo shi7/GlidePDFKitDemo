@@ -1,12 +1,6 @@
 import Foundation
 import SwiftUI
 
-private extension Collection {
-    subscript(safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
-    }
-}
-
 class ViewModel: ObservableObject, AnnotationService {
     @Published var items: [GalleryItem] = []
     @Published var activePage: Int = 1
@@ -70,7 +64,7 @@ class ViewModel: ObservableObject, AnnotationService {
         updateAnnotations(annotation: annotation)
     }
 
-    func updateAnnotations(annotation: GlidePDFKitAnnotationModel, isNewSelected: Bool = false) {
+    func updateAnnotations(annotation: GlidePDFKitAnnotationModel, isNewSelected _: Bool = false) {
         guard let galleryItem = items[safe: activePage - 1],
               let annotationArray = galleryItem.annotationsArray else { return }
         galleryItem.annotationsArray = annotationArray.map {

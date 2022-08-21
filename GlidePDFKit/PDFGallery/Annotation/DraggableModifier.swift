@@ -10,11 +10,11 @@ import SwiftUI
 
 public struct DraggableModifier: ViewModifier {
     @State private var offset = CGSize.zero
-    
+
     // TODO: remove the business logic to topper view, maybe pass a callback closure
     @EnvironmentObject var dataModel: ViewModel
     var model: GlidePDFKitAnnotationModel
-    
+
     var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
@@ -31,7 +31,7 @@ public struct DraggableModifier: ViewModifier {
                 offset = .zero
             }
     }
-    
+
     public func body(content: Content) -> some View {
         content
             .offset(offset)
