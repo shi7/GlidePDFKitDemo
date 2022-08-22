@@ -12,22 +12,21 @@ struct ResizableView<Content>: View where Content: View {
     @State private var height: CGFloat = .zero
     @State var offset: CGSize = .zero
     
-    @State private var lastWidth: CGFloat = Constants.minWidth
-    @State private var lastHeight: CGFloat = Constants.minHeight
-    @State var lastPos: CGPoint = .zero
-    
     @ViewBuilder let content: () -> Content
     
+    private var originalWidth: CGFloat
+    private var originalHeight: CGFloat
+    var position: CGPoint
     let onEnd: OnEnd
-    let position: CGPoint
-    let size: CGSize
     
     var model: GlidePDFKitAnnotationModel
 
-    init(model: GlidePDFKitAnnotationModel, pos: CGPoint, size: CGSize, onEnd: @escaping OnEnd, content: @escaping () -> Content) {
+    init(model: GlidePDFKitAnnotationModel, pos: CGPoint, width: CGFloat, height: CGFloat, onEnd: @escaping OnEnd, content: @escaping () -> Content) {
         self.model = model
+        
         self.position = pos
-        self.size = size
+        self.originalWidth = width
+        self.originalHeight = height
         self.onEnd = onEnd
         self.content = content
     }
@@ -47,12 +46,11 @@ struct ResizableView<Content>: View where Content: View {
             }
             .frame(width: width + Constants.handleSize, height: height + Constants.handleSize)
             .modifier(DraggableModifier(model: model))
-            .position(x: lastPos.x + offset.width, y: lastPos.y + offset.height)
+            .position(x: position.x + offset.width, y: position.y + offset.height)
         }
         .onAppear {
-            width = size.width
-            height = size.height
-            lastPos = position
+            width = originalWidth
+            height = originalHeight
         }
     }
 
@@ -191,18 +189,13 @@ extension ResizableView {
     }
     
     private func updateState() {
-        self.onEnd(CGSize(width: width, height: height), CGPoint(x: lastPos.x + offset.width, y: lastPos.y + offset.height))
-        
-        lastWidth = width
-        lastHeight = height
-        lastPos = CGPoint(x: lastPos.x + offset.width, y: lastPos.y + offset.height)
-        
+        self.onEnd(CGSize(width: width, height: height), CGPoint(x: position.x + offset.width, y: position.y + offset.height))
         offset = .zero
     }
     
     private func rightWidthAndOffsetOf(_ value: DragGesture.Value) -> (width: CGFloat, offset: CGFloat) {
         let width = max(Constants.minWidth, width + value.translation.width)
-        let offsetWidth = (width - lastWidth) / 2
+        let offsetWidth = (width - originalWidth) / 2
         print("right width \(width) offsetWidth \(offsetWidth)")
         
         return (width, offsetWidth)
@@ -210,7 +203,7 @@ extension ResizableView {
     
     private func leftWidthAndOffsetOf(_ value: DragGesture.Value) -> (width: CGFloat, offset: CGFloat) {
         let width = max(Constants.minWidth, width + value.translation.width * -1)
-        let offsetWidth = (width - lastWidth) / 2 * -1
+        let offsetWidth = (width - originalWidth) / 2 * -1
         print("left width \(width) offsetWidth \(offsetWidth)")
         
         return (width, offsetWidth)
@@ -218,7 +211,7 @@ extension ResizableView {
     
     private func topHeightAndOffsetOf(_ value: DragGesture.Value) -> (height: CGFloat, offset: CGFloat) {
         let height = max(Constants.minHeight, height + value.translation.height * -1)
-        let offsetHeight = (height - lastHeight) / 2 * -1
+        let offsetHeight = (height - originalHeight) / 2 * -1
         print("top height  \(height) offsetHeight \(offsetHeight)")
         
         return (height, offsetHeight)
@@ -226,7 +219,7 @@ extension ResizableView {
     
     private func bottomHeightAndOffsetOf(_ value: DragGesture.Value) -> (height: CGFloat, offset: CGFloat) {
         let height = max(Constants.minHeight, height + value.translation.height)
-        let offsetHeight = (height - lastHeight) / 2
+        let offsetHeight = (height - originalHeight) / 2
         print("bottom height \(height) offsetHeight \(offsetHeight)")
         
         return (height, offsetHeight)

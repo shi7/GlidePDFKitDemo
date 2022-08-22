@@ -16,7 +16,7 @@ struct GlidePDFKitTextAnnotation: View {
         }
         
         if model.isSelected {
-            ResizableView(model: model, pos: model.location, size: CGSize(width: model.width, height: model.height), onEnd: onEnd) {
+            ResizableView(model: model, pos: model.location, width: model.width, height: model.height, onEnd: onEnd) {
                 Text(model.text)
             }
         } else {
