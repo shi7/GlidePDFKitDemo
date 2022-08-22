@@ -12,12 +12,14 @@ struct ResizableView<Content>: View where Content: View {
     @State private var height: CGFloat = .zero
     @State var offset: CGSize = .zero
     @ViewBuilder let content: () -> Content
+    let onEnd: OnEnd
+    
     @EnvironmentObject var dataModel: ViewModel
-
     var model: GlidePDFKitAnnotationModel
 
-    init(model: GlidePDFKitAnnotationModel, content: @escaping () -> Content) {
+    init(model: GlidePDFKitAnnotationModel, onEnd: @escaping OnEnd, content: @escaping () -> Content) {
         self.model = model
+        self.onEnd = onEnd
         self.content = content
     }
 
@@ -179,12 +181,7 @@ extension ResizableView {
     }
     
     private func updateState() {
-        var copyModel = model
-        copyModel.location = CGPoint(x: model.location.x + offset.width, y: model.location.y + offset.height)
-        copyModel.width = width
-        copyModel.height = height
-        
-        dataModel.updateAnnotations(annotation: copyModel)
+        self.onEnd(CGSize(width: width, height: height), CGPoint(x: model.location.x + offset.width, y: model.location.y + offset.height))
         offset = .zero
     }
     
@@ -220,6 +217,8 @@ extension ResizableView {
         return (height, offsetHeight)
     }
 }
+
+typealias OnEnd = (CGSize, CGPoint) -> Void
 
 private enum Constants {
     static let minWidth: CGFloat = 100
