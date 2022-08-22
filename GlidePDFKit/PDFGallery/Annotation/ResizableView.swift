@@ -20,7 +20,7 @@ struct ResizableView<Content>: View where Content: View {
     let onEnd: OnEnd
     
     var model: GlidePDFKitAnnotationModel
-
+    
     init(model: GlidePDFKitAnnotationModel, pos: CGPoint, width: CGFloat, height: CGFloat, onEnd: @escaping OnEnd, content: @escaping () -> Content) {
         self.model = model
         
@@ -30,30 +30,28 @@ struct ResizableView<Content>: View where Content: View {
         self.onEnd = onEnd
         self.content = content
     }
-
+    
     var body: some View {
-        VStack {
-            ZStack(alignment: .center) {
-                content()
-                    .frame(width: width, height: height)
-                    .border(.blue, width: model.isSelected ? 2 : 0)
-                    .background(model.backgroundColor)
-                VStack {
-                    TopLineDragHandle()
-                    Spacer()
-                    BottomLineDragHandle()
-                }
+        ZStack(alignment: .center) {
+            content()
+                .frame(width: width, height: height)
+                .border(.blue, width: model.isSelected ? 2 : 0)
+                .background(model.backgroundColor)
+            VStack {
+                TopLineDragHandle()
+                Spacer()
+                BottomLineDragHandle()
             }
-            .frame(width: width + Constants.handleSize, height: height + Constants.handleSize)
-            .modifier(DraggableModifier(model: model))
-            .position(x: position.x + offset.width, y: position.y + offset.height)
         }
+        .frame(width: width + Constants.handleSize, height: height + Constants.handleSize)
+        .modifier(DraggableModifier(model: model))
+        .position(x: position.x + offset.width, y: position.y + offset.height)
         .onAppear {
             width = originalWidth
             height = originalHeight
         }
     }
-
+    
     private func TopLineDragHandle() -> some View {
         HStack {
             DragCircle().gesture(dragLeftTopGesture)
@@ -81,7 +79,7 @@ struct ResizableView<Content>: View where Content: View {
             DragCircle().gesture(dragRightGesture)
         }
     }
-
+    
     private func DragCircle() -> some View {
         Circle()
             .strokeBorder(.black, lineWidth: 2)
