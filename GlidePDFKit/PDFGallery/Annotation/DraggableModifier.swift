@@ -13,12 +13,10 @@ public struct DraggableModifier: ViewModifier {
     
     var position: CGPoint
     var onDragEnd: OnDragEnd
-    var model: GlidePDFKitAnnotationModel
     
-    init(pos: CGPoint, onDragEnd: @escaping OnDragEnd, model: GlidePDFKitAnnotationModel) {
+    init(pos: CGPoint, onDragEnd: @escaping OnDragEnd) {
         self.position = pos
         self.onDragEnd = onDragEnd
-        self.model = model
     }
     
     public func body(content: Content) -> some View {

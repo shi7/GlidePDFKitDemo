@@ -17,34 +17,32 @@ struct ResizableView<Content>: View where Content: View {
     private var originalWidth: CGFloat
     private var originalHeight: CGFloat
     var position: CGPoint
+    var backgroundColor: Color
     let onEnd: OnEnd
     
-    var model: GlidePDFKitAnnotationModel
-    
-    @EnvironmentObject var dataModel: ViewModel
-    
-    init(model: GlidePDFKitAnnotationModel, pos: CGPoint, width: CGFloat, height: CGFloat, onEnd: @escaping OnEnd, content: @escaping () -> Content) {
-        self.model = model
-        
+    init(
+        pos: CGPoint,
+        width: CGFloat,
+        height: CGFloat,
+        backgroundColor: Color,
+        onEnd: @escaping OnEnd,
+        content: @escaping () -> Content
+    ) {
         self.position = pos
         self.originalWidth = width
         self.originalHeight = height
+        self.backgroundColor = backgroundColor
         self.onEnd = onEnd
         self.content = content
     }
     
     var body: some View {
-        let onDragEnd: OnDragEnd = { pos in
-            var copyModel = model
-            copyModel.location = pos
-            dataModel.updateAnnotations(annotation: copyModel)
-        }
-        
         ZStack(alignment: .center) {
             content()
                 .frame(width: width, height: height)
-                .border(.blue, width: model.isSelected ? 2 : 0)
-                .background(model.backgroundColor)
+                .border(.blue, width: 2)
+                .background(backgroundColor)
+            
             VStack {
                 TopLineDragHandle()
                 Spacer()
@@ -53,7 +51,6 @@ struct ResizableView<Content>: View where Content: View {
         }
         .frame(width: width + Constants.handleSize, height: height + Constants.handleSize)
         .position(x: position.x + offset.width, y: position.y + offset.height)
-//        .modifier(DraggableModifier(pos: model.location, onDragEnd: onDragEnd, model: model))
         .onAppear {
             width = originalWidth
             height = originalHeight

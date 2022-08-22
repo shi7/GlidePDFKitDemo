@@ -22,10 +22,16 @@ struct GlidePDFKitTextAnnotation: View {
         }
         
         if model.isSelected {
-            ResizableView(model: model, pos: model.location, width: model.width, height: model.height, onEnd: onEnd) {
+            ResizableView(
+                pos: model.location,
+                width: model.width,
+                height: model.height,
+                backgroundColor: model.backgroundColor,
+                onEnd: onEnd
+            ) {
                 Text(model.text)
             }
-            .modifier(DraggableModifier(pos: model.location, onDragEnd: onDragEnd, model: model))
+            .modifier(DraggableModifier(pos: model.location, onDragEnd: onDragEnd))
             .onTapGesture {
                 dataModel.updateAnnotations(annotation: model, isNewSelected: true)
                 dataModel.didTap(annotation: model)

@@ -29,7 +29,7 @@ struct PDFAnnotation<Content>: View where Content: View {
             .frame(width: model.width, height: model.height)
             .border(.blue, width: model.isSelected ? 2 : 0)
             .background(model.backgroundColor)
-            .modifier(DraggableModifier(pos: model.location, onDragEnd: onDragEnd, model: model))
+            .modifier(DraggableModifier(pos: model.location, onDragEnd: onDragEnd))
             .onTapGesture {
                 dataModel.updateAnnotations(annotation: model, isNewSelected: true)
                 dataModel.didTap(annotation: model)
