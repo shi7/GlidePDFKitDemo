@@ -19,11 +19,21 @@ struct PDFAnnotation<Content>: View where Content: View {
     }
 
     var body: some View {
+        let onDragEnd: OnDragEnd = { pos in
+            var copyModel = model
+            copyModel.location = pos
+            dataModel.updateAnnotations(annotation: copyModel)
+        }
+        
         content()
             .frame(width: model.width, height: model.height)
             .border(.blue, width: model.isSelected ? 2 : 0)
             .background(model.backgroundColor)
-            .modifier(DraggableModifier(model: model))
+            .modifier(DraggableModifier(pos: model.location, onDragEnd: onDragEnd, model: model))
+            .onTapGesture {
+                dataModel.updateAnnotations(annotation: model, isNewSelected: true)
+                dataModel.didTap(annotation: model)
+            }
     }
 }
 

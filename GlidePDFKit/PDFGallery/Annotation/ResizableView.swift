@@ -21,6 +21,8 @@ struct ResizableView<Content>: View where Content: View {
     
     var model: GlidePDFKitAnnotationModel
     
+    @EnvironmentObject var dataModel: ViewModel
+    
     init(model: GlidePDFKitAnnotationModel, pos: CGPoint, width: CGFloat, height: CGFloat, onEnd: @escaping OnEnd, content: @escaping () -> Content) {
         self.model = model
         
@@ -32,6 +34,12 @@ struct ResizableView<Content>: View where Content: View {
     }
     
     var body: some View {
+        let onDragEnd: OnDragEnd = { pos in
+            var copyModel = model
+            copyModel.location = pos
+            dataModel.updateAnnotations(annotation: copyModel)
+        }
+        
         ZStack(alignment: .center) {
             content()
                 .frame(width: width, height: height)
@@ -44,8 +52,8 @@ struct ResizableView<Content>: View where Content: View {
             }
         }
         .frame(width: width + Constants.handleSize, height: height + Constants.handleSize)
-        .modifier(DraggableModifier(model: model))
         .position(x: position.x + offset.width, y: position.y + offset.height)
+//        .modifier(DraggableModifier(pos: model.location, onDragEnd: onDragEnd, model: model))
         .onAppear {
             width = originalWidth
             height = originalHeight
