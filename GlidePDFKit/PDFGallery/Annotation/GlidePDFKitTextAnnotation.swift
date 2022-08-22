@@ -8,7 +8,7 @@ struct GlidePDFKitTextAnnotation: View {
     @State var scale: CGFloat
     var body: some View {
         if model.isSelected {
-            HorizontalDraggableView(model: model) {
+            ResizableView(model: model) {
                 Text(model.text)
             }
         } else {
