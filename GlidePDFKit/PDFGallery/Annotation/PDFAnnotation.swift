@@ -12,28 +12,19 @@ struct PDFAnnotation<Content>: View where Content: View {
     @EnvironmentObject var dataModel: ViewModel
     // TODO: Maybe we can move this property to viewModel, it passed so many times
     var model: GlidePDFKitAnnotationModel
-
+    
     init(model: GlidePDFKitAnnotationModel, @ViewBuilder content: @escaping () -> Content) {
         self.model = model
         self.content = content
     }
-
+    
     var body: some View {
-        let onDragEnd: OnDragEnd = { pos in
-            var copyModel = model
-            copyModel.location = pos
-            dataModel.updateAnnotations(annotation: copyModel)
+        DragAndTapGestureWrapper(model: model) {
+            content()
+                .frame(width: model.width, height: model.height)
+                .border(.blue, width: model.isSelected ? 2 : 0)
+                .background(model.backgroundColor)
         }
-        
-        content()
-            .frame(width: model.width, height: model.height)
-            .border(.blue, width: model.isSelected ? 2 : 0)
-            .background(model.backgroundColor)
-            .modifier(DraggableModifier(pos: model.location, onDragEnd: onDragEnd))
-            .onTapGesture {
-                dataModel.updateAnnotations(annotation: model, isNewSelected: true)
-                dataModel.didTap(annotation: model)
-            }
     }
 }
 

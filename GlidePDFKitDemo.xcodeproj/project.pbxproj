@@ -59,6 +59,7 @@
 		D6BFEE9628AF535800D8E52D /* PDFAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */; };
 		D6BFEEA228AFD02100D8E52D /* ResizableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEEA128AFD02100D8E52D /* ResizableView.swift */; };
 		D6BFEEA428AFF52600D8E52D /* DraggableModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEEA328AFF52600D8E52D /* DraggableModifier.swift */; };
+		D6BFEEA828B3CB2F00D8E52D /* DragAndTapGestureWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BFEEA728B3CB2F00D8E52D /* DragAndTapGestureWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,7 @@
 		D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFAnnotation.swift; sourceTree = "<group>"; };
 		D6BFEEA128AFD02100D8E52D /* ResizableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableView.swift; sourceTree = "<group>"; };
 		D6BFEEA328AFF52600D8E52D /* DraggableModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableModifier.swift; sourceTree = "<group>"; };
+		D6BFEEA728B3CB2F00D8E52D /* DragAndTapGestureWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndTapGestureWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 				C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */,
 				D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */,
 				D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */,
+				D6BFEEA728B3CB2F00D8E52D /* DragAndTapGestureWrapper.swift */,
 			);
 			path = Annotation;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				BA41FF9428AF82BD00440A7C /* DocumentView.swift in Sources */,
 				D6BFEEA228AFD02100D8E52D /* ResizableView.swift in Sources */,
 				BAB1BBE528AA2BCF001803DF /* PDFFileCache.swift in Sources */,
+				D6BFEEA828B3CB2F00D8E52D /* DragAndTapGestureWrapper.swift in Sources */,
 				D62AF1BA28A535FA002E0D73 /* GalleryEntry.swift in Sources */,
 				BA41FF8D28AF82BD00440A7C /* Icon.swift in Sources */,
 				BAB1BBE828AA2F87001803DF /* StringExtension.swift in Sources */,

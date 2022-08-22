@@ -4,7 +4,7 @@ struct GlidePDFKitTextAnnotation: View {
     @EnvironmentObject var dataModel: ViewModel
     var model: GlidePDFKitAnnotationModel
     @State var scale: CGFloat
-
+    
     var body: some View {
         let onEnd: OnEnd = { size, pos in
             var copyModel = model
@@ -15,26 +15,17 @@ struct GlidePDFKitTextAnnotation: View {
             dataModel.updateAnnotations(annotation: copyModel)
         }
         
-        let onDragEnd: OnDragEnd = { pos in
-            var copyModel = model
-            copyModel.location = pos
-            dataModel.updateAnnotations(annotation: copyModel)
-        }
-        
         if model.isSelected {
-            ResizableView(
-                pos: model.location,
-                width: model.width,
-                height: model.height,
-                backgroundColor: model.backgroundColor,
-                onEnd: onEnd
-            ) {
-                Text(model.text)
-            }
-            .modifier(DraggableModifier(pos: model.location, onDragEnd: onDragEnd))
-            .onTapGesture {
-                dataModel.updateAnnotations(annotation: model, isNewSelected: true)
-                dataModel.didTap(annotation: model)
+            DragAndTapGestureWrapper(model: model) {
+                ResizableView(
+                    pos: model.location,
+                    width: model.width,
+                    height: model.height,
+                    backgroundColor: model.backgroundColor,
+                    onEnd: onEnd
+                ) {
+                    Text(model.text)
+                }
             }
         } else {
             PDFAnnotation(model: model) {
@@ -45,5 +36,4 @@ struct GlidePDFKitTextAnnotation: View {
     }
 }
 
-extension GlidePDFKitTextAnnotation {
-}
+extension GlidePDFKitTextAnnotation {}
