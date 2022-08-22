@@ -233,8 +233,6 @@
 				C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */,
 				D6BFEE9328AF37D800D8E52D /* AnnotationService.swift */,
 				D6BFEE9528AF535800D8E52D /* PDFAnnotation.swift */,
-				D6BFEEA328AFF52600D8E52D /* DraggableModifier.swift */,
-				D6BFEEA128AFD02100D8E52D /* ResizableView.swift */,
 			);
 			path = Annotation;
 			sourceTree = "<group>";
@@ -310,7 +308,9 @@
 		D62AF1DE28A536A9002E0D73 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D6BFEEA328AFF52600D8E52D /* DraggableModifier.swift */,
 				D620CE9028AB8192002285EA /* MagnificationView */,
+				D6BFEEA128AFD02100D8E52D /* ResizableView.swift */,
 				D62AF1D828A53698002E0D73 /* VTabView.swift */,
 			);
 			path = Components;

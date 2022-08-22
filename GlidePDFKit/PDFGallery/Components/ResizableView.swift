@@ -94,7 +94,6 @@ struct ResizableView<Content>: View where Content: View {
 }
 
 extension ResizableView {
-    // TODO: extract the horizontal drag zoom gesture to ViewModifier
     var dragRightGesture: some Gesture {
         DragGesture()
             .onChanged { value in
