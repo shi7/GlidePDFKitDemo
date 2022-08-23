@@ -12,25 +12,13 @@ struct DocumentView: View {
     let model = ViewModel()
     @State private var selectedAnnotationId: UUID?
     var body: some View {
+
+        let pdfData = try! Data(contentsOf: url)
         VStack {
-            GalleryEntry2(url: url, model: model)
-                .onDocumentPreLoad {
-                    print("onDocumentPreLoad")
-                }
-                .onDocumentLoadedFail { _ in
-                    print("onDocumentLoadedFail")
-                }
-                .onDocumentLoaded {
-                    print("onDocumentLoaded")
-                }
-                .onAnnotationSelected { annotation in
-                    print("onAnnotationDidTap: \(annotation)")
-                    selectedAnnotationId = annotation.id
-                }
-                .onAnnotationUnSelected { annotation in
-                    print("onAnnotationDidTap: \(annotation)")
-                    selectedAnnotationId = nil
-                }
+            GalleryView(dataModel: model, activePage: 1)
+//                .environmentObject(model)
+                .setDelegate(delegate: self)
+                .loadData(cfData: pdfData as CFData)
 
             if selectedAnnotationId == nil {
                 AnnotationsTabsView(color: .lightGreen, readOnly: false)
@@ -44,6 +32,25 @@ struct DocumentView: View {
         .navigationTitle("PDF viewer")
         .navigationBarTitleDisplayMode(.inline)
     }
+}
+
+extension DocumentView: PDFDelegate {
+    func onDocumentPreLoad() {
+        print("DocumentView onDocumentPreLoad")
+    }
+
+    func onDocumentLoadedFail(_ error: PDFError) {
+        print("DocumentView onDocumentLoadedFail")
+    }
+
+    func onDocumentLoaded() {
+        print("DocumentView onDocumentLoaded")
+    }
+
+    func annotationDidTap(annotation: GlidePDFKitAnnotationModel) {
+
+    }
+
 }
 
 struct DocumentView_Previews: PreviewProvider {

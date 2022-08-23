@@ -33,13 +33,13 @@ struct GalleryEntry: View {
     }
 
     var body: some View {
-        GalleryView()
+        GalleryView(dataModel: ViewModel(), activePage: 1)
             .environmentObject(dataModel)
             .onAppear {
-                dataModel.fetcher = imgFetcher
-                dataModel.setPages(pages: pages)
-                annotationServiceProxy.service = dataModel
-//                annotationServiceProxy.setService(service: dataModel)
+//                dataModel.fetcher = imgFetcher
+//                dataModel.setPages(pages: pages)
+//                annotationServiceProxy.service = dataModel
+////                annotationServiceProxy.setService(service: dataModel)
             }
     }
 }

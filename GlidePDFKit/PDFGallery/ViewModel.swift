@@ -4,7 +4,21 @@ import SwiftUI
 class ViewModel: ObservableObject, AnnotationService {
     @Published var items: [GalleryItem] = []
     @Published var activePage: Int = 1
-    var fetcher: GliderPDFService?
+
+    private var url: URL?
+    var delegate: PDFDelegate?
+    private var processor: ProcessProtocol?
+
+    public func loadData(cfData: CFData?) {
+        delegate?.onDocumentPreLoad()
+        guard let data = cfData else {
+            delegate?.onDocumentLoadedFail(.ParseError("Empty data"))
+            return
+        }
+        processor = (data as Data).dispatchProcessor()
+        setPages(pages: processor?.pageCount ?? 0)
+        delegate?.onDocumentLoaded()
+    }
 
     func setPages(pages: Int) {
         guard pages > 0 else {
@@ -32,7 +46,7 @@ class ViewModel: ObservableObject, AnnotationService {
         // MARK: Debug
 
         print("try to fetch image at page: \(page)")
-        return fetcher?.fetchAt(page: page)
+        return processor?.loadPageAt(page)?.image
     }
 
     func addNewAnnotation(type: GlidePDFKitAnnotationType) {
@@ -79,7 +93,7 @@ class ViewModel: ObservableObject, AnnotationService {
     }
 
     func didTap(annotation: GlidePDFKitAnnotationModel) {
-        fetcher?.annotationDidTap(annotation: annotation)
+        
     }
 
     func updateActivePage(_ newActivePage: Int) {

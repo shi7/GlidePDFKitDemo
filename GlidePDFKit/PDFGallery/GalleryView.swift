@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct GalleryView: View {
-    @EnvironmentObject var dataModel: ViewModel
+    @ObservedObject var dataModel: ViewModel
     @State var activePage: Int = 1
     var body: some View {
         GeometryReader { geo in
@@ -19,7 +19,18 @@ struct GalleryView: View {
 
                 print("new page \(index)")
             })
+            .environmentObject(dataModel)
         }
+    }
+
+    public func setDelegate(delegate: PDFDelegate) -> Self {
+        dataModel.delegate = delegate
+        return self
+    }
+
+    public func loadData(cfData: CFData?) -> Self {
+        dataModel.loadData(cfData: cfData)
+        return self
     }
 }
 

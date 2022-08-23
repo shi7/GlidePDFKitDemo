@@ -31,6 +31,16 @@ class PDFLoader: GliderPDFService {
             }
         }
     }
+    
+    public func loadData(cfData: CFData?) {
+        delegate?.onDocumentPreLoad()
+        guard let data = cfData else {
+            delegate?.onDocumentLoadedFail(.ParseError("Empty data"))
+            return
+        }
+        processor = (data as Data).dispatchProcessor()
+        delegate?.onDocumentLoaded()
+    }
 
     func totalPages() -> Int {
         processor?.pageCount ?? 0
