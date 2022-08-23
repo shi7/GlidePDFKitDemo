@@ -32,6 +32,7 @@ struct GlidePDFKitTextAnnotation: View {
                 Text(model.text)
             }
             .position(model.location)
+            .zIndex(model.isSelected ? 1 : 0)
         }
     }
 }
