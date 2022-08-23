@@ -11,4 +11,12 @@ protocol GliderPDFService {
     func fetchAt(page: Int) -> UIImage?
 
     func annotationDidTap(annotation: GlidePDFKitAnnotationModel)
+
+    func annotationEditTapped(_ id: String)
+    func annotationFrameUpdate(_ id: String, _ frame: CGRect)
+    func addAnnotationToFieldIdGroup(_ fieldId: String)
+//    func annotationCreated(_ annotation: Mobile_ESignAnnotation)
+    func annotationCreated()
+    func annotationDeleted(_ id: String)
+    func annotationEditCanceled()
 }

@@ -36,6 +36,13 @@ struct DocumentView: View {
                 AnnotationsTabsView(color: .lightGreen, readOnly: false)
                     .onSelect { annotationKind in
                         print("OnSelect: \(annotationKind.rawValue)")
+                        if annotationKind == .signatureTab {
+                            model.addAnnotations(type: .image)
+                        } else if annotationKind == .initialsTab {
+                            model.addAnnotations(type: .text)
+                        } else if annotationKind == .dateTab {
+                            model.removeSelectedAnnotations()
+                        }
                     }
             } else {
                 AnnotationActionsView()

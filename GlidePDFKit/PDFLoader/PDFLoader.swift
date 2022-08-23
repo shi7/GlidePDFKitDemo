@@ -2,6 +2,30 @@ import Foundation
 import UIKit
 
 class PDFLoader: GliderPDFService {
+    func annotationEditTapped(_ id: String) {
+        
+    }
+
+    func annotationFrameUpdate(_ id: String, _ frame: CGRect) {
+
+    }
+
+    func addAnnotationToFieldIdGroup(_ fieldId: String) {
+
+    }
+
+    func annotationCreated() {
+
+    }
+
+    func annotationDeleted(_ id: String) {
+
+    }
+
+    func annotationEditCanceled() {
+
+    }
+
     var delegate: PDFDelegate?
     var processor: ProcessProtocol?
 

@@ -11,6 +11,7 @@ struct GalleryEntry2: View {
     @ObservedObject private var dataModel: ViewModel
     let url: URL
     let pdfLoader: PDFLoader = .init()
+    var galleryView: GalleryView?
     let annotationService: AnnotationServiceProxy = .init()
 
     private var documentPreLoadInner: (() -> Void)?
@@ -44,11 +45,11 @@ struct GalleryEntry2: View {
         documentPreLoadInner = onDocumentPreLoad
         documentLoadedFailInner = onDocumentLoadedFail
         documentLoadedInner = onDocumentLoaded
+
     }
 
     var body: some View {
-        GalleryView()
-            .environmentObject(dataModel)
+        GalleryView().environmentObject(dataModel)
     }
 }
 
@@ -108,7 +109,7 @@ extension GalleryEntry2: PDFDelegate {
         var newAnnotation = annotation
         newAnnotation.backgroundColor = .red
         newAnnotation.image = UIImage(named: "floodway")
-        newAnnotation.text = "xxx"
+        newAnnotation.text = "test adksajdka"
         newAnnotation.isSelected = true
         annotationService.updateAnnotation(annotation: newAnnotation)
         annotationSelectedInner?(newAnnotation)

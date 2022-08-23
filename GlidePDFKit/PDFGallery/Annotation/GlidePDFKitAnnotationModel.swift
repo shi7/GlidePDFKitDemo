@@ -11,6 +11,23 @@ struct GlidePDFKitAnnotationModel: Identifiable {
     var text = ""
     var isSelected: Bool = false
     var backgroundColor: Color = .gray
+
+//    let page: Int
+//    let color: UIColor
+//    let PDFCoordinates: CGRect
+//    let PDFScale: CGFloat
+//    let minSize: CGSize
+//    let kind: Forms_Annotation.Kind
+//    let isRequired: Bool
+//    let isReadOnly: Bool
+//    let recipientText: String
+//    let recipientColor: UIColor
+//    let fieldId: String?
+//    let fieldPart: Int?
+//    let fieldValue: String?
+//    let isChecked: Bool
+//    let isBeingEdited: Bool
+
 }
 
 enum GlidePDFKitAnnotationType {
