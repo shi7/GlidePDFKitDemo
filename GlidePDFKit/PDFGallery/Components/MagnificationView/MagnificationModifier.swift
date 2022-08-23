@@ -92,7 +92,7 @@ public struct MagnificationModifier: ViewModifier {
 
 extension MagnificationModifier {
     private enum Constants {
-        static let scrollDistance: CGFloat = 6000
+        static let scrollDistance: CGFloat = 600
         static let scalePrecision: CGFloat = 0.001
         static let minScale: CGFloat = 1
         static let maxScale: CGFloat = 4
