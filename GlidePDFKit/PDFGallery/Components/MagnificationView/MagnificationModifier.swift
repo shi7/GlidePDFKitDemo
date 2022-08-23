@@ -56,10 +56,11 @@ public struct MagnificationModifier: ViewModifier {
                         height: value.predictedEndLocation.y - value.location.y
                     )
                     
+                    print("velocity height \(velocity.height)")
                     var isTurnPageSuccess = false
-                    if (velocity.height > Constants.scrollDistance) || (offset.height > turnPageThreshold) {
+                    if (velocity.height > Constants.velocityDistanceThreshold) || (offset.height > turnPageThreshold) {
                         isTurnPageSuccess = gotoPreviousPage()
-                    } else if (velocity.height < -Constants.scrollDistance) || (offset.height < turnPageThreshold * -1) {
+                    } else if (velocity.height < -Constants.velocityDistanceThreshold) || (offset.height < turnPageThreshold * -1) {
                         isTurnPageSuccess = gotoNextPage()
                     }
                     
@@ -85,7 +86,7 @@ public struct MagnificationModifier: ViewModifier {
 
 extension MagnificationModifier {
     private enum Constants {
-        static let scrollDistance: CGFloat = 6000
+        static let velocityDistanceThreshold: CGFloat = 10000
         static let scalePrecision: CGFloat = 0.001
         static let minScale: CGFloat = 1
         static let maxScale: CGFloat = 4
