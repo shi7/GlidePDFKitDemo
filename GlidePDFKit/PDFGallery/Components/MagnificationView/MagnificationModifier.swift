@@ -53,14 +53,14 @@ public struct MagnificationModifier: ViewModifier {
 
                     print("velocity height \(velocity.height)")
 
-                    if velocity.height > Constants.scrollDistance {
-                        withAnimation {
-                            dataModel.activePage -= 1
-                        }
-                    } else if velocity.height < -Constants.scrollDistance {
-                        withAnimation {
-                            dataModel.activePage += 1
-                        }
+                    if velocity.height > Constants.scrollDistance && dataModel.activePage > 1 {
+                            withAnimation {
+                                dataModel.activePage -= 1
+                            }
+                    } else if velocity.height < -Constants.scrollDistance && dataModel.activePage < dataModel.items.count {
+                            withAnimation {
+                                dataModel.activePage += 1
+                            }
                     } else {
                         fixOffset(geometry: geometry, content: content)
                     }
