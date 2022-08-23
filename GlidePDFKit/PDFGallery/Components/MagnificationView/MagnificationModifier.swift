@@ -35,7 +35,7 @@ public struct MagnificationModifier: ViewModifier {
                     scale = lastScale * gesture
                 }
                 .onEnded { _ in
-                    fixScale(geometry: geometry, content: content)
+                    fixOffsetAndScale(geometry: geometry)
                 }
             
             let dragGesture = DragGesture()
@@ -50,31 +50,21 @@ public struct MagnificationModifier: ViewModifier {
                 .onEnded { value in
                     let contentScaleHeight = (contentSize.height * getOriginalScale(geometry: geometry)) * scale
                     let turnPageThreshold = contentScaleHeight / 2
-                    if offset.height > turnPageThreshold {
-                        print("need scroll to previous page")
-                        gotoPreviousPage()
-                        return
-                    } else if offset.height < turnPageThreshold * -1 {
-                        print("need scroll to next page")
-                        gotoNextPage()
-                        return
-                    }
                     
                     let velocity = CGSize(
                         width: value.predictedEndLocation.x - value.location.x,
                         height: value.predictedEndLocation.y - value.location.y
                     )
                     
-                    // MARK: Debug
+                    var isTurnPageSuccess = false
+                    if (velocity.height > Constants.scrollDistance) || (offset.height > turnPageThreshold) {
+                        isTurnPageSuccess = gotoPreviousPage()
+                    } else if (velocity.height < -Constants.scrollDistance) || (offset.height < turnPageThreshold * -1) {
+                        isTurnPageSuccess = gotoNextPage()
+                    }
                     
-                    print("velocity height \(velocity.height)")
-                    
-                    if velocity.height > Constants.scrollDistance {
-                        gotoPreviousPage()
-                    } else if velocity.height < -Constants.scrollDistance {
-                        gotoNextPage()
-                    } else {
-                        fixOffset(geometry: geometry, content: content)
+                    if !isTurnPageSuccess {
+                        fixOffsetAndScale(geometry: geometry)
                     }
                 }
             
@@ -112,15 +102,22 @@ extension MagnificationModifier {
         lastOffset = .zero
     }
     
-    private func fixScale(geometry _: GeometryProxy, content _: Content) {
-        let newScale: CGFloat = .minimum(.maximum(scale, Constants.minScale), Constants.maxScale)
+    private func fixOffsetAndScale(geometry: GeometryProxy) {
+        let newScale = fixScale(geometry: geometry)
+        let newOffset = fixOffset(geometry: geometry)
         lastScale = newScale
+        lastOffset = newOffset
         withAnimation {
+            offset = newOffset
             scale = newScale
         }
     }
     
-    private func fixOffset(geometry: GeometryProxy, content _: Content) {
+    private func fixScale(geometry _: GeometryProxy) -> CGFloat{
+        .minimum(.maximum(scale, Constants.minScale), Constants.maxScale)
+    }
+    
+    private func fixOffset(geometry: GeometryProxy) -> CGSize {
         let containerSize = geometry.size
         let containerWidth = containerSize.width
         let containerHeight = containerSize.height
@@ -128,12 +125,9 @@ extension MagnificationModifier {
         let originalScale = getOriginalScale(geometry: geometry)
         let contentScaleWidth = (contentSize.width * originalScale) * scale
         
-        print("originalScale \(originalScale)")
         var width: CGFloat = .zero
         if contentScaleWidth > containerWidth {
-            let widthLimit: CGFloat = contentScaleWidth > containerWidth ?
-            (contentScaleWidth - containerWidth) / 2
-            : 0
+            let widthLimit = (contentScaleWidth - containerWidth) / 2
             
             width = offset.width > 0 ?
                 .minimum(widthLimit, offset.width) :
@@ -143,21 +137,14 @@ extension MagnificationModifier {
         let contentScaleHeight = (contentSize.height * originalScale) * scale
         var height: CGFloat = .zero
         if contentScaleHeight > containerHeight {
-            let heightLimit: CGFloat = contentScaleHeight > containerHeight ?
-            (contentScaleHeight - containerHeight) / 2 :
-            0
+            let heightLimit = (contentScaleHeight - containerHeight) / 2
             
-            print("height limit \(heightLimit)")
             height = offset.height > 0 ?
                 .minimum(heightLimit, offset.height) :
                 .maximum(-heightLimit, offset.height)
         }
         
-        let newOffset = CGSize(width: width, height: height)
-        lastOffset = newOffset
-        withAnimation {
-            offset = newOffset
-        }
+        return CGSize(width: width, height: height)
     }
     
     private func getOriginalScale(geometry: GeometryProxy) -> CGFloat {
@@ -168,15 +155,15 @@ extension MagnificationModifier {
         let containerHeight = containerSize.height
         
         let originalScale = contentWidth / contentHeight >= containerWidth / containerHeight ?
-        containerWidth / contentWidth :
-        containerHeight / contentHeight
+            containerWidth / contentWidth :
+            containerHeight / contentHeight
         
         return originalScale
     }
 }
 
-typealias GotoPreviousPage = () -> Void
-typealias GotoNextPage = () -> Void
+typealias GotoPreviousPage = () -> Bool
+typealias GotoNextPage = () -> Bool
 
 extension View {
     func onTapGestureIf(_ condition: Bool, closure: @escaping () -> Void) -> some View {

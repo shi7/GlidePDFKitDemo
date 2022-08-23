@@ -18,23 +18,27 @@ struct GalleryItemView: View {
     }
     
     var body: some View {
-        let gotoPreviousPage = {
+        let gotoPreviousPage: GotoPreviousPage = {
             if dataModel.activePage > 1 {
                 withAnimation {
                     dataModel.activePage -= 1
                 }
+                return true
             } else {
                 print("Current page is first page")
+                return false
             }
         }
         
-        let gotoNextPage = {
+        let gotoNextPage: GotoNextPage = {
             if dataModel.activePage < dataModel.items.count {
                 withAnimation {
                     dataModel.activePage += 1
                 }
+                return true
             } else {
                 print("Current page is last page")
+                return false
             }
         }
         
@@ -45,6 +49,7 @@ struct GalleryItemView: View {
                         Image(uiImage: img)
                             .resizable()
                             .scaledToFit()
+                        
                         if let item = dataModel.items[safe: dataModel.activePage - 1], let annotationArray = item.annotationsArray {
                             ForEach(annotationArray) { annotation in
                                 if annotation.type == .image {
