@@ -11,7 +11,6 @@ struct GalleryEntry2: View {
     @ObservedObject private var dataModel: ViewModel
     let url: URL
     let pdfLoader: PDFLoader = .init()
-    var galleryView: GalleryView?
     let annotationService: AnnotationServiceProxy = .init()
 
     private var documentPreLoadInner: (() -> Void)?
