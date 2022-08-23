@@ -10,13 +10,29 @@ import SwiftUI
 struct MagnificationView<Content>: View where Content: View {
     @ViewBuilder private var content: () -> Content
     private var size: CGSize
-
-    init(size: CGSize, @ViewBuilder content: @escaping () -> Content) {
+    private var gotoPreviousPage: GotoPreviousPage
+    private var gotoNextPage: GotoNextPage
+    
+    init(
+        size: CGSize,
+        gotoPreviousPage: @escaping GotoPreviousPage,
+        gotoNextPage: @escaping GotoNextPage,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
         self.size = size
+        self.gotoPreviousPage = gotoPreviousPage
+        self.gotoNextPage = gotoNextPage
         self.content = content
     }
-
+    
     var body: some View {
-        content().modifier(MagnificationModifier(size: size))
+        content()
+            .modifier(
+                MagnificationModifier(
+                    size: size,
+                    gotoPreviousPage: gotoPreviousPage,
+                    gotoNextPage: gotoNextPage
+                )
+            )
     }
 }

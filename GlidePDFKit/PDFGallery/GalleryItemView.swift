@@ -4,10 +4,10 @@ struct GalleryItemView: View {
     let width: Double
     let height: Double
     let item: GalleryItem
-
+    
     @EnvironmentObject var dataModel: ViewModel
     @State var image: UIImage?
-
+    
     func resetScale() {
         if let img = image {
             let scaleW = width / img.size.width
@@ -16,11 +16,31 @@ struct GalleryItemView: View {
             item.scale = trueScale
         }
     }
-
+    
     var body: some View {
+        let gotoPreviousPage = {
+            if dataModel.activePage > 1 {
+                withAnimation {
+                    dataModel.activePage -= 1
+                }
+            } else {
+                print("Current page is first page")
+            }
+        }
+        
+        let gotoNextPage = {
+            if dataModel.activePage < dataModel.items.count {
+                withAnimation {
+                    dataModel.activePage += 1
+                }
+            } else {
+                print("Current page is last page")
+            }
+        }
+        
         ZStack {
             if let img = image {
-                MagnificationView(size: img.size) {
+                MagnificationView(size: img.size, gotoPreviousPage: gotoPreviousPage, gotoNextPage: gotoNextPage) {
                     ZStack {
                         Image(uiImage: img)
                             .resizable()
@@ -42,11 +62,11 @@ struct GalleryItemView: View {
         }.task {
             guard image == nil else {
                 // MARK: Debug
-
+                
                 print("image already fetched, cancel refetch at page: \(item.pageNumber)")
                 return
             }
-
+            
             let img = dataModel.fetchImageAt(page: item.pageNumber)
             Task { @MainActor in
                 image = img

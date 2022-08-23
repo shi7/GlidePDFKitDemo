@@ -13,15 +13,19 @@ public struct MagnificationModifier: ViewModifier {
     @State var lastScale: CGFloat = 1
     @State var offset: CGSize = .zero
     @State var lastOffset: CGSize = .zero
-    @State var debug = ""
-
-    // TODO: move the business logic out of this struct, use closure instead
-    @EnvironmentObject var dataModel: ViewModel
 
     private var contentSize: CGSize
-
-    init(size: CGSize) {
+    private var gotoPreviousPage: GotoPreviousPage
+    private var gotoNextPage: GotoNextPage
+    
+    init(
+        size: CGSize,
+        gotoPreviousPage: @escaping GotoPreviousPage,
+        gotoNextPage: @escaping GotoNextPage
+    ) {
         contentSize = size
+        self.gotoPreviousPage = gotoPreviousPage
+        self.gotoNextPage = gotoNextPage
     }
 
     public func body(content: Content) -> some View {
@@ -72,8 +76,6 @@ public struct MagnificationModifier: ViewModifier {
                     } else {
                         fixOffset(geometry: geometry, content: content)
                     }
-
-                    print("active page \(dataModel.activePage)")
                 }
 
             content
@@ -96,26 +98,6 @@ extension MagnificationModifier {
         static let scalePrecision: CGFloat = 0.001
         static let minScale: CGFloat = 1
         static let maxScale: CGFloat = 4
-    }
-
-    private func gotoPreviousPage() {
-        if dataModel.activePage > 1 {
-                withAnimation {
-                    dataModel.activePage -= 1
-                }
-        } else {
-            print("Current page is first page")
-        }
-    }
-    
-    private func gotoNextPage() {
-        if dataModel.activePage < dataModel.items.count {
-                withAnimation {
-                    dataModel.activePage += 1
-                }
-        }else {
-            print("Current page is last page")
-        }
     }
     
     private func reset() {
@@ -188,3 +170,6 @@ extension MagnificationModifier {
         return originalScale
     }
 }
+
+typealias GotoPreviousPage = () -> Void
+typealias GotoNextPage = () -> Void
