@@ -26,7 +26,7 @@ struct GlidePDFKitTextAnnotation: View {
                 ) {
                     Text(model.text)
                 }
-            }
+            }.zIndex(model.isSelected ? 1 : 0)
         } else {
             PDFAnnotation(model: model) {
                 Text(model.text)
