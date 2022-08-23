@@ -82,7 +82,7 @@ public struct MagnificationModifier: ViewModifier {
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 .scaleEffect(scale, anchor: .center)
                 .offset(offset)
-                .gesture(TapGesture(count: 1), including: isScaled ? .none : .all)
+                .gesture(TapGesture(count: 1), including: isScaled ? .subviews : .all)
                 .gesture(ExclusiveGesture(dragGesture, magnificationGesture))
                 .onAppear {
                     reset()
