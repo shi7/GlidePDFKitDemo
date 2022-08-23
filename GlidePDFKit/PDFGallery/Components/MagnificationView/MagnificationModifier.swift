@@ -141,6 +141,12 @@ extension MagnificationModifier {
             height = offset.height > 0 ?
                 .minimum(heightLimit, offset.height) :
                 .maximum(-heightLimit, offset.height)
+            
+//            if offset.height > heightLimit {
+//                print("need scroll to previous page")
+//            }else if offset.height < heightLimit {
+//                print("need scroll to next page")
+//            }
         }
 
         let newOffset = CGSize(width: width, height: height)

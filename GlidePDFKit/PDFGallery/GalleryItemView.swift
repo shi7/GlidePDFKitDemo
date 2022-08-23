@@ -52,6 +52,8 @@ struct GalleryItemView: View {
                 image = img
                 resetScale()
             }
+            
+            dataModel.preloadImageOf(page: item.pageNumber + 1)
         }
         .frame(width: width, height: height, alignment: .center)
     }
