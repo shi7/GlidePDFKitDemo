@@ -44,6 +44,18 @@ public struct MagnificationModifier: ViewModifier {
                     offset = newOffset
                 }
                 .onEnded { value in
+                    let contentScaleHeight = (contentSize.height * getOriginalScale(geometry:geometry)) * scale
+                    let turnPageThreshold = contentScaleHeight / 2
+                    if offset.height > turnPageThreshold {
+                        print("need scroll to previous page")
+                        gotoPreviousPage()
+                        return
+                    }else if offset.height < turnPageThreshold * (-1) {
+                        print("need scroll to next page")
+                        gotoNextPage()
+                        return
+                    }
+                    
                     let velocity = CGSize(
                         width: value.predictedEndLocation.x - value.location.x,
                         height: value.predictedEndLocation.y - value.location.y
@@ -53,19 +65,13 @@ public struct MagnificationModifier: ViewModifier {
 
                     print("velocity height \(velocity.height)")
 
-                    if velocity.height > Constants.scrollDistance && dataModel.activePage > 1 {
-                            withAnimation {
-                                dataModel.activePage -= 1
-                            }
-                    } else if velocity.height < -Constants.scrollDistance && dataModel.activePage < dataModel.items.count {
-                            withAnimation {
-                                dataModel.activePage += 1
-                            }
+                    if velocity.height > Constants.scrollDistance {
+                        gotoPreviousPage()
+                    } else if velocity.height < -Constants.scrollDistance  {
+                        gotoNextPage()
                     } else {
                         fixOffset(geometry: geometry, content: content)
                     }
-
-                    // MARK: Debug
 
                     print("active page \(dataModel.activePage)")
                 }
@@ -86,12 +92,32 @@ public struct MagnificationModifier: ViewModifier {
 
 extension MagnificationModifier {
     private enum Constants {
-        static let scrollDistance: CGFloat = 600
+        static let scrollDistance: CGFloat = 6000
         static let scalePrecision: CGFloat = 0.001
         static let minScale: CGFloat = 1
         static let maxScale: CGFloat = 4
     }
 
+    private func gotoPreviousPage() {
+        if dataModel.activePage > 1 {
+                withAnimation {
+                    dataModel.activePage -= 1
+                }
+        } else {
+            print("Current page is first page")
+        }
+    }
+    
+    private func gotoNextPage() {
+        if dataModel.activePage < dataModel.items.count {
+                withAnimation {
+                    dataModel.activePage += 1
+                }
+        }else {
+            print("Current page is last page")
+        }
+    }
+    
     private func reset() {
         scale = 1
         lastScale = 1
@@ -109,17 +135,14 @@ extension MagnificationModifier {
 
     private func fixOffset(geometry: GeometryProxy, content _: Content) {
         let containerSize = geometry.size
-        let contentWidth = contentSize.width
-        let contentHeight = contentSize.height
         let containerWidth = containerSize.width
         let containerHeight = containerSize.height
 
-        let originalScale = contentWidth / contentHeight >= containerWidth / containerHeight ?
-            containerWidth / contentWidth :
-            containerHeight / contentHeight
+        let originalScale = getOriginalScale(geometry: geometry)
 
-        let contentScaleWidth = (contentWidth * originalScale) * scale
+        let contentScaleWidth = (contentSize.width * originalScale) * scale
 
+        print("originalScale \(originalScale)")
         var width: CGFloat = .zero
         if contentScaleWidth > containerWidth {
             let widthLimit: CGFloat = contentScaleWidth > containerWidth ?
@@ -131,13 +154,14 @@ extension MagnificationModifier {
                 .maximum(-widthLimit, offset.width)
         }
 
-        let contentScaleHeight = (contentHeight * originalScale) * scale
+        let contentScaleHeight = (contentSize.height * originalScale) * scale
         var height: CGFloat = .zero
         if contentScaleHeight > containerHeight {
             let heightLimit: CGFloat = contentScaleHeight > containerHeight ?
                 (contentScaleHeight - containerHeight) / 2 :
                 0
 
+            print("height limit \(heightLimit)")
             height = offset.height > 0 ?
                 .minimum(heightLimit, offset.height) :
                 .maximum(-heightLimit, offset.height)
@@ -148,5 +172,19 @@ extension MagnificationModifier {
         withAnimation {
             offset = newOffset
         }
+    }
+    
+    private func getOriginalScale(geometry: GeometryProxy) -> CGFloat {
+        let containerSize = geometry.size
+        let contentWidth = contentSize.width
+        let contentHeight = contentSize.height
+        let containerWidth = containerSize.width
+        let containerHeight = containerSize.height
+
+        let originalScale = contentWidth / contentHeight >= containerWidth / containerHeight ?
+            containerWidth / contentWidth :
+            containerHeight / contentHeight
+        
+        return originalScale
     }
 }

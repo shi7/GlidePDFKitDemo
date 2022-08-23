@@ -34,6 +34,13 @@ class ViewModel: ObservableObject, AnnotationService {
         print("try to fetch image at page: \(page)")
         return fetcher?.fetchAt(page: page)
     }
+    
+    func preloadImageOf(page: Int) {
+        if page > 0 && page <= items.count {
+            print("preload image at page: \(page)")
+            fetcher?.fetchAt(page: page)
+        }
+    }
 
     func addNewAnnotation(type: GlidePDFKitAnnotationType) {
         var model = GlidePDFKitAnnotationModel(type: type, location: CGPoint(x: 150, y: 210), width: 150, height: 40)
