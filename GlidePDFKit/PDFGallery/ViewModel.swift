@@ -92,6 +92,19 @@ class ViewModel: ObservableObject, AnnotationService {
         print("update annotation success")
     }
 
+    func unSelectAnnotation() {
+        guard let galleryItem = items[safe: activePage - 1],
+              let annotationArray = galleryItem.annotationsArray else { return }
+        galleryItem.annotationsArray = annotationArray.map {
+            var otherAnnotation = $0
+            otherAnnotation.isSelected = false
+            
+            return otherAnnotation
+        }
+        
+        items[activePage - 1] = galleryItem
+    }
+    
     func didTap(annotation: GlidePDFKitAnnotationModel) {
         fetcher?.annotationDidTap(annotation: annotation)
     }

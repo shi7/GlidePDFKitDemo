@@ -19,6 +19,9 @@ struct GalleryView: View {
 
                 print("new page \(index)")
             })
+            .onTapGesture {
+                dataModel.unSelectAnnotation()
+            }
         }
     }
 }
