@@ -76,8 +76,8 @@ public struct MagnificationModifier: ViewModifier {
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 .scaleEffect(scale, anchor: .center)
                 .offset(offset)
-                // Add TapGesture to enable the gallery scroll like Page style
-                .gesture(TapGesture(count: 1).onEnded { onTapped() }, including: isScaled ? .subviews : .all)
+                // Add TapGesture to enable the gallery scroll like Page style when no scale
+                .gesture(isScaled ? nil : TapGesture(count: 1).onEnded { onTapped() })
                 .gesture(ExclusiveGesture(dragGesture, magnificationGesture))
                 .onAppear {
                     reset()
