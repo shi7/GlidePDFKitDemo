@@ -64,21 +64,23 @@ struct GalleryItemView: View {
             } else {
                 ProgressView()
             }
-        }.task {
-            guard image == nil else {
-                // MARK: Debug
+        }.onAppear {
+            Task {
+                guard image == nil else {
+                    // MARK: Debug
+                    
+                    print("image already fetched, cancel refetch at page: \(item.pageNumber)")
+                    return
+                }
                 
-                print("image already fetched, cancel refetch at page: \(item.pageNumber)")
-                return
+                let img = dataModel.fetchImageAt(page: item.pageNumber)
+                Task { @MainActor in
+                    image = img
+                    resetScale()
+                }
+                
+                dataModel.preloadImageOf(page: item.pageNumber + 1)
             }
-            
-            let img = dataModel.fetchImageAt(page: item.pageNumber)
-            Task { @MainActor in
-                image = img
-                resetScale()
-            }
-            
-            dataModel.preloadImageOf(page: item.pageNumber + 1)
         }
         .frame(width: width, height: height, alignment: .center)
     }
