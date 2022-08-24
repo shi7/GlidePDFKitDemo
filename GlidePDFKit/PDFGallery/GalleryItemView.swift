@@ -42,9 +42,19 @@ struct GalleryItemView: View {
             }
         }
         
+        // This will be called when image not scaled
+        let onImgTapped: OnTapped = {
+            dataModel.unSelectAnnotation()
+        }
+        
         ZStack {
             if let img = image {
-                MagnificationView(size: img.size, gotoPreviousPage: gotoPreviousPage, gotoNextPage: gotoNextPage) {
+                MagnificationView(
+                    size: img.size,
+                    gotoPreviousPage: gotoPreviousPage,
+                    gotoNextPage: gotoNextPage,
+                    onTapped:  onImgTapped
+                ) {
                     ZStack {
                         Image(uiImage: img)
                             .resizable()
@@ -64,7 +74,12 @@ struct GalleryItemView: View {
             } else {
                 ProgressView()
             }
-        }.onAppear {
+        }
+        // This gesture called when image was scaled, it will not be called when image not scaled, because we have add a TapGesture in content
+        .gesture(LongPressGesture(minimumDuration: 0.001).onEnded { _ in
+            dataModel.unSelectAnnotation()
+        })
+        .onAppear {
             Task {
                 guard image == nil else {
                     // MARK: Debug

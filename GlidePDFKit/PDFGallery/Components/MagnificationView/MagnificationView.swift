@@ -12,16 +12,19 @@ struct MagnificationView<Content>: View where Content: View {
     private var size: CGSize
     private var gotoPreviousPage: GotoPreviousPage
     private var gotoNextPage: GotoNextPage
+    private var onTapped: OnTapped
     
     init(
         size: CGSize,
         gotoPreviousPage: @escaping GotoPreviousPage,
         gotoNextPage: @escaping GotoNextPage,
+        onTapped: @escaping OnTapped,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.size = size
         self.gotoPreviousPage = gotoPreviousPage
         self.gotoNextPage = gotoNextPage
+        self.onTapped = onTapped
         self.content = content
     }
     
@@ -31,7 +34,8 @@ struct MagnificationView<Content>: View where Content: View {
                 MagnificationModifier(
                     size: size,
                     gotoPreviousPage: gotoPreviousPage,
-                    gotoNextPage: gotoNextPage
+                    gotoNextPage: gotoNextPage,
+                    onTapped: onTapped
                 )
             )
     }

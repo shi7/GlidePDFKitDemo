@@ -17,15 +17,18 @@ public struct MagnificationModifier: ViewModifier {
     private var contentSize: CGSize
     private var gotoPreviousPage: GotoPreviousPage
     private var gotoNextPage: GotoNextPage
+    private var onTapped: OnTapped
     
     init(
         size: CGSize,
         gotoPreviousPage: @escaping GotoPreviousPage,
-        gotoNextPage: @escaping GotoNextPage
+        gotoNextPage: @escaping GotoNextPage,
+        onTapped: @escaping OnTapped
     ) {
         contentSize = size
         self.gotoPreviousPage = gotoPreviousPage
         self.gotoNextPage = gotoNextPage
+        self.onTapped = onTapped
     }
     
     public func body(content: Content) -> some View {
@@ -73,7 +76,8 @@ public struct MagnificationModifier: ViewModifier {
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 .scaleEffect(scale, anchor: .center)
                 .offset(offset)
-                .gesture(TapGesture(count: 1), including: isScaled ? .subviews : .all)
+                // Add TapGesture to enable the gallery scroll like Page style
+                .gesture(TapGesture(count: 1).onEnded { onTapped() }, including: isScaled ? .subviews : .all)
                 .gesture(ExclusiveGesture(dragGesture, magnificationGesture))
                 .onAppear {
                     reset()
@@ -165,6 +169,7 @@ extension MagnificationModifier {
 
 typealias GotoPreviousPage = () -> Bool
 typealias GotoNextPage = () -> Bool
+typealias OnTapped = () -> Void
 
 extension View {
     func onTapGestureIf(_ condition: Bool, closure: @escaping () -> Void) -> some View {

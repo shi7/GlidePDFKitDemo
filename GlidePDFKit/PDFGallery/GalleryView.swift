@@ -10,6 +10,9 @@ struct GalleryView: View {
                     GalleryItemView(width: geo.size.width, height: geo.size.height, item: item)
                         .aspectRatio(1, contentMode: .fit)
                         .tag(item.pageNumber)
+                        .onTapGesture {
+                            dataModel.unSelectAnnotation()
+                        }
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -19,9 +22,6 @@ struct GalleryView: View {
 
                 print("new page \(index)")
             })
-            .onTapGesture {
-                dataModel.unSelectAnnotation()
-            }
         }
     }
 }
