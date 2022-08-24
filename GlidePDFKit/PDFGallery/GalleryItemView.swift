@@ -59,7 +59,7 @@ struct GalleryItemView: View {
                                 }
                             }
                         }
-                    }.frame(width: img.size.width, height: img.size.height, alignment: .center)
+                    }
                 }
             } else {
                 ProgressView()
