@@ -78,8 +78,15 @@ class ViewModel: ObservableObject, AnnotationService {
             if annotation.id == $0.id {
                 return annotation
             }
-            return $0
+            
+            var otherAnnotation = $0
+            if annotation.isSelected {
+                otherAnnotation.isSelected = false
+            }
+            
+            return otherAnnotation
         }
+        
         items[activePage - 1] = galleryItem
 
         print("update annotation success")
