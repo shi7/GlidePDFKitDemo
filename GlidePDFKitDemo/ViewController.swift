@@ -150,6 +150,7 @@ extension ViewController: PDFDelegate {
         let galleryEntry = GalleryEntry(
             pages: pdfLoader.totalPages(),
             fetcher: pdfLoader,
+            processor: pdfLoader.processor,
             proxy: annotationService
         )
         let galleryVC = UIHostingController(rootView: galleryEntry)
