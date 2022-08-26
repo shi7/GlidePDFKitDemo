@@ -87,13 +87,28 @@ class ViewController: UIViewController {
     }
 
     func addBottomView() {
+        let buttonActions: [BottomButtonActions] = [.removeAnnotation, .addImageAnnotation, .addTextAnnotation]
+        let bottomStack = getBottomStack(buttonActions)
+        view.addSubview(bottomStack) { make in
+            make.left.right.bottom.equalToSuperview()
+        }
+
+        let secondButtonActions: [BottomButtonActions] = [.addCheckbox, .addLine, .addRadio]
+        let secondBottomStack = getBottomStack(secondButtonActions)
+        view.addSubview(secondBottomStack) { make in
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(bottomStack.snp.top)
+        }
+
+    }
+
+    private func getBottomStack(_ buttonActions: [BottomButtonActions]) -> UIStackView {
         let bottomStack = UIStackView()
         bottomStack.alignment = .center
         bottomStack.spacing = 50
         bottomStack.distribution = .fillEqually
 
         bottomStack.backgroundColor = .lightGray
-        let buttonActions: [BottomButtonActions] = [.removeAnnotation, .addImageAnnotation, .addTextAnnotation]
         for type in buttonActions {
             let button = BottomButton(frame: CGRect.zero, actionType: type)
             button.addTarget(self, action: #selector(didTapBottomAction), for: .touchUpInside)
@@ -102,9 +117,7 @@ class ViewController: UIViewController {
             }
         }
 
-        view.addSubview(bottomStack) { make in
-            make.left.right.bottom.equalToSuperview()
-        }
+        return bottomStack
     }
 
     @objc private func didTapBottomAction(button: BottomButton) {
@@ -114,8 +127,23 @@ class ViewController: UIViewController {
         case .addTextAnnotation: annotationService.addAnnotations(type: .text)
         case .removeAnnotation: annotationService.removeSelectedAnnotations()
         case .updateAnnotation: annotationService.removeSelectedAnnotations()
+        case .addCheckbox: addCheckbox()
+        case .addLine: addLine()
+        case .addRadio: addRadio()
         }
     }
+
+    private func addCheckbox() {
+        let model = GlidePDFKitAnnotationModel(type: .checkbox, location: CGPoint(x: 150, y: 210), width: 40, height: 40, image: UIImage(named: "radio"), isCircle: true)
+        annotationService.addAnnotations([model])
+    }
+
+    private func addLine() {
+        let model = GlidePDFKitAnnotationModel(type: .line, location: CGPoint(x: 150, y: 210), width: 40, height: 40)
+        annotationService.addAnnotations([model])
+    }
+
+    private func addRadio() {}
 }
 
 extension ViewController: PDFDelegate {

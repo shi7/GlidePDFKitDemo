@@ -10,7 +10,9 @@ struct GlidePDFKitAnnotationModel: Identifiable {
     var image: UIImage?
     var text = ""
     var isSelected: Bool = false
+
     var backgroundColor: Color = .gray
+    var isCircle: Bool = false
 
 //    let page: Int
 //    let color: UIColor
@@ -31,5 +33,5 @@ struct GlidePDFKitAnnotationModel: Identifiable {
 }
 
 enum GlidePDFKitAnnotationType {
-    case image, text
+    case image, text, line, checkbox
 }

@@ -62,10 +62,12 @@ struct GalleryItemView: View {
                         
                         if let item = dataModel.items[safe: dataModel.activePage - 1], let annotationArray = item.annotationsArray {
                             ForEach(annotationArray) { annotation in
-                                if annotation.type == .image {
+                                if annotation.type == .image || annotation.type == .checkbox {
                                     GlidePDFKitImageAnnotation(model: annotation, scale: item.scale)
-                                } else {
+                                } else if annotation.type == .text {
                                     GlidePDFKitTextAnnotation(model: annotation, scale: item.scale)
+                                } else {
+                                    GlidePDFKitLineAnnotation(model: annotation, scale: item.scale)
                                 }
                             }
                         }

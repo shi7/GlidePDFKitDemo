@@ -8,8 +8,9 @@ struct GlidePDFKitImageAnnotation: View {
         PDFAnnotation(model: model) {
             if let image = model.image {
                 Image(uiImage: image)
+                    .resizable()
             } else {
-                Text("Load Image error")
+                Text("")
             }
         }
         .position(model.location)

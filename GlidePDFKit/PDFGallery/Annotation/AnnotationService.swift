@@ -10,6 +10,8 @@ import Foundation
 protocol AnnotationService {
     func addAnnotations(type: GlidePDFKitAnnotationType)
 
+    func addAnnotations(_ model: [GlidePDFKitAnnotationModel])
+
     func removeSelectedAnnotations()
 
     func updateAnnotation(annotation: GlidePDFKitAnnotationModel)
@@ -28,6 +30,10 @@ class AnnotationServiceProxy: AnnotationService {
 
     func addAnnotations(type: GlidePDFKitAnnotationType) {
         service?.addAnnotations(type: type)
+    }
+
+    func addAnnotations(_ model: [GlidePDFKitAnnotationModel]) {
+        service?.addAnnotations(model)
     }
 
     func removeSelectedAnnotations() {

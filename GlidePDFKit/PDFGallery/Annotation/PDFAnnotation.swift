@@ -22,8 +22,13 @@ struct PDFAnnotation<Content>: View where Content: View {
         DragAndTapGestureWrapper(model: model) {
             content()
                 .frame(width: model.width, height: model.height)
-                .border(.blue, width: model.isSelected ? 2 : 0)
-                .background(model.backgroundColor)
+                .background(model.type == .line ? Color.clear : model.backgroundColor)
+                .modifier(
+                    PDFKitBorderModifier(
+                        model.isCircle,
+                        showBorder: model.isSelected
+                    )
+                )
         }
     }
 }

@@ -6,7 +6,7 @@ struct GlidePDFKitTextAnnotation: View {
     @State var scale: CGFloat
     
     var body: some View {
-        let onEnd: OnEnd = { size, pos in
+        let onEnd: OnDrag = { size, pos in
             var copyModel = model
             copyModel.location = pos
             copyModel.width = size.width

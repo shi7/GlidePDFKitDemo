@@ -47,13 +47,15 @@ class ViewModel: ObservableObject, AnnotationService {
         if type == .image {
             model.image = UIImage(named: "draw")
             model.width = 60
+            model.height = 60
+            model.isCircle = true
         } else if type == .text {
             model.text = "text annotation"
         }
         addAnnotations(annotations: [model], page: activePage)
     }
 
-    func addAnnotations(annotations: [GlidePDFKitAnnotationModel]) {
+    func addAnnotations(_ annotations: [GlidePDFKitAnnotationModel]) {
         addAnnotations(annotations: annotations, page: activePage)
     }
 
