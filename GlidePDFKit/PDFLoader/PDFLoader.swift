@@ -60,10 +60,6 @@ class PDFLoader: GliderPDFService {
         processor?.pageCount ?? 0
     }
 
-    func fetchAt(page: Int) -> UIImage? {
-        processor?.loadPageAt(page)?.image
-    }
-
     func annotationDidTap(annotation: GlidePDFKitAnnotationModel) {
         delegate?.annotationDidTap(annotation: annotation)
     }
