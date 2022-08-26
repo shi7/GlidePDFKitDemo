@@ -5,7 +5,16 @@ class ViewModel: ObservableObject, AnnotationService {
     @Published var items: [GalleryItem] = []
     @Published var activePage: Int = 1
     var fetcher: GliderPDFService?
-
+    var processor: ProcessProtocol?
+    
+    public func loadData(cfData: CFData?) {
+        guard let data = cfData else {
+            return
+        }
+        processor = (data as Data).dispatchProcessor()
+        setPages(pages: processor?.pageCount ?? 0)
+    }
+    
     func setPages(pages: Int) {
         guard pages > 0 else {
             // MARK: Debug
@@ -32,13 +41,13 @@ class ViewModel: ObservableObject, AnnotationService {
         // MARK: Debug
 
         print("try to fetch image at page: \(page)")
-        return fetcher?.fetchAt(page: page)
+        return processor?.loadPageAt(page)?.image
     }
     
     func preloadImageOf(page: Int) {
         if page > 0 && page <= items.count {
             print("preload image at page: \(page)")
-            fetcher?.fetchAt(page: page)
+            processor?.loadPageAt(page)?.image
         }
     }
 
