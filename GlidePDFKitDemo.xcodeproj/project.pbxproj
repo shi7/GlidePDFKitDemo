@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7348CF5FA65F22C4D2D327FA /* PDFMultiPartText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7348CD22A0265B426437920A /* PDFMultiPartText.swift */; };
 		BA41FF8B28AF82BD00440A7C /* GalleryEntry2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF7F28AF82BD00440A7C /* GalleryEntry2.swift */; };
 		BA41FF8C28AF82BD00440A7C /* AnnotationActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8128AF82BD00440A7C /* AnnotationActionsView.swift */; };
 		BA41FF8D28AF82BD00440A7C /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41FF8228AF82BD00440A7C /* Icon.swift */; };
@@ -65,6 +66,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7348CD22A0265B426437920A /* PDFMultiPartText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFMultiPartText.swift; sourceTree = "<group>"; };
 		BA41FF7F28AF82BD00440A7C /* GalleryEntry2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryEntry2.swift; sourceTree = "<group>"; };
 		BA41FF8128AF82BD00440A7C /* AnnotationActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationActionsView.swift; sourceTree = "<group>"; };
 		BA41FF8228AF82BD00440A7C /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				D6BFEEA128AFD02100D8E52D /* ResizableView.swift */,
 				D62AF1D828A53698002E0D73 /* VTabView.swift */,
 				BA9DC94F28B8681B0054B0CF /* PDFKitBorderModifier.swift */,
+				7348CD22A0265B426437920A /* PDFMultiPartText.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				D620CE9228AB81A6002285EA /* MagnificationView.swift in Sources */,
 				D6BFEE9428AF37D800D8E52D /* AnnotationService.swift in Sources */,
 				D62AF1BC28A535FA002E0D73 /* ViewModel.swift in Sources */,
+				7348CF5FA65F22C4D2D327FA /* PDFMultiPartText.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,18 +17,22 @@ struct PDFAnnotation<Content>: View where Content: View {
         self.model = model
         self.content = content
     }
-    
+
     var body: some View {
         DragAndTapGestureWrapper(model: model) {
-            content()
-                .frame(width: model.width, height: model.height)
-                .background(model.type == .line ? Color.clear : model.backgroundColor)
-                .modifier(
-                    PDFKitBorderModifier(
-                        model.isCircle,
-                        showBorder: model.isSelected
+            HStack(spacing: 0) {
+                PDFMultiPartText("1")
+
+                content()
+                    .frame(width: model.width, height: model.height)
+                    .background(model.type == .line ? Color.clear : model.backgroundColor)
+                    .modifier(
+                        PDFKitBorderModifier(
+                            model.isCircle,
+                            showBorder: model.isSelected
+                        )
                     )
-                )
+            }
         }
     }
 }

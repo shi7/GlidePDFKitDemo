@@ -45,25 +45,42 @@ struct ResizableView<Content>: View where Content: View {
         self.content = content
     }
 
-    var body: some View {
-        ZStack(alignment: .center) {
-            content()
-                .frame(width: width, height: height)
-                .modifier(PDFKitBorderModifier(shapeCircle, showBorder: true))
-                .background(backgroundColor)
+    var multiPartTextMargin: CGFloat {
+        -(Constants.handleSize / 2 - PDFMultiPartText.DEFAULT_MARGIN)
+    }
 
-            VStack {
-                TopLineDragHandle()
-                Spacer()
-                BottomLineDragHandle()
+    var positionX: CGFloat {
+        position.x + offset.width + (PDFMultiPartText.DEFAULT_MARGIN + (Constants.handleSize / 2 - PDFMultiPartText.DEFAULT_MARGIN)) / 2
+    }
+
+    var positionY: CGFloat {
+        position.y + offset.height
+    }
+
+    var body: some View {
+        HStack(spacing: 0) {
+            PDFMultiPartText("1", margin: multiPartTextMargin)
+
+            ZStack {
+                content()
+                    .frame(width: width, height: height)
+                    .modifier(PDFKitBorderModifier(shapeCircle, showBorder: true))
+                    .background(backgroundColor)
+
+
+                VStack {
+                    TopLineDragHandle()
+                    Spacer()
+                    BottomLineDragHandle()
+                }
+            }
+            .frame(width: width + Constants.handleSize, height: height + Constants.handleSize)
+            .onAppear {
+                width = originalWidth
+                height = originalHeight
             }
         }
-        .frame(width: width + Constants.handleSize, height: height + Constants.handleSize)
-        .position(x: position.x + offset.width, y: position.y + offset.height)
-        .onAppear {
-            width = originalWidth
-            height = originalHeight
-        }
+        .position(x: positionX, y: positionY)
     }
 
     private func TopLineDragHandle() -> some View {
@@ -107,8 +124,6 @@ extension ResizableView {
         DragGesture()
             .onChanged { value in
                 let rightTuple = rightWidthAndOffsetOf(value)
-//                width = rightTuple.width
-//                offset = CGSize(width: rightTuple.offset, height: offset.height)
 
                 applyOritensionEnable(
                     newWidth: rightTuple.width,
@@ -125,8 +140,6 @@ extension ResizableView {
         DragGesture()
             .onChanged { value in
                 let leftTuple = leftWidthAndOffsetOf(value)
-//                width = leftTuple.width
-//                offset = CGSize(width: leftTuple.offset, height: offset.height)
 
                 applyOritensionEnable(
                     newWidth: leftTuple.width,
@@ -143,8 +156,6 @@ extension ResizableView {
         DragGesture()
             .onChanged { value in
                 let topTuple = topHeightAndOffsetOf(value)
-//                height = topTuple.height
-//                offset = CGSize(width: offset.width, height: topTuple.offset)
 
                 applyOritensionEnable(
                     newWidth: width,
@@ -161,8 +172,6 @@ extension ResizableView {
         DragGesture()
             .onChanged { value in
                 let bottomTuple = bottomHeightAndOffsetOf(value)
-//                height = bottomTuple.height
-//                offset = CGSize(width: offset.width, height: bottomTuple.offset)
 
                 applyOritensionEnable(
                     newWidth: width,
@@ -180,9 +189,6 @@ extension ResizableView {
             .onChanged { value in
                 let leftTuple = leftWidthAndOffsetOf(value)
                 let topTuple = topHeightAndOffsetOf(value)
-//                width = leftTuple.width
-//                height = topTuple.height
-//                offset = CGSize(width: leftTuple.offset, height: topTuple.offset)
                 applyOritensionEnable(
                     newWidth: leftTuple.width,
                     newHeight: topTuple.height,
@@ -199,9 +205,6 @@ extension ResizableView {
             .onChanged { value in
                 let rightTuple = rightWidthAndOffsetOf(value)
                 let topTuple = topHeightAndOffsetOf(value)
-//                width = rightTuple.width
-//                height = topTuple.height
-//                offset = CGSize(width: rightTuple.offset, height: topTuple.offset)
                 applyOritensionEnable(
                     newWidth: rightTuple.width,
                     newHeight: topTuple.height,
@@ -218,9 +221,6 @@ extension ResizableView {
             .onChanged { value in
                 let leftTuple = leftWidthAndOffsetOf(value)
                 let bottomTuple = bottomHeightAndOffsetOf(value)
-//                width = leftTuple.width
-//                height = bottomTuple.height
-//                offset = CGSize(width: leftTuple.offset, height: bottomTuple.offset)
 
                 applyOritensionEnable(
                     newWidth: leftTuple.width,
@@ -238,9 +238,6 @@ extension ResizableView {
             .onChanged { value in
                 let rightTuple = rightWidthAndOffsetOf(value)
                 let bottomTuple = bottomHeightAndOffsetOf(value)
-//                width = rightTuple.width
-//                height = bottomTuple.height
-//                offset = CGSize(width: rightTuple.offset, height: bottomTuple.offset)
 
                 applyOritensionEnable(
                     newWidth: rightTuple.width,
