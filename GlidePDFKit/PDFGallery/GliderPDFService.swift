@@ -8,8 +8,6 @@
 import UIKit
 
 protocol GliderPDFService {
-    func fetchAt(page: Int) -> UIImage?
-
     func annotationDidTap(annotation: GlidePDFKitAnnotationModel)
 
     func annotationEditTapped(_ id: String)
