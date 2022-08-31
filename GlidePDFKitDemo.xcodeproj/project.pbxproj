@@ -49,6 +49,7 @@
 		C0EFC36128A498800084A4AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0EFC35F28A498800084A4AA /* LaunchScreen.storyboard */; };
 		C0EFC36A28A499E30084A4AA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C0EFC36928A499E30084A4AA /* SnapKit */; };
 		C73CF82528AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */; };
+		C7D5B0E728BEE535002BA460 /* compass.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C7D5B0E628BEE535002BA460 /* compass.pdf */; };
 		D620CE8928A9ED10002285EA /* GliderPDFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D620CE8828A9ED10002285EA /* GliderPDFService.swift */; };
 		D620CE9228AB81A6002285EA /* MagnificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D620CE9128AB81A6002285EA /* MagnificationView.swift */; };
 		D620CE9428AB81C9002285EA /* MagnificationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D620CE9328AB81C9002285EA /* MagnificationModifier.swift */; };
@@ -109,6 +110,7 @@
 		C0EFC36028A498800084A4AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0EFC36228A498800084A4AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C73CF82428AD3EEA006CAB78 /* GlidePDFKitTextAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlidePDFKitTextAnnotation.swift; sourceTree = "<group>"; };
+		C7D5B0E628BEE535002BA460 /* compass.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = compass.pdf; sourceTree = "<group>"; };
 		D620CE8828A9ED10002285EA /* GliderPDFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderPDFService.swift; sourceTree = "<group>"; };
 		D620CE9128AB81A6002285EA /* MagnificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnificationView.swift; sourceTree = "<group>"; };
 		D620CE9328AB81C9002285EA /* MagnificationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnificationModifier.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		BAB1BBE228A9F215001803DF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				C7D5B0E628BEE535002BA460 /* compass.pdf */,
 				BA8FBE0E28A5F6EB00F8E84D /* big.pdf */,
 				BA8FBE1728A6343900F8E84D /* small.pdf */,
 				BA8FBE1928A6431800F8E84D /* iphone.png */,
@@ -393,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA8FBE1828A6343900F8E84D /* small.pdf in Resources */,
+				C7D5B0E728BEE535002BA460 /* compass.pdf in Resources */,
 				C0EFC36128A498800084A4AA /* LaunchScreen.storyboard in Resources */,
 				BA8FBE1A28A6431800F8E84D /* iphone.png in Resources */,
 				C0EFC35E28A498800084A4AA /* Assets.xcassets in Resources */,

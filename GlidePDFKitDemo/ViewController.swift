@@ -73,7 +73,7 @@ class ViewController: UIViewController {
     }
 
     @objc func loadPDFFromFile(sender _: UIButton) {
-        let pdfUrl = Bundle.main.url(forResource: "big", withExtension: "pdf")!
+        let pdfUrl = Bundle.main.url(forResource: "compass", withExtension: "pdf")!
         let imageUrl = Bundle.main.url(forResource: "iphone", withExtension: "png")!
         pdfLoader.delegate = self
         pdfLoader.loadPDF(url: pdfUrl)
