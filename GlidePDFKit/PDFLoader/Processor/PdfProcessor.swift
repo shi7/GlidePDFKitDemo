@@ -1,33 +1,50 @@
 import CoreGraphics
 import UIKit
+import PDFKit
 
 struct PdfProcessor: ProcessProtocol {
     let data: Data
     var pageCount: Int {
-        document?.numberOfPages ?? 0
+        cgDocument?.numberOfPages ?? 0
     }
 
-    var document: CGPDFDocument? {
+    var cgDocument: CGPDFDocument? {
         let dataProvider = CGDataProvider(data: data as CFData)
         guard let dataProvider = dataProvider else { return nil }
         return CGPDFDocument(dataProvider)
     }
 
+    var document: PDFDocument? {
+        PDFDocument(data: data)
+    }
+
     func loadPageAt(_ index: Int) -> Page? {
-        guard let page = document?.page(at: index) else {
+        guard let cgPDFPage = cgDocument?.page(at: index) else {
             return nil
         }
-        let pageRect = page.getBoxRect(.mediaBox)
-        let renderer = UIGraphicsImageRenderer(size: pageRect.size)
-        let image = renderer.image { ctx in
-            UIColor.white.set()
-            ctx.fill(pageRect)
 
-            ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
-            ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
+        let pageRect = cgPDFPage.getBoxRect(.mediaBox)
+        let optionalImage: UIImage?
 
-            ctx.cgContext.drawPDFPage(page)
+        if #available(iOS 11.0, *) {
+            guard let pdfPage = document?.page(at: index - 1) else {
+                return nil
+            }
+            optionalImage = pdfPage.thumbnail(of: pageRect.size, for: .mediaBox)
+        } else {
+            let renderer = UIGraphicsImageRenderer(size: pageRect.size)
+            optionalImage = renderer.image { ctx in
+                UIColor.white.set()
+                ctx.fill(pageRect)
+
+                ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
+                ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
+
+                ctx.cgContext.drawPDFPage(cgPDFPage)
+            }
         }
+
+        guard let image = optionalImage else { return nil }
 
         return Page(
             index: index,
