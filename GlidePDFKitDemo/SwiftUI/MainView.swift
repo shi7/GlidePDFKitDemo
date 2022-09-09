@@ -24,6 +24,11 @@ struct MainView: View {
                     DocumentView(url: pdfNetworkUrl)
                 }
                 .padding()
+
+                NavigationLink("PDFViewer") {
+                    ResearchPDFViewer()
+                }
+                .padding()
             }
             .navigationTitle("Choose PDF source")
             .navigationBarTitleDisplayMode(.inline)
